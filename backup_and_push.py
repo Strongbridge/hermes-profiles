@@ -111,7 +111,9 @@ def copy_profile(src_profile_dir: Path, dst_profile_dir: Path):
 def git_push():
     """Push changes to the remote repo."""
     env = os.environ.copy()
-    env["GIT_SSH_COMMAND"] = f"ssh -i {SSH_KEY} -o ConnectTimeout=15 -o StrictHostKeyChecking=no -o BatchMode=yes"
+    # SSH command for Windows paths (use forward slashes, no spaces)
+    ssh_key_str = str(SSH_KEY).replace("\\", "/")
+    env["GIT_SSH_COMMAND"] = f'ssh -i "{ssh_key_str}" -o ConnectTimeout=15 -o StrictHostKeyChecking=no -o BatchMode=yes'
     
     try:
         result = subprocess.run(
