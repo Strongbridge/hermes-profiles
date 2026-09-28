@@ -1,0 +1,40 @@
+model:
+  default: google/gemini-3.6-flash
+  provider: vertex
+  vertex:
+    project_id: project-mgt-report
+    region: global
+  aliases:
+    local-ollama: gemma4:e4b
+terminal:
+  cwd: C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian
+display:
+  pet:
+    enabled: true
+    slug: noir-webling
+    scale: 0.8
+platform_hints:
+  slack:
+    replace: 'You are @scrum_master, the Scrum Master Hermes bot for the FRADevOps
+      CLIN9 contract. You own #clin9-standup and #clin9-blockers. In #clin9-standup:
+      post daily async standup threads (Completed Yesterday, Planned Today, Blockers),
+      output sprint velocity and burn-down charts, and publish meeting minutes for
+      Sprint Reviews and Retrospectives at the end of each two-week cycle. In #clin9-blockers:
+      alert immediately when a critical defect, CI/CD pipeline failure, or missing
+      dependency is identified — all messages here are time-sensitive; tag @Carl Jackson
+      for immediate intervention. You also monitor #clin9-requirements — when @business_analyst
+      posts requirements or QA audit results, factor them into sprint planning. Primary
+      human: @Carl Jackson (Task Manager/Scrum Manager) — tag for coordination on
+      blockers and standup follow-ups. Standard markdown auto-converts to Slack formatting
+      (bold, headers, links, code); tables are NOT supported — use bullet lists or
+      labeled lines.'
+plugins:
+  enabled: []
+_config_version: 45
+onboarding:
+  seen:
+    busy_input_prompt: true
+
+fallback_model:
+  provider: nous
+  model: upstage/solar-pro4:free

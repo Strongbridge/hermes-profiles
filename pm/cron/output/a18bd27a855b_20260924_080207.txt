@@ -1,0 +1,76 @@
+Cronjob Response: Morning Kickstart
+(job_id: a18bd27a855b)
+-------------
+
+Here's the synthesized morning kickstart for Dan, Thursday September 24, 2026.
+
+---
+
+## FIRES 🔴
+
+**1. Task 5 (RSAC Refresh) — Still BLOCKED**
+Waiting on business information since Sept 17. P2 SLA threshold (>24h) long exceeded. No resolution in sight. Per the sprint status, this needs **PM escalation now** for resource reallocation or scope adjustment. Melissa (BA) owns pushing for status — no update since 9/17.
+
+**2. Task 2 (Track Inspection POC) — Scope Conflict Unresolved**
+Four work items (44611, 44612, 44613, plus data sync pipeline) directly contradict Addendum §1 scope boundaries. Addendum §4 AC #2 requires **zero data synchronization calls to production RSIS** — having sync stories in the backlog is a direct conflict. Needs Robert's decision: remove from this performance period or document as formal scope change. Also missing: FIPS encryption story, GPS accuracy validation, zero-data-leakage AC, 3-device offline test plan, and multiple PWS §3.1.2 documentation deliverables.
+
+**3. Tim/Hayden Swap — Unresolved, Invoice Looming**
+Hayden already doing CLIN 9 work. September invoice will raise questions if the swap isn't formalized. Draft summary needs review by Tess and Christina before escalating to Jeff/Mary Ann. Three rate options on the table ($110 / $117.82 / $121 senior). Dan hasn't checked Tim Moore's resume yet (Aaron was supposed to send it).
+
+**4. Anna QA Bottleneck — No Relief Plan**
+Anna carries QA across all 6 dev/test tasks (Tasks 2–7). Sprint 1 ends tomorrow. If Task 2 or Task 3 accelerates, there is zero backup capacity.
+
+---
+
+## TODAY'S TOP PRIORITIES
+
+1. **Escalate RSAC block (Task 5)** — Push Melissa for a status update; if still blocked, escalate to business stakeholders per P2 SLA. This has been dead since Sept 17.
+
+2. **Get Robert's decision on Track Inspection scope** — The 4 out-of-scope work items and missing deliverables need a formal call: cut them or scope-change. This is the highest-profile item and the Sept 23 meeting with Robert and Ray Dockery surfaced it as a concern.
+
+3. **Move Tim/Hayden swap forward** — Send draft summary to Tess and Christina today for review. Check with Aaron on Tim's resume. The September invoice clock is ticking.
+
+4. **Sprint 1 closeout + Monday planning prep** — Sprint 1 ends tomorrow (Sept 25). Confirm task assignments, Task 6 carry-over scope re-confirmation, and Task 7 backlog readiness for Monday's Sept 28 business sprint planning.
+
+5. **Address Anna's QA load** — Even if nothing accelerates, having a relief plan ready for Monday's planning is prudent given she's the single biggest shared resource bottleneck.
+
+---
+
+## PEOPLE TO FOLLOW UP WITH
+
+| Who | What They're Waiting On |
+|-----|------------------------|
+| **Robert (Federal PM)** | Track Inspection scope decision — remove 4 items or formal scope change? Missing deliverables sign-off |
+| **Tess & Christina** | Review Tim/Hayden swap draft summary before escalation to Jeff/Mary Ann |
+| **Jeff or Mary Ann** | Decision on TTC mod + bill rate for Tim's move to O&M ($110 vs $117.82 vs $121) |
+| **Melissa (BA)** | RSAC block status push — any movement since Sept 17? |
+| **Christina** | Leah's COR notification protocol — is written notice to the COR required? |
+| **Aaron** | Tim Moore's resume — needed to assess senior position eligibility |
+| **Daniel (BA)** | Sprint 1 presentation readiness for Monday; stakeholder dynamics with Daniel (client BA) and Carl Alexi are adversarial — presentation must be clean and confident |
+
+---
+
+## STATUS AT A GLANCE
+
+**Sprint Health:** Sprint 1 (Sept 14–25) — Day 11 of 12. 6 of 7 tasks active. 1 blocked (Task 5), 1 not started (Task 7, planning Sept 28). Completed deliverables: D365/STAR Azure Function Migration v4.0, D365/STAR Time-Zone fix, FARS v2.0.0.102 Release 1, Lake Ontario audit, CARE Toolkit requirements, Blocked Crossing Incident Reporter backlog acceptance. Track record counters the "no work completed" perception from the Sept 22 meeting.
+
+**Personnel Reviews:** All 17 reviews are **"not started"** — the tracker is a blank skeleton with placeholder rows. BambooHR API access still pending HR approval. No reviews in progress, pending input, or draft ready. No approaching due dates visible (tracker is empty).
+
+**Weekly Report:** Most recent is **Week of 9/13/2026** (covers Sept 13–19). No report exists for Week of 9/20. **Flag: weekly report is 5+ days past the reporting period end.** Needs to be produced.
+
+**Budget:** $2.2M spent of $2.408M ceiling. ~$156K cushion remaining (not $200K). Imelda departed; VA count on Clint at zero. Team now: 4 devs, 3 senior BAs, 3 BAs/CAs, 1.83 position under review.
+
+---
+
+## CARRYING INTO TOMORROW
+
+- RSAC block (Task 5) — will carry unless escalated and resolved
+- Track Inspection scope decision — needs Robert's input, will carry into Monday planning at minimum
+- Tim/Hayden swap paperwork — Jeff/Mary Ann decision still needed
+- Google Cloud developer search — no viable candidates after dozens of resumes; 0.83 position may become half-time or half-year
+- Anna QA relief plan — no backup identified
+- Task 6 (Quiet Zone) carry-over scope re-confirmation — Monday's planning
+- Task 7 (SharePoint Migration) backlog readiness — Monday's planning
+- Leah's effective date and COR notification — still TBD
+
+To stop or manage this job, send me a new message (e.g. "stop reminder Morning Kickstart").

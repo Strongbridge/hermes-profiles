@@ -1,0 +1,38 @@
+# Secrets
+.env
+.env.*
+*.env
+
+# Runtime state
+state.db
+state.db-*
+state/
+gateway_state.json
+gateway.pid
+gateway.lock
+gateway-starts.log
+gateway-stdio.log
+
+# Caches
+cache/
+models_dev_cache.json
+provider_models_cache.json
+ollama_cloud_models_cache.json
+projects.db
+
+# Logs and sessions
+logs/
+sessions/
+backups/
+attachments/
+assets/
+
+# Skill caches
+*.etag
+*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+*.pyc
+__pycache__/

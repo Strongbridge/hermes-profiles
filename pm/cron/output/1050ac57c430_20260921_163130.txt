@@ -1,0 +1,55 @@
+Cronjob Response: EOD Status & Wrap
+(job_id: 1050ac57c430)
+-------------
+
+**End-of-Day Wrap — Monday, September 21, 2026**
+
+---
+
+## WHAT GOT DONE
+
+- **Staffing reconciliation with Marianne** — Imelda departed; VA count on Clint drops to zero. Remaining team: Anna, Dan, Melissa. TTC down to one person on this account.
+- **Budget position confirmed** — $2.2M current, ~$156K cushion remaining (tighter than the initial $200K estimate). Leah not yet full-time; Hayden onboarding ~80 hrs accounted for.
+- **Staffing composition finalized post-Imelda** — 4 devs, 3 senior BAs (or 3 intermediates), 3 BAs/CAs confirmed, Jay restored to $1,631 rate. The 0.83 position remains under review pending the Google developer search outcome.
+- **Next step flagged** — Send updated budget and staffing breakdown to Marianne and Christina, with a note on the 0.83 position.
+
+---
+
+## STATUS UPDATES RECEIVED
+
+**None.** No team status updates came in today. No files matching "status" or "daily-status" patterns, and no notes with working-on/blockers/help-needed/milestone content dated today. The daily status format was defined back in the task-inventory-interview-2 notes (freeform or `@hermes status:` prefixed), but nothing was posted.
+
+---
+
+## CARRYING TO TOMORROW
+
+- **Task 5 (RSAC Refresh) — still BLOCKED.** No update since 9/17. P2 SLA clock still running; if >24h from last known block, escalate to Dan for resource reallocation or scope adjustment. Owner: Melissa.
+- **Tim/Hayden swap paperwork** — Draft summary still needs to go to Tess and Christina for review before escalating to Jeff/Mary Ann. Tim Moore's resume still needs checking for senior eligibility (Aaron was supposed to send it). Bill rate decision ($110 vs $117.82 vs $121) still pending Jeff/Mary Ann.
+- **Leah's COR notification protocol** — Christina still needs to clarify in her email to Mary Ann whether written COR notice is required for Leah's move to CLIN 9.
+- **SharePoint Migration (Task 7) — sprint planning next week.** No work until then, but backlog and assignments need confirmation before Monday's planning.
+- **BA/QA capacity strain** — Anna carries QA across 6 tasks (Tasks 2–7). Melissa and Daniel each cover 3 BA tasks. If Task 2 expands or Task 5 stays blocked longer, the strain intensifies. No relief plan in place.
+- **Task 4 DLL validation** — Reusable DLL identified for Visualizer, but full form-mapping coverage not yet confirmed. Positive risk reduction but needs validation before committing.
+- **Task 6 (Quiet Zone Phase 2) carry-over scope** — Acceptance criteria need re-confirmation against current PWS at Monday's planning.
+- **Google developer search** — Still no strong candidates despite dozens of resumes. Approaching 2-week mark; Strongbridge expected to push for interviews soon. Resume-sharing process changed (resumes now sent before interviews).
+- **Damian onboarding** — PIV approval received but no confirmation he's been contacted yet. No laptop provisioning info received.
+- **Imelda site visit** — Timing still unconfirmed (Wed/Thu); local POC needs to be arranged to meet her on-site.
+
+---
+
+## REMINDERS FOR TOMORROW
+
+- **Send updated budget/staffing breakdown to Marianne and Christina** — this was the explicit next step from today's meeting. Include the note on the 0.83 position pending Google developer search outcome.
+- **Check in on the Tim/Hayden swap draft** — Dan, have you sent the draft to Tess and Christina? September invoice is coming; if the swap isn't formalized, questions will surface.
+- **Task 5 blocker push** — Melissa should follow up with business stakeholders on RSAC Refresh. If still blocked by tomorrow morning, the P2 SLA escalation path is open.
+- **Monday sprint planning prep** — Business Sprint Planning is Monday. Assignments for all 7 tasks need to be locked. Track Inspection POC (Task 2) is the biggest swing item.
+- **Anna's QA load** — With Monday planning possibly shifting priorities, consider whether Anna needs relief if Task 2 or Task 3 accelerates.
+
+---
+
+## SUGGESTED TOMORROW'S TOP 3
+
+1. **Send budget/staffing update to Marianne & Christina** — time-sensitive, explicit next step from today's meeting, unblocks the 0.83 position conversation.
+2. **Monday sprint planning prep** — lock task assignments for all 7 CLIN9 tasks, confirm Track Inspection POC scope, and validate Task 6 carry-over scope against current PWS. This is the week's main event.
+3. **Task 5 RSAC blocker escalation check** — if Melissa hasn't gotten movement from the business by tomorrow morning, escalate per the P2 SLA matrix. A blocked task with no forward motion for 4+ days is a resource planning problem.
+
+To stop or manage this job, send me a new message (e.g. "stop reminder EOD Status & Wrap").

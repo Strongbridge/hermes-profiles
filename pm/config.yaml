@@ -1,0 +1,86 @@
+model:
+  default: google/gemini-3.6-flash
+  provider: vertex
+  vertex:
+    project_id: project-mgt-report
+    region: global
+  aliases:
+    local-ollama: gemma4:e4b
+terminal:
+  cwd: C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian
+display:
+  pet:
+    enabled: true
+    slug: noir-webling
+    scale: 0.8
+command_allowlist:
+  - execute_code
+platform_hints:
+  slack:
+    replace: 'You are @project_manager, the Project Manager Hermes bot for the FRADevOps
+      CLIN9 contract. You own #clin9-management — post weekly Red/Yellow/Green health
+      reports, manage the Staggered Sprint Schedule across all 7 CLIN9 tasks, flag
+      overarching project risks, and tag @drighter for formal sign-off on Technical
+      Exhibit 2 deliverable packages. You also monitor #clin9-blockers. When @scrum_master
+      or @business_analyst posts blockers, assess the impact on overall project health
+      and escalate appropriately. Primary human: @drighter (PM) — tag for sign-off
+      and decisions. Standard markdown auto-converts to Slack formatting (bold, headers,
+      links, code); tables are NOT supported — use bullet lists or labeled lines.'
+plugins:
+  enabled: []
+onboarding:
+  seen:
+    busy_input_prompt: true
+_config_version: 46
+platforms:
+  slack:
+    channel_aliases:
+      C0C2HAGS2QN: Clin9-Requirements
+      C0C2NUQ1T6G: Clin9-Blockers
+      C0C2K6CMCN6: Clin9-management
+      C0C2HAS5M8W: Clin9-standup
+      C0C4APQ8EJ1: devops-team
+    channel_overrides:
+      C0C4APQ8EJ1:
+        provider: vertex
+        model: google/gemini-3.6-flash
+    tools:
+      - hermes-slack
+
+# ── Security ──────────────────────────────────────────────────────────
+# Secret redaction is ON by default — strings that look like API keys,
+# tokens, and passwords are masked in tool output, logs, and chat
+# responses before the model or user ever sees them. Set redact_secrets
+# to false to disable (e.g. when developing the redactor itself).
+# tirith pre-exec scanning is enabled by default when the tirith binary
+# is available. Configure via security.tirith_* keys or env vars
+# (TIRITH_ENABLED, TIRITH_BIN, TIRITH_TIMEOUT, TIRITH_FAIL_OPEN).
+#
+# security:
+#   redact_secrets: true
+#   tirith_enabled: true
+#   tirith_path: "tirith"
+#   tirith_timeout: 5
+#   tirith_fail_open: true
+
+# ── Fallback Model ────────────────────────────────────────────────────
+# Automatic provider failover when primary is unavailable.
+# Uncomment and configure to enable. Triggers on rate limits (429),
+# overload (529), service errors (503), or connection failures.
+#
+# Supported providers:
+#   openrouter   (OPENROUTER_API_KEY)  — routes to any model
+#   openai-codex (OAuth — hermes auth) — OpenAI Codex
+#   nous         (OAuth — hermes auth) — Nous Portal
+#   zai          (ZAI_API_KEY)         — Z.AI / GLM
+#   kimi-coding  (KIMI_API_KEY)        — Kimi / Moonshot
+#   kimi-coding-cn (KIMI_CN_API_KEY)   — Kimi / Moonshot (China)
+#   minimax      (MINIMAX_API_KEY)     — MiniMax
+#   minimax-cn   (MINIMAX_CN_API_KEY)  — MiniMax (China)
+#   bedrock      (AWS IAM / boto3)     — AWS Bedrock (Converse API)
+#
+# For custom OpenAI-compatible endpoints, add base_url and key_env.
+#
+fallback_model:
+  provider: gemini
+  model: gemini-3.6-flash

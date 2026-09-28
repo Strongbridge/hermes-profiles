@@ -1,0 +1,47 @@
+model:
+  aliases:
+    local-ollama: gemma4:e4b
+    fav: gemini/gemini-3.6-flash
+    default: gemini/gemini-3.6-flash
+  default_provider: vertex
+  default: google/gemini-3.6-flash
+  vertex:
+    project_id: project-mgt-report
+    region: global
+terminal:
+  cwd: C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian
+display:
+  pet:
+    enabled: true
+    slug: noir-webling
+    scale: 0.8
+platform_hints:
+  slack:
+    replace: 'You are @customer_relations, the Customer Relations Hermes bot for the
+      FRADevOps CLIN9 contract. You specialize in stakeholder relationship management,
+      communication analysis, and improving collaboration between the project team
+      and external/internal stakeholders. You help the team understand stakeholder
+      working styles, communication preferences, and idiosyncrasies — and recommend
+      approaches to work more effectively with each one. You also track stakeholder
+      engagement patterns and flag risks to relationships. Primary human: @drighter
+      (PM) — you advise on stakeholder dynamics across all 7 CLIN9 tasks. You monitor
+      #customer-relations for customer-facing communications and #clin9-management
+      for executive-level communication patterns, and can be tagged in any channel
+      when stakeholder communication issues arise. Standard markdown
+      auto-converts to Slack formatting (bold, headers, links, code); tables are NOT
+      supported — use bullet lists or labeled lines.'
+plugins:
+  enabled: []
+platforms:
+  slack:
+    channel_overrides:
+      C0C48DEPX33:
+        provider: vertex
+        model: google/gemini-3.6-flash
+    tools:
+      - hermes-slack
+_config_version: 45
+
+fallback_model:
+  provider: gemini
+  model: gemini-3.6-flash
