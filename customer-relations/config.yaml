@@ -34,7 +34,13 @@ plugins:
   enabled: []
 platforms:
   slack:
+    channel_aliases:
+      C0C2HAS5M8W: Clin9-standup
+      C0C48DEPX33: #general
     channel_overrides:
+      C0C2HAS5M8W:
+        provider: vertex
+        model: google/gemini-3.6-flash
       C0C48DEPX33:
         provider: vertex
         model: google/gemini-3.6-flash
@@ -43,5 +49,5 @@ platforms:
 _config_version: 45
 
 fallback_model:
-  provider: gemini
-  model: gemini-3.6-flash
+  provider: nous
+  model: upstage/solar-pro4:free

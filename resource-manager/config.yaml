@@ -26,7 +26,7 @@ platform_hints:
       NOT supported — use bullet lists or labeled lines. Format all rosters and capacity
       forecasts as Markdown tables for seamless syncing with the shared Obsidian vault.'
 plugins:
-  enabled: [dashboard-status-sync]
+  enabled: []
 platforms:
   slack:
     channel_aliases:
@@ -52,6 +52,12 @@ platforms:
       C0C4FMUL3SS:
         provider: vertex
         model: google/gemini-3.6-flash
+      C0C2HAS5M8W:
+        provider: vertex
+        model: google/gemini-3.6-flash
     tools:
       - hermes-slack
 _config_version: 46
+fallback_model:
+  provider: nous
+  model: upstage/solar-pro4:free

@@ -82,5 +82,5 @@ platforms:
 # For custom OpenAI-compatible endpoints, add base_url and key_env.
 #
 fallback_model:
-  provider: gemini
-  model: gemini-3.6-flash
+  provider: nous
+  model: upstage/solar-pro4:free
