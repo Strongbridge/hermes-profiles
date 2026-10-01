@@ -4,6 +4,11 @@ model:
   base_url: https://inference-api.nousresearch.com/v1
   aliases:
     local-ollama: gemma4:e4b
+
+fallback_model:
+  provider: nous
+  model: inclusionai/ling-3.0-flash-sante:free
+
 database:
   journal_mode: wal
 runtime:
@@ -120,7 +125,7 @@ updates:
   non_interactive_local_changes: stash
 computer_use:
   backend: cua
-_config_version: 45
+_config_version: 49
 session_reset:
   mode: none
   idle_minutes: 1440
