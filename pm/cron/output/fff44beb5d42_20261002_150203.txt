@@ -1,0 +1,84 @@
+Cronjob Response: Friday Weekly Report Nudge
+(job_id: fff44beb5d42)
+-------------
+
+I now have all the data I need. Let me compile the findings and draft the skeleton report.
+
+---
+
+## Weekly Report Status Check
+
+**Most recent weekly report:** `Weekly Report - Week of 9-21-2026.md` — covers the week of **September 21, 2026**.
+
+**⚠️ This week's report is NOT done.** Today is Friday, October 2, 2026. The latest report covers the week ending 9/25. There is a gap — no report exists for the week of 9/28 (this week) or 10/5. This needs to be written.
+
+---
+
+## Inputs Gathered
+
+| Source | Status | Key Content |
+|--------|--------|-------------|
+| CLIN9 Sprint Status.md | Dated 9/17 | 7-task rollup; Task 5 RSAC BLOCKED; Task 2 scope flag; BA/QA bottleneck (Anna on 6 tasks) |
+| CLIN9 Status Update 9/23 | Dated 9/23 | Full status report: 12 completed items to date, 2 P1 risks (RSAC block, Track Inspection scope conflict), staffing below plan |
+| Daily notes (last 5) | Mixed | 9/21: staffing/budget with Marianne ($156K cushion); 9/17: Tim/Hayden swap + Leah move details; 9/15: Google Cloud hiring, Damian onboarding; 9/14: Sprint 1 prep, stakeholder dynamics; 10/01: empty |
+| Personnel reviews tracker | Stale | **All 17 reviews still "not started"** — zero completed this week |
+| New notes this week | 9/29 | Trevor Jones interview scheduled 9/30 — no feedback filed yet |
+
+---
+
+## Skeleton — Weekly Report (Week of 9/28–10/2, 2026)
+
+### Key Accomplishments
+- [ ] D365/STAR Azure Function v4.0 — production deployment completed (per 9/23 status)
+- [ ] FARS v2.0.0.102 Release 1 shipped
+- [ ] Task 1 (PMT): 2 stories closed; active dev on NEPA Milestones, SF-425, Scorecard
+- [ ] Task 3 (MCIA RCA): maxGraph import in progress, 4 stories in backlog
+- [ ] Task 4 (Visualizer): 2 stories working; reusable DLL identified — validation pending
+- [ ] Task 6 (Quiet Zone): 300+ items in area; 3 features Active
+- [ ] Staffing: Leah move to CLIN 9 effective date TBD; 0.83 position budget confirmed
+
+### Current Priorities
+- [ ] **Task 5 (RSAC Refresh)** — unblock: needs business info; P2 SLA clock exceeded
+- [ ] **Task 2 (Track Inspection)** — resolve 4 scope items contradicting Addendum §1; confirm with Robert
+- [ ] **Task 7 (SharePoint Migration)** — Sprint 1 starts; backlog readiness check
+- [ ] Staffing: Tim/Hayden swap + TTC mod + bill rate decision from Jeff/Mary Ann
+- [ ] Google developer search — no viable candidates after 2+ weeks
+
+### Challenges / Risks
+- **🔴 RSAC blocked** — business info pending >1 week; escalation per SLA
+- **🔴 Track Inspection scope conflict** — 4 excluded work items; zero RSIS sync calls required by Addendum §4 AC #2
+- **🟡 Anna QA bottleneck** — 6-task load, no relief plan
+- **🟡 Staffing** — below plan post-Imelda; 0.83 position may become half-time/half-year
+- **🟡 Tim/Hayden swap** — September invoice questions if unresolved
+- **🟡 Daniel (client BA) adversarial** — clean Sprint 1 presentation needed
+
+### Communications & Engagement Opportunities
+- [ ] Trevor Jones interview (9/30) — feedback not yet filed
+- [ ] COR notification protocol for Leah's move — Christina to clarify
+- [ ] Monday business sprint planning — confirm sprint assignments, Task 6 carry-over scope
+- [ ] Pre-planning with IT Director (print plan review)
+- [ ] Send updated budget/staffing to Marianne and Christina (from 9/21)
+
+### Decision Points for Leadership
+- [ ] RSAC: resource reallocation or scope adjustment?
+- [ ] Track Inspection: remove 4 items from period or formal scope change?
+- [ ] Tim Moore: move to O&M at $110, honor $117.82, or escalate to $121 senior?
+- [ ] Google developer 0.83 FTE: if unfilled by mid-Oct, adjust staffing plan + notify COR
+
+### 30-Day Outlook
+- [ ] Sprint 1 execution across Tasks 1–6; Task 7 kickoff
+- [ ] Fill or adjust 0.83 Google developer position
+- [ ] SharePoint Migration sandbox validation
+- [ ] Staffing: backfill plan for Leah's O&M slot (Oct/Nov reassess)
+- [ ] Resolve RSAC blocker or formally re-scope
+
+### Software Releases / Estimates
+- D365/STAR Azure Function → v4.0 deployed
+- FARS v2.0.0.102 → released to production
+- STAR Time-Zone Date Localization defect → resolved
+
+---
+
+**⚠️ Report still needs to be written.** Gaps: no daily notes for 9/28–10/2 (only empty 10/01 file), no personnel reviews completed, no Trevor Jones interview feedback, CLIN9 Sprint Status is dated 9/17 and the 9/23 status update is the freshest source. Dan should provide updates on RSAC block resolution, Track Inspection scope decision, and Tim/Hayden swap outcome to fill in the skeleton.
+
+To stop or manage this job, send me a new message (e.g. "stop reminder Friday Weekly Report Nudge").
