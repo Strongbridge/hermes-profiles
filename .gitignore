@@ -27,6 +27,11 @@ backups/
 attachments/
 assets/
 
+# Cron state files (runtime state)
+*/cron/ticker_*
+*/cron/heartbeat
+*/cron/last_success
+
 # Skill caches
 *.etag
 *.json
