@@ -167,6 +167,7 @@ The brief file should be written first (see BA brief format below), then posted.
 - Sections: Track Inspection POC, Quiet Zone Phase 2, MCIA, Form 96, RSAC/Google Transition
 - Highlight only status changes from the previous brief — don't re-list unchanged items
 - Save brief to `C:/Users/DanRighter/AppData/Local/hermes/clin9_<date>_brief.md`
+- **File path for `hermes.exe send`**: use the Windows-native path (`C:/Users/DanRighter/...`), NOT `/tmp/` — bash `/tmp` does not resolve for the Windows Hermes binary
 
 ## CLIN 9 task status value mapping
 

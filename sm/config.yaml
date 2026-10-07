@@ -26,3 +26,5 @@ onboarding:
 fallback_model:
   provider: nous
   model: inclusionai/ling-3.0-flash-sante:free
+command_allowlist:
+  - script execution via -e/-c flag
