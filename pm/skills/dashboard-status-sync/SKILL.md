@@ -27,34 +27,45 @@ Always serve the dashboard via HTTP: `python3 -m http.server 8080` from the `das
 
 ## How to write your status
 
-### Quick method: Python one-liner from bash
+### Correct workflow: read → modify → write → validate
+
+**Never write to a JSON file without reading it first.** The dashboard files are shared across bots — overwriting without reading loses other bots' updates.
+
+1. **Read** the existing file with the read_file tool
+2. **Modify** the relevant fields in the parsed JSON
+3. **Write** back with write_file (full rewrite) or patch (targeted edit)
+4. **Validate** by reading back with read_file — confirm the JSON structure is intact and other bots' fields are preserved
+5. **Confirm** in Slack — tell the human the dashboard is updated
+
+Example (PM health update):
+1. `read_file pm_status.json` — get current state
+2. Update `overall_health`, `health_rationale`, `task_health`, `notes`
+3. `write_file` the full updated JSON object
+4. `read_file pm_status.json` — verify `overall_health` changed and other fields preserved
+
+**Why not the Python one-liner?** The one-liner reads the file, modifies it in-memory, and writes it back in one shot. If another bot updated the file between your read and write, you overwrite their changes silently. The read→modify→write→validate pattern with explicit tool calls makes every step visible and preserves concurrent updates.
+
+### CLI method (write_status.py)
+
+When using the script directly, the portfolio flag routes updates to the correct tab:
 
 ```bash
 cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard/data"
-python3 -c "
-import json, datetime
-from pathlib import Path
-now = datetime.datetime.now(datetime.timezone.utc).isoformat()
-DASH = Path('.')
-f = DASH / 'pm_status.json'
-data = json.loads(open(f).read()) if f.exists() else {}
-data.update({
-    'last_updated': now,
-    'updated_by': 'PM',
-    'overall_health': 'yellow',
-    'health_rationale': 'Project at risk from 2 blockers.',
-    'task_health': {
-        '2': {'health': 'red', 'notes': 'Track Inspection POC — BLOCKED.'},
-        '5': {'health': 'red', 'notes': 'RSAC — BLOCKED.'}
-    },
-    'notes': '@Project Manager assessment. 2 blockers active.'
-})
-open(f, 'w').write(json.dumps(data, indent=2))
-print('Updated pm_status.json')
-"
+python write_status.py --portfolio clin9 --role pm --health green \
+  --health_rationale "5 of 7 tasks on track; Task 2 unblocked." \
+  --task-health '{"1":{"health":"pass","notes":"PMT on track"},"2":{"health":"in_progress","notes":"SafeSpect POC — scope decision pending"}}' \
+  --notes "@Project Manager assessment."
 ```
 
-Replace `pm_status.json` and the field names with your bot's file and schema (see below). **Always read the existing file first** — the `json.loads(open(f).read()) if f.exists() else {}` pattern preserves fields you don't touch.
+**Flag reference (actual script args — not hyphenated aliases):**
+| Flag | PM | BA | SM |
+|------|----|----|-----|
+| Health/coverage/status | `--health` | `--requirements-coverage` | `--sprint-status` |
+| Rationale | `--health_rationale` | `--coverage_rationale` | `--sprint_rationale` |
+| Task detail | `--task-health` (JSON) | `--task-requirements` (JSON) | `--task-progress` (JSON) |
+| Blockers | — | — | `--blockers` (JSON array) |
+| Notes | `--notes` | `--notes` | `--notes` |
+| Portfolio | `--portfolio <id>` (default: clin9) | `--portfolio <id>` | `--portfolio <id>` |
 
 ### Validate after writing
 

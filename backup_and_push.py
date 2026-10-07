@@ -25,7 +25,7 @@ PROFILES = ["pm", "sm", "ba", "customer-relations", "resource-manager", "workbot
 EXCLUDE_DIRS = {
     ".env", ".env.*", "state.db", "state.db-*",
     "state", "gateway_state.json", "gateway.pid", "gateway.lock",
-    "logs", "sessions", "cache", "attachments", "assets",
+    "logs", "sessions", "cache", "attachments", "assets", "output",
     "models_dev_cache.json", "projects.db", "provider_models_cache.json",
     "events.db", ".hermes", "backups",
 }
@@ -88,7 +88,7 @@ def copy_profile(src_profile_dir: Path, dst_profile_dir: Path):
             # Remove existing destination
             if dst_subdir.exists():
                 shutil.rmtree(str(dst_subdir))
-            shutil.copytree(str(src_subdir), str(dst_subdir))
+            shutil.copytree(str(src_subdir), str(dst_subdir), ignore=shutil.ignore_patterns('output', '*.db'))
             # Count what we copied
             for root, dirs, files in os.walk(str(dst_subdir)):
                 for f in files:
@@ -97,8 +97,8 @@ def copy_profile(src_profile_dir: Path, dst_profile_dir: Path):
                         total_bytes += fp.stat().st_size
             copied.append(f"{subdir}/")
     
-    # Remove excluded files/dirs from destination
-    for item in dst_profile_dir.iterdir():
+    # Remove excluded files/dirs from destination (including nested ones)
+    for item in list(dst_profile_dir.iterdir()):
         if should_exclude(item.name):
             if item.is_dir():
                 shutil.rmtree(str(item))
@@ -111,9 +111,16 @@ def copy_profile(src_profile_dir: Path, dst_profile_dir: Path):
 def git_push():
     """Push changes to the remote repo."""
     env = os.environ.copy()
-    # SSH command for Windows paths (use forward slashes, no spaces)
-    ssh_key_str = str(SSH_KEY).replace("\\", "/")
+    # SSH command for Windows - use native path with backslashes (escaped in shell)
+    ssh_key_str = str(SSH_KEY)
     env["GIT_SSH_COMMAND"] = f'ssh -i "{ssh_key_str}" -o ConnectTimeout=15 -o StrictHostKeyChecking=no -o BatchMode=yes'
+    
+    # Remove any stale lock files
+    for lock_file in ["index.lock", "HEAD.lock", "refs/heads/master.lock"]:
+        lock_path = BACKUP_ROOT / ".git" / lock_file
+        if lock_path.exists():
+            lock_path.unlink()
+            log(f"Removed stale lock file: {lock_file}")
     
     try:
         result = subprocess.run(
@@ -150,7 +157,7 @@ def git_push():
         result = subprocess.run(
             ["git", "push", "origin", "HEAD"],
             cwd=str(BACKUP_ROOT),
-            capture_output=True, text=True, timeout=300, env=env
+            capture_output=True, text=True, timeout=900, env=env
         )
         if result.returncode != 0:
             log(f"git push FAILED: {result.stderr}")
@@ -159,7 +166,7 @@ def git_push():
         log(f"PUSHED to origin/master")
         return True
     except subprocess.TimeoutExpired:
-        log("git push timed out after 5 minutes")
+        log("git push timed out after 15 minutes")
         return False
     except Exception as e:
         log(f"git push error: {type(e).__name__}: {e}")

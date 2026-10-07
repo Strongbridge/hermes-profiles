@@ -174,7 +174,12 @@ platform_toolsets:
 known_plugin_toolsets:
   cli:
     - a2a
+    - homeassistant
     - spotify
+  acp:
+    - homeassistant
+  webhook:
+    - homeassistant
 known_builtin_toolsets:
   cli:
     - browser
@@ -204,3 +209,11 @@ known_builtin_toolsets:
     - web
     - x_search
     - yuanbao
+_left_core_scoped:
+  - homeassistant
+plugins:
+  enabled:
+    - homeassistant
+  disabled: []
+_left_core_installed:
+  - homeassistant

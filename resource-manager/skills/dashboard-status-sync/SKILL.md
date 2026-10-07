@@ -100,10 +100,55 @@ A syntax error breaks the dashboard silently — always validate.
 5. Confirm in Slack — tell the team the capacity report is updated
 6. Dashboard auto-refreshes every 60 seconds — no manual reload needed
 
+### RM role: `--json-file` method (team roster + candidate updates)
+
+For Resource Manager updates that include team member arrays or candidate data, use the `--json-file` flag — the RM JSON structure is too complex for inline CLI args:
+
+```bash
+cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard"
+python write_status.py --role rm --json-file data/team_update.json
+```
+
+`team_update.json` must contain a `team_members` array (complete roster — the dashboard merges, so provide the full list) and optionally a `potential_google_candidates` array:
+
+```json
+{
+  "team_members": [
+    {
+      "name": "Dan Righter",
+      "role": "Project Manager / Contract Lead",
+      "organization": "Strongbridge",
+      "slack_handle": "@drighter",
+      "channels": ["#clin9-management", "#clin9-capacity", "#clin9-blockers"],
+      "responsibilities": "Oversees all 7 CLIN9 task areas, contract administration, resource planning, project status reporting, federal client liaison (COR/ACOR/IT Director).",
+      "influence": "High",
+      "notes": "Primary escalation point."
+    }
+  ],
+  "potential_google_candidates": [
+    {
+      "name": "Alice Smith",
+      "target_role": "Senior DevOps Engineer",
+      "status": "Interviewing",
+      "contact": "alice@example.com",
+      "summary": "Strong background in Kubernetes and GCP.",
+      "certifications": ["GCP Professional Cloud Architect"],
+      "key_skills": ["Kubernetes", "Terraform", "CI/CD"],
+      "pertinent_experience": ["Led migration to GKE at previous company."],
+      "notes": "Good cultural fit."
+    }
+  ]
+}
+```
+
+**Important**: `team_members` must be the complete roster — the dashboard merges this data, so omitting a member removes them from the dashboard. Load `data/team_profiles.json` first to get the current full list, then modify only the changed entry.
+
 ## Pitfalls
 
-- **Read before write** — load the existing file first so you don't lose other data
+- **Read before write** — load the existing file first so you don't lose other data. For RM updates, load `data/team_profiles.json` to get the complete roster before writing `team_update.json`.
 - **JSON errors break dashboard silently** — always validate after writing
 - **Timestamps must be ISO** — `2026-09-22T17:50:00Z` format
 - **Server must be running** — `python3 -m http.server 8080` from `dashboard/` dir
 - **Don't use `file://`** — open via `http://127.0.0.1:8080/index.html`
+- **`write_status.py` role support** — the script supports `--role pm|ba|sm|rm`. The `rm` role requires `--json-file` pointing to a JSON with `team_members` (required) and optional `potential_google_candidates`. Script must be patched to add `rm` support if not present (it ships without it — check choices list before assuming).
+- **`%%` in argparse help** — `%` is a format character in argparse help strings; use `%%` to escape or Python 3.12+ raises `ValueError: unsupported format character`
