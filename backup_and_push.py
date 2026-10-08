@@ -116,11 +116,16 @@ def git_push():
     env["GIT_SSH_COMMAND"] = f'ssh -i "{ssh_key_str}" -o ConnectTimeout=15 -o StrictHostKeyChecking=no -o BatchMode=yes'
     
     # Remove any stale lock files
-    for lock_file in ["index.lock", "HEAD.lock", "refs/heads/master.lock"]:
+    for lock_file in ["index.lock", "HEAD.lock"]:
         lock_path = BACKUP_ROOT / ".git" / lock_file
         if lock_path.exists():
             lock_path.unlink()
             log(f"Removed stale lock file: {lock_file}")
+    # Check refs/heads/master.lock separately (nested path)
+    master_lock = BACKUP_ROOT / ".git" / "refs" / "heads" / "master.lock"
+    if master_lock.exists():
+        master_lock.unlink()
+        log("Removed stale lock file: refs/heads/master.lock")
     
     try:
         result = subprocess.run(
