@@ -7,62 +7,75 @@ description: Write bot status updates to the CLIN9 dashboard JSON files so the H
 
 ## When to use
 
-You (PM, BA, or SM bot) have assessed project status in Slack and need to persist it to the dashboard JSON file so the HTML dashboard reflects your latest assessment.
+You (PM, BA, or SM bot) have assessed project status and need to push it to the
+live CLIN 9 dashboard via Firestore.
 
-## Dashboard data directory
+## Dashboard script — Firebase (authoritative)
+
+The dashboard runs on Firebase Firestore. All status writes go through:
 
 ```
-C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard/data/
+C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard/write_status.py
 ```
 
-Always serve the dashboard via HTTP: `python3 -m http.server 8080` from the `dashboard/` directory, then open `http://127.0.0.1:8080/index.html`.
+**This is the only write_status.py to use.** Do NOT use any local copy in the
+agent directory or `data/` folder — those are stale and will not reach Firestore.
 
-## Your status file
+### Prerequisites
 
-| Bot | File |
-|-----|------|
-| PM (@project_manager) | `pm_status.json` |
-| BA (@business_analyst) | `ba_status.json` |
-| SM (@scrum_master) | `sm_status.json` |
+- `google-cloud-firestore` installed (`pip install google-cloud-firestore`)
+- `GOOGLE_APPLICATION_CREDENTIALS` env var set to the service account JSON key
+  (configured in `SB-Hermes/dashboard/.env`)
+- Execute from the `SB-Hermes/dashboard/` directory (where `write_status.py` lives)
 
-## How to write your status
-
-### Quick method: Python one-liner from bash
+### Execution command
 
 ```bash
-cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard/data"
-python3 -c "
-import json, datetime
-from pathlib import Path
-now = datetime.datetime.now(datetime.timezone.utc).isoformat()
-DASH = Path('.')
-f = DASH / 'pm_status.json'
-data = json.loads(open(f).read()) if f.exists() else {}
-data.update({
-    'last_updated': now,
-    'updated_by': 'PM',
-    'overall_health': 'yellow',
-    'health_rationale': 'Project at risk from 2 blockers.',
-    'task_health': {
-        '2': {'health': 'red', 'notes': 'Track Inspection POC — BLOCKED.'},
-        '5': {'health': 'red', 'notes': 'RSAC — BLOCKED.'}
-    },
-    'notes': '@Project Manager assessment. 2 blockers active.'
-})
-open(f, 'w').write(json.dumps(data, indent=2))
-print('Updated pm_status.json')
-"
+cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard"
+python write_status.py \
+  --portfolio clin9 \
+  --role <pm|ba|sm> \
+  --notes "<assessment>" \
+  --tasks "1:<status>,2:<status>,3:<status>,4:<status>,5:<status>,6:<status>,7:<status>" \
+  [--coverage "<pct>"] \
+  [--coverage-rationale "<explanation>"] \
+  [--health <green|yellow|red|gray>] \
+  [--health-rationale "<why>"] \
+  [--sprint "<status>"] \
+  [--blockers "<severity:task:desc;...>"]
 ```
 
-Replace `pm_status.json` and the field names with your bot's file and schema (see below). **Always read the existing file first** — the `json.loads(open(f).read()) if f.exists() else {}` pattern preserves fields you don't touch.
+### `--tasks` argument — REQUIRED for every call
 
-### Validate after writing
+Map ALL 7 task IDs to their status. Valid statuses: `pass`, `in_progress`, `pending`, `complete`, `fail`, `delayed`, `gray`.
 
-```bash
-python3 -c "import json; json.load(open('pm_status.json')); print('JSON OK')"
+Format: `"1:status,2:status,3:status,4:status,5:status,6:status,7:status"`
+
+**Never omit --tasks or leave a task unmapped.** Every call must include all seven.
+
+### `--portfolio` argument
+
+Use `--portfolio clin9` (default if omitted) for CLIN 9. For other portfolios use
+the assigned ID (e.g. `--portfolio onm`). Omit only if targeting clin9 explicitly.
+
+### Read before write
+
+Always read the existing status file before updating so you don't lose data from
+other tasks or roles. Then validate by re-reading the Firestore document after
+writing.
+
+### Verify after writing
+
+Read back the Firestore document to confirm the update landed:
+
+```python
+import os, json
+from google.cloud import firestore
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:/Users/DanRighter/AppData/Local/hermes/secrets/project-mgt-report-sa.json"
+client = firestore.Client(project="fradevops-a51a2", database="devopsstore")
+doc = client.collection("status").document("ba").get()
+print(json.dumps(doc.to_dict(), indent=2))
 ```
-
-A syntax error breaks the dashboard silently — always validate.
 
 ---
 
@@ -186,16 +199,17 @@ Extends the generic mapping above for CLIN 9-specific statuses:
 
 ## Pitfalls
 
-- **Read before write** — load the existing file first so you don't lose other tasks' status
-- **JSON errors break dashboard silently** — always validate after writing
-- **`blockers[].task` must be a string** — use `"2"` not `2`; dashboard compares with `String(b.task) === String(task.num)`
+- **`--tasks` is REQUIRED** — every call must map all 7 task IDs (1–7).
+  Never omit or leave a task unmapped; the dashboard shows stale data.
+- **Use the Firestore script only** — `C:/Users/DanRighter/OneDrive -
+  Strongbridge/Documents/Obsidian/SB-Hermes/dashboard/write_status.py`.
+  Do NOT use local copies in the agent directory or `data/` folder.
+- **`--portfolio clin9` for CLIN 9** — other portfolios need `--portfolio <id>`.
+  Omitting defaults to clin9.
+- **Read before write** — load the existing status file first so you don't
+  lose data from other tasks or roles. Then validate by re-reading the
+  Firestore document after writing.
 - **Timestamps must be ISO** — `2026-09-22T17:50:00Z` format
-- **Server must be running** — `python3 -m http.server 8080` from `dashboard/` dir, or browser can't fetch JSON
-- **Don't use `file://`** — open via `http://127.0.0.1:8080/index.html`, not the file path
-- **Multi-field JSON updates** — `write_file` refuses files read with pagination; sequential `patch` calls validate each candidate independently and can leave the file inconsistent if one succeeds and another fails. For any update touching more than one field, use Python's `json` module via `execute_code`: load → modify in memory → write → validate.
-- **Slack post timeout** — `hermes send` can hang on slow connections; use a 120s timeout, not 30s. If it times out, retry once before flagging.
-- **Brief file path** — save briefs to `C:/Users/DanRighter/AppData/Local/hermes/clin9_<date>_brief.md`, NOT the Obsidian vault directory. The vault path (`SB-Hermes/`) is for Obsidian-sourced notes only; hermes briefs go in the profiles cache for Slack posting.
-- **Status drift between Slack and dashboard** — the Slack brief is the human-facing update; the dashboard JSON is the system of record. Always update the JSON first, then post the Slack brief. If they disagree, the JSON wins.
 
 ## References
 

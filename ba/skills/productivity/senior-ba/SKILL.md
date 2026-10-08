@@ -118,6 +118,7 @@ When synthesizing status from multiple document types (PDF emails, CSV ticket du
 - **Sections by area**: Track Inspection POC, Quiet Zone Phase 2, MCIA, Form 96, RSAC/Google Transition — only items that changed since the last brief
 - **Action items**: tag the responsible stakeholder (@drighter for scope, @Carl Jackson for technical feasibility)
 - **File**: save to `C:/Users/DanRighter/AppData/Local/hermes/clin9_<date>_brief.md` before posting
+- **Post to Slack first**, then update the dashboard. The Slack brief is the human-facing source of truth; if the dashboard and Slack disagree, the Slack brief wins and the dashboard must be corrected.
 
 ## Initialization
 
