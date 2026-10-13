@@ -48,7 +48,18 @@ platforms:
         model: google/gemini-3.6-flash
     tools:
       - hermes-slack
-_config_version: 49
+_config_version: 50
 fallback_model:
   provider: nous
   model: inclusionai/ling-3.0-flash-sante:free
+fallback_providers:
+  - provider: nous
+    model: upstage/solar-mini4:free
+  - provider: nous
+    model: meituan/longcat-2.5-preview:free
+  - provider: nous
+    model: inclusionai/ling-3.0-flash-sante:free
+  - provider: nous
+    model: poolside/laguna-xs-2.1:free
+  - provider: nous
+    model: poolside/laguna-s-2.1:free

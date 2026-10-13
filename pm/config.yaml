@@ -24,7 +24,7 @@ plugins:
 onboarding:
   seen:
     busy_input_prompt: true
-_config_version: 49
+_config_version: 50
 platforms:
   slack:
     channel_aliases:
@@ -77,3 +77,14 @@ platforms:
 fallback_model:
   provider: nous
   model: inclusionai/ling-3.0-flash-sante:free
+fallback_providers:
+  - provider: nous
+    model: upstage/solar-mini4:free
+  - provider: nous
+    model: stepfun/step-5-preview:free
+  - provider: nous
+    model: meituan/longcat-2.5-preview:free
+  - provider: nous
+    model: inclusionai/ling-3.0-flash-sante:free
+  - provider: nous
+    model: poolside/laguna-xs-2.1:free
