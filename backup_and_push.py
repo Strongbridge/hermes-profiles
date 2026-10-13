@@ -79,8 +79,9 @@ def copy_profile(src_profile_dir: Path, dst_profile_dir: Path):
             copied.append(fname)
             total_bytes += src.stat().st_size
     
-    # Subdirectories to copy
-    subdirs = ["skills", "cron", "platforms", "plans", "attachments", "assets"]
+    # Subdirectories to copy (skip EXCLUDE_DIRS — copying then deleting them
+    # just wastes I/O and changes parent dir mtimes, forcing a full git rescan)
+    subdirs = ["skills", "cron", "platforms", "plans"]
     for subdir in subdirs:
         src_subdir = src_profile_dir / subdir
         dst_subdir = dst_profile_dir / subdir
@@ -114,7 +115,7 @@ def git_push():
     # SSH command for Windows - use Unix-style path for Git Bash compatibility
     ssh_key_str = str(SSH_KEY).replace('\\', '/')
     env["GIT_SSH_COMMAND"] = f'ssh -i "{ssh_key_str}" -o ConnectTimeout=15 -o StrictHostKeyChecking=no -o BatchMode=yes'
-    
+    env["GIT_TERMINAL_PROMPT"] = "0"
     # Remove any stale lock files
     for lock_file in ["index.lock", "HEAD.lock"]:
         lock_path = BACKUP_ROOT / ".git" / lock_file
@@ -127,31 +128,35 @@ def git_push():
         master_lock.unlink()
         log("Removed stale lock file: refs/heads/master.lock")
     
+    step = "git operation"
     try:
+        step = "git add"
         result = subprocess.run(
             ["git", "add", "-A"],
             cwd=str(BACKUP_ROOT),
-            capture_output=True, text=True, timeout=30, env=env
+            capture_output=True, text=True, timeout=300, env=env
         )
         if result.returncode != 0:
             log(f"git add failed: {result.stderr}")
             return False
         
         # Check if there's anything to commit
+        step = "git diff"
         result = subprocess.run(
             ["git", "diff", "--cached", "--quiet"],
             cwd=str(BACKUP_ROOT),
-            capture_output=True, text=True, timeout=10, env=env
+            capture_output=True, text=True, timeout=60, env=env
         )
         if result.returncode == 0:
             log("No changes to commit — skipping push")
             return True  # Nothing changed is still success
         
         commit_msg = f"Automated backup: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}"
+        step = "git commit"
         result = subprocess.run(
             ["git", "commit", "-m", commit_msg],
             cwd=str(BACKUP_ROOT),
-            capture_output=True, text=True, timeout=30, env=env
+            capture_output=True, text=True, timeout=120, env=env
         )
         if result.returncode != 0:
             log(f"git commit failed: {result.stderr}")
@@ -159,6 +164,7 @@ def git_push():
         
         log(f"Committed: {commit_msg}")
         
+        step = "git push"
         result = subprocess.run(
             ["git", "push", "origin", "HEAD"],
             cwd=str(BACKUP_ROOT),
@@ -171,7 +177,14 @@ def git_push():
         log(f"PUSHED to origin/master")
         return True
     except subprocess.TimeoutExpired:
-        log("git push timed out after 15 minutes")
+        log(f"{step} timed out")
+        # Clean up lock file that may have been left behind
+        lock_path = BACKUP_ROOT / ".git" / "index.lock"
+        if lock_path.exists():
+            try:
+                lock_path.unlink()
+            except Exception:
+                pass
         return False
     except Exception as e:
         log(f"git push error: {type(e).__name__}: {e}")
