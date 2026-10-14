@@ -47,6 +47,22 @@ Use `search_files` for both filename and content searches. Prefer this over `gre
 
 Use `write_file` with the resolved absolute path and the full markdown content. Prefer this over shell heredocs or `echo` because it avoids shell quoting issues and returns structured results.
 
+## Filing a new project into the vault
+
+Use this when a new project record must be captured in the CLIN9 vault (e.g., a new O&M project under a Power Platform system owner). The vault is the source of truth; the dashboard is a downstream sync when credentials are present.
+
+### Procedure
+
+1. **Resolve the vault root.** New project notes live in `SB-Hermes/` under the Obsidian root. Parent folders (e.g., `FRA-DevOps-CLIN9/`) are NOT visible in Obsidian.
+2. **Check for an existing record.** Search the vault content for the project owner/system/app name before creating. Do not create a duplicate for the same project.
+3. **Create the note** with `write_file` at `SB-Hermes/<Project Name>.md`, using the established field block: `Category`, `Not CLIN9`, `System owner`, `Scope`, `Primary tracking`, `Last updated`.
+4. **Record the project in the status report.** Append a row to the Section 1 table of `FRADevOps - Project Status Report.md` using the format `||| <Title> | <Status> | <Last Modified> |`.
+5. **Push to the dashboard** when `GOOGLE_APPLICATION_CREDENTIALS` is set; otherwise the vault record stands.
+
+### Pitfalls
+- **File under `SB-Hermes/`, not the vault root parent.** Project notes in parent folders are invisible to Obsidian.
+- **Search before creating** to avoid a duplicate record for the same project.
+
 ## Append to a note
 
 Prefer a native file-tool workflow when it is not awkward:
