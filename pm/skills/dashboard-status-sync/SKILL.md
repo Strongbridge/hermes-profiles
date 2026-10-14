@@ -143,6 +143,23 @@ A syntax error breaks the dashboard silently — always validate.
 
 ---
 
+## Confirming task-status requests (CLIN9)
+
+When a requester asks to "confirm [task] — [status]" (e.g., "Confirm Imelda's site visit — Complete"), run this workflow:
+
+1. **Investigate the source.** Find the originating note/record — Granola notes, weekly reports, or CLIN9 status docs in the Obsidian vault. Do not accept the requested status at face value.
+2. **Verify against reality.** Determine the true status from the project record (e.g., Imelda departed the project → the site visit is no longer applicable → close the task as complete).
+3. **Update tracking docs.** Record the confirmation in the CLIN9 Sprint Status.md and/or the relevant status summary.
+4. **Push the dashboard.** Run `write_status.py` for the PM role (or the relevant role) so the Firestore status reflects the change.
+5. **Confirm the dashboard.** Tell the requester the status is confirmed and the dashboard is updated.
+
+### Pitfall
+- **Do not close a task based only on the request.** Verify the source record first. A requester's instruction is a proposal, not a completed fact.
+
+## Slack posting gate
+
+Before posting to Slack, run `manage_connections(action='status')` and verify the connector is `connected: true`. If the connector shows `connected: false`, the post will fail until the Slack connector is configured. The dashboard pipeline (write_status.py → Firebase) works independently of Slack.
+
 ## Pitfalls
 
 - **Read before write** — load the existing file first so you don't lose other tasks' status

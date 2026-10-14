@@ -131,6 +131,25 @@ Because Melissa, Daniel, and Anna are heavily shared, handle capacity bottleneck
    - Convert the secondary task's refinement from synchronous sessions to **async ADO user story refinement** (pre-drafting acceptance criteria for async review).
    - Log an automated alert in the roll-up for Dan: `Resource Allocation Decision: [Task A] prioritized over [Task B] for Sprint [X] due to [Reason]`.
 
+## CLIN9 Staffing Transition Documentation
+
+### Procedure — drafting a swap/transition closure summary
+1. **Identify the source record.** Search the Obsidian vault for relevant notes (`search_files` pattern: `swap`, `Charge Code`, `bill rate`, `<name> swap`). Do not rely on Slack alone — the vault is the source of record for CLIN9 content.
+2. **Extract the decision facts.** For each party: current role, proposed role, bill rate, charge code status, and any open conditions.
+3. **Classify status.** Mark each condition: CLOSED (resolved), OPEN (pending sign-off), or REMAINING ACTION.
+4. **Write the document.** Save as `CLIN9 <Party A>-<Party B> Swap - <Subject>.md` in the vault root. Use frontmatter (created date + tags), then sections: Bottom Line, Swap Summary, status per condition, next steps.
+5. **Verify.** Read the file back and confirm all parties, rates, and status labels are accurate against the source record.
+
+### Format conventions
+- Frontmatter: `created: <date>`, `tags:` (clin9, staffing, swap, draft, charge-code)
+- Headings: `# Title`, `## Bottom Line`, `## Swap Summary`, `## Status`, `## Next Steps`
+- Tables for party/role/bill-rate comparisons
+- Bullets with explicit **CLOSED**/**OPEN** labels
+
+### Pitfalls
+- Draft from Slack alone — never. The vault is the source of record; Slack messages rot.
+- Never claim a swap is “CLOSED” on billing until the charge code is actually assigned. Partial closure must so explicitly.
+
 ---
 
 ## ADO Data Input & Capacity Formats
