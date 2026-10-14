@@ -63,3 +63,5 @@ fallback_providers:
     model: poolside/laguna-xs-2.1:free
   - provider: nous
     model: poolside/laguna-s-2.1:free
+command_allowlist:
+  - script execution via -e/-c flag
