@@ -8,6 +8,7 @@ model:
   vertex:
     project_id: project-mgt-report
     region: global
+  provider: vertex
 terminal:
   cwd: C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian
 display:
@@ -27,8 +28,8 @@ platforms:
       C0C48DEPX33: #general
     channel_overrides:
       C0C2HAS5M8W:
-        provider: nous
-        model: upstage/solar-mini4:free
+        provider: vertex
+        model: google/gemini-3.6-flash
       C0C48DEPX33:
         provider: vertex
         model: google/gemini-3.6-flash
@@ -38,7 +39,7 @@ _config_version: 50
 
 fallback_model:
   provider: nous
-  model: inclusionai/ling-3.0-flash-sante:free
+  model: upstage/solar-mini4:free
 fallback_providers:
   - provider: nous
     model: upstage/solar-mini4:free

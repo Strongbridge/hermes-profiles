@@ -76,7 +76,7 @@ platforms:
 #
 fallback_model:
   provider: nous
-  model: inclusionai/ling-3.0-flash-sante:free
+  model: upstage/solar-mini4:free
 fallback_providers:
   - provider: nous
     model: upstage/solar-mini4:free

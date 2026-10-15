@@ -1,6 +1,6 @@
 model:
-  default: upstage/solar-mini4:free
-  provider: nous
+  default: google/gemini-3.6-flash
+  provider: vertex
   vertex:
     project_id: project-mgt-report
     region: global

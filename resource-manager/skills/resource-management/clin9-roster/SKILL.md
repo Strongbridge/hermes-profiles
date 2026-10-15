@@ -15,7 +15,7 @@ metadata:
 
 ## When to use
 
-- **Roster changes**: additions, removals, role updates, PTO/availability changes. Triggered by PM (@drighter) directives or standup reports.
+- **Roster changes**: additions, removals, role updates, PTO/availability changes, and Performance Improvement Plans (PIP) / disciplinary logging. Triggered by PM (@drighter) directives or standup reports.
 - **Capacity tracker updates**: leave, sick, reduced capacity, or overtime requiring capacity recalculation.
 - **Capacity reporting**: weekly capacity summaries posted to #clin9-capacity before Sprint Planning.
 - **Capacity alerts**: critical resource shortages threatening project deadlines.
@@ -64,6 +64,18 @@ When a team member reports OOO, reduced capacity, or sick leave:
 6. **Flag to @drighter** if the reduction threatens a sprint deadline
 7. **Post capacity summary** — write a markdown file to the Obsidian vault covering leave impact, capacity numbers, and risk items
 8. **Flag missing CLIN9 task mapping** — if the member has no current task allocation in `capacity.json` (e.g., O&M staff with no assignment), state in `sprint_impact` that the task is 'unmapped / confirm assignment,' and note the data gap in `availability_notes`. Do not guess hours lost against a task you cannot attribute. Ask the relevant task managers to confirm the sprint assignment before recomputing capacity.
+
+### Performance Improvement Plan (PIP) & Disciplinary Updates
+
+When updating a team member with a PIP or formal performance notice:
+
+1. **Fallback for Slack attachments**: If reading a Slack attachment fails with HTTP 403, search local directories (`OneDrive`, `Downloads`, `Microsoft Teams Chat Files`) with `search_files` for the PDF/file name and parse text layer directly via `read_file`.
+2. **Record in `team_profiles.json`**:
+   - Update `responsibilities` to reflect management review / oversight conditions.
+   - Update `notes` with a `⚠️ Active Performance Improvement Plan (PIP)` flag, effective date, supervisor name, key concerns, and mandatory standards.
+   - Add structured fields: `performance_status` (e.g., `"Active PIP (effective YYYY-MM-DD)"`) and `pip_details` dict containing `effective_date`, `supervisor`, `review_level`, `reasons`, `expectations`, and `consequences`.
+3. **Update `team-profiles.md`**: Update the person's row in the roster markdown table with `⚠️ **Active PIP (Date)**` and summary of conditions.
+4. **Archive in Obsidian Vault**: Create a dedicated record in `O&M/Personnel/` or `Personnel/` (e.g., `PIP Notice - <Name>.md`) containing full document text, background context, review requirements, and disciplinary escalation levels.
 
 ### Format for capacity reports
 
@@ -114,6 +126,7 @@ If a critical resource shortage threatens a project deadline:
 
 ## Pitfalls
 
+- **Slack attachment 403 fallback** — when Slack file download returns 403, search local synced folders (`Downloads`, `Microsoft Teams Chat Files`, `OneDrive`) for the file by name rather than halting.
 - **Name discrepancies must be merged across all data sources** — when the PM flags that two entries are the same person (e.g. "Amivi Seddoh goes by Anna"), consolidate into ONE profile: `name` = the preferred name, `legal_name` = the legal name, and `alias` = "Legal Name (goes by Preferred)". Update the JSON, the Obsidian roster, the org chart, and any capacity/skill-coverage references before posting. Verify with grep that only one active row/card remains.
 - **JSON schema uses `role`** — not `title`; keep field names consistent
 - **Validate after write** — `python3 -c "import json; json.load(open('team_profiles.json'))"`; `python3 -c "import json; json.load(open('capacity.json'))"`; grep removed names to confirm
