@@ -1,6 +1,6 @@
 model:
-  default: google/gemini-3.6-flash
-  provider: vertex
+  default: upstage/solar-mini4:free
+  provider: nous
   vertex:
     project_id: project-mgt-report
     region: global
@@ -25,7 +25,7 @@ onboarding:
 
 fallback_model:
   provider: nous
-  model: inclusionai/ling-3.0-flash-sante:free
+  model: upstage/solar-mini4:free
 command_allowlist:
   - script execution via -e/-c flag
 fallback_providers:

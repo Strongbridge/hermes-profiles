@@ -27,8 +27,8 @@ platforms:
       C0C48DEPX33: #general
     channel_overrides:
       C0C2HAS5M8W:
-        provider: vertex
-        model: google/gemini-3.6-flash
+        provider: nous
+        model: upstage/solar-mini4:free
       C0C48DEPX33:
         provider: vertex
         model: google/gemini-3.6-flash

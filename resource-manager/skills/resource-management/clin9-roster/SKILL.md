@@ -32,10 +32,11 @@ metadata:
 
 1. **Receive directive** — PM names who is added/removed/changed
 2. **Read relevant files** — `team_profiles.json` and `capacity.json` (roster AND capacity tracker)
-3. **Apply roster changes** — add/remove entries; mark departed as `(Departed)` with inactive status
-4. **Apply org chart changes** — remove/add rows; update section header counts
-5. **Validate** — grep for removed names (should return 0); verify JSON parses; check header count matches listed members
-6. **Update capacity tracker** — adjust `capacity.json` for leave/PTO: `total_team_capacity_hours`, `utilization_pct`, `leave_log`
+3. **Check for duplicate/renamed profiles** — cross-reference the roster against the org chart and any human-reported naming discrepancies (e.g. a PM flagging "Amivi Seddoh goes by Anna"). If the same person appears under two names, consolidate into ONE profile: `name` = the preferred name, `legal_name` = the legal name, and `alias` = "Legal Name (goes by Preferred)". Update the JSON, the Obsidian roster, the org chart, and any capacity/skill-coverage references before posting. Verify with grep that only one active row/card remains.
+4. **Apply roster changes** — add/remove entries; mark departed as `(Departed)` with inactive status
+5. **Apply org chart changes** — remove/add rows; update section header counts
+6. **Validate** — grep for removed names (should return 0); verify JSON parses; check header count matches listed members
+7. **Update capacity tracker** — adjust `capacity.json` for leave/PTO: `total_team_capacity_hours`, `utilization_pct`, `leave_log`
 
 ### JSON mutation workflow (for capacity/PTO updates)
 When editing `team_profiles.json` or `capacity.json` (capacity tracker, PTO log, leave log, availability blocks):
@@ -56,11 +57,13 @@ When editing `team_profiles.json` or `capacity.json` (capacity tracker, PTO log,
 When a team member reports OOO, reduced capacity, or sick leave:
 
 1. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
-2. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add entry to `leave_log` with affected tasks and sprint impact; flag members exceeding 85% allocation
-3. **Assess task-level impact** — single-BA tasks (Tasks 3, 4, 5 all depend on Melissa) are at risk when a BA is reduced
-4. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
-5. **Flag to @drighter** if the reduction threatens a sprint deadline
-6. **Post capacity summary** — write a markdown file to the Obsidian vault covering leave impact, capacity numbers, and risk items
+2. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
+3. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add an entry to `leave_log` with affected tasks, sprint impact, and per-date hours; flag members exceeding 85% allocation
+4. **Assess task-level impact** — single-BA tasks (Tasks 3, 4, 5 all depend on Melissa) are at risk when a BA is reduced
+5. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
+6. **Flag to @drighter** if the reduction threatens a sprint deadline
+7. **Post capacity summary** — write a markdown file to the Obsidian vault covering leave impact, capacity numbers, and risk items
+8. **Flag missing CLIN9 task mapping** — if the member has no current task allocation in `capacity.json` (e.g., O&M staff with no assignment), state in `sprint_impact` that the task is 'unmapped / confirm assignment,' and note the data gap in `availability_notes`. Do not guess hours lost against a task you cannot attribute. Ask the relevant task managers to confirm the sprint assignment before recomputing capacity.
 
 ### Format for capacity reports
 
@@ -111,14 +114,14 @@ If a critical resource shortage threatens a project deadline:
 
 ## Pitfalls
 
-- **Two files must stay in sync** — roster changes need BOTH team_profiles.json AND org chart updates; mismatched counts are a silent failure
+- **Name discrepancies must be merged across all data sources** — when the PM flags that two entries are the same person (e.g. "Amivi Seddoh goes by Anna"), consolidate into ONE profile: `name` = the preferred name, `legal_name` = the legal name, and `alias` = "Legal Name (goes by Preferred)". Update the JSON, the Obsidian roster, the org chart, and any capacity/skill-coverage references before posting. Verify with grep that only one active row/card remains.
 - **JSON schema uses `role`** — not `title`; keep field names consistent
 - **Validate after write** — `python3 -c "import json; json.load(open('team_profiles.json'))"`; `python3 -c "import json; json.load(open('capacity.json'))"`; grep removed names to confirm
 - **Headcount in org chart header** — e.g. `CLIN9 *(15 people)*` must equal actual listed active members
 - **Don't assign tasks** — roster changes only; task assignment is @carl's job
 - **Capacity watch** — removing a member from a small team (e.g. TTC with 4 people) may create a bottleneck; flag to @drighter
 - **Capacity updates go in BOTH team_profiles.json AND capacity.json** — the capacity tracker is a separate file (`capacity.json`), not just the notes field; keep both in sync
-- **Solar dates/leave logs must include SLA-holiday overlap** — when leave spans a sprint, account for federal holidays (e.g., Oct 12, 2026) in remaining-day calculations
+- **Verify weekday and holidays before recording PTO** — every leave entry must carry `day_of_week` and `hours_lost`, since capacity math is exact: a standard day = 8h, a federal holiday drops the whole day. E.g., no federal holiday falls in March, so Mar 18, 2027 is a full 8h day. Always check the weekday before logging hours.
 - **Data files live in the Obsidian vault, not the Hermes profile dir** — the roster and capacity JSONs live at `C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian\SB-Hermes\dashboard\data\`; checking the Hermes profile `data/` folder returns nothing. Verify the vault path before reading.
 
 - **Slack vs. Vault formatting** — Markdown tables render in Obsidian but are NOT supported in Slack; use bullet lists or labeled lines for Slack posts
