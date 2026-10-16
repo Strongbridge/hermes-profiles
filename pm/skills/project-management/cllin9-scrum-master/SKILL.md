@@ -62,7 +62,7 @@ Each task has a team of **developer(s)**, a **Business Analyst (BA)**, and a **Q
 
 BA/QA coverage summary:
 - **Melissa** — BA on Tasks 3, 4, 5 (three tasks; heaviest BA load)
-- **Daniel** — BA on Tasks 2, 6, 7 (three tasks)
+- **Daniel** — BA on Tasks 2, 6, 7 (three tasks), plus cross-project support on CARE Toolkit with Adah (O&M)
 - **Anna** — BA on Task 1 only; **QA on Tasks 2–7** (six tasks) — the single biggest shared resource bottleneck overall
 
 If any of these assignments are off, correct them — the skill should reflect the actual team.
@@ -103,7 +103,7 @@ When evaluating board dumps, queries, or status notes, calculate task health usi
   - Mid-Sprint Checkpoint failure: Completed story points **< 40%** at the 50% mark of the sprint cycle.
   - Work-in-Progress (WIP) limit violation: Active items per developer **> 2**.
   - Aging item warning: Any item in `Active` or `In Progress` with zero updates/comments for **> 48 hours**.
-  - Resource conflict: A shared resource (Melissa, Daniel, or Anna) is assigned to heavy refinement or planning in **> 2 active tasks** in the same week.
+  - Resource conflict: A shared resource (Melissa, Daniel, or Anna) is assigned to heavy refinement or planning in **> 2 active tasks** in the same week, or is assigned to external/O&M cross-allocations (e.g. CARE Toolkit).
 - **On Track (Green):**
   - Clear sprint goal established and passing Definition of Ready rules.
   - Mid-sprint progress $\ge 40\%$, WIP per dev $\le 2$, scope growth $\le 15\%$, zero unowned or stale blockers.

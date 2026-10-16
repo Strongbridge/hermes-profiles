@@ -26,6 +26,7 @@ metadata:
 |------|------|---------|
 | `team_profiles.json` | `dashboard/data/team_profiles.json` | Full roster: name, role, org, slack_handle, channels, responsibilities, influence, notes, availability |
 | `capacity.json` | `dashboard/data/capacity.json` | Capacity tracker: total hours, utilization %, leave log, task capacity, sprint context |
+| `resource_capacity.json` | `dashboard/data/resource_capacity.json` | Live HTML dashboard status sync: total capacity hours, utilization %, pto_impact, skill_coverage |
 | `FRADevOps Team - Org Chart.md` | `SB-Hermes/FRADevOps Team - Org Chart.md` | Markdown table — must match active members in JSON |
 
 ## Workflow
@@ -59,11 +60,24 @@ When a team member reports OOO, reduced capacity, or sick leave:
 1. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
 2. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
 3. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add an entry to `leave_log` with affected tasks, sprint impact, and per-date hours; flag members exceeding 85% allocation
-4. **Assess task-level impact** — single-BA tasks (Tasks 3, 4, 5 all depend on Melissa) are at risk when a BA is reduced
+4. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact`, and `skill_coverage`
+5. **Assess task-level impact** — single-point-of-failure roles (e.g. Technical Lead Ryan Powell across Tasks 1–7, single BAs across Tasks 3–5) are at risk when reduced
 5. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
 6. **Flag to @drighter** if the reduction threatens a sprint deadline
 7. **Post capacity summary** — write a markdown file to the Obsidian vault covering leave impact, capacity numbers, and risk items
-8. **Flag missing CLIN9 task mapping** — if the member has no current task allocation in `capacity.json` (e.g., O&M staff with no assignment), state in `sprint_impact` that the task is 'unmapped / confirm assignment,' and note the data gap in `availability_notes`. Do not guess hours lost against a task you cannot attribute. Ask the relevant task managers to confirm the sprint assignment before recomputing capacity.
+8. **Maintain the team calendar** — see 'Team Calendar Maintenance' below for the running 'who is in / who is out' artifact the team uses as its shared capacity-availability view.
+9. **Flag missing CLIN9 task mapping** — if the member has no current task allocation in `capacity.json` (e.g., O&M staff with no assignment), state in `sprint_impact` that the task is 'unmapped / confirm assignment,' and note the data gap in `availability_notes`. Do not guess hours lost against a task you cannot attribute. Ask the relevant task managers to confirm the sprint assignment before recomputing capacity.
+
+### Team Calendar Maintenance
+A running 'who is in / who is out' artifact is the team's shared capacity-availability layer. When the PM or a human asks to 'update the team calendar,' maintain a calendar artifact (not only the JSON leave-log entries):
+
+1. **Locate an existing calendar artifact first** — search the vault for '*calendar*' / '*Calendar*' files (e.g., `team/Calendar/*.md`). If one exists, append to it; do not create a second calendar per session.
+2. **Base entries on the JSON availability fields** — `team_profiles.json` per-member `availability` and `capacity.json` `leave_log` are the source of truth; the markdown calendar is a presentation layer that must stay in sync with them.
+3. **Render the calendar as a Markdown table** (Obsidian renders tables; Slack does NOT). For Slack posts, translate the table into bullet lines or labeled lines.
+4. **Show the current sprint window** — today's status plus the next 7-14 days, so overlapping leaves are visible (e.g., Ryan Powell's Oct 16 sick leave alongside Melissa Willis's Oct 22/Oct 29-30 PTO).
+5. **Flag uncovered roles** — single-point-of-failure roles (e.g., Technical Lead across Tasks 1-7, single BAs across Tasks 3/4/5) are at risk when those members are out.
+6. **Write the calendar file** to `team/Calendar/<Project> Team Calendar.md` in the Obsidian vault.
+7. **Notify in Slack** — post the calendar's headliner to `#clin9-capacity` (bullet/labeled lines, not tables) and tag relevant stakeholders; if a shortage threatens a deadline, alert `#clin9-management` and tag `@drighter`.
 
 ### Performance Improvement Plan (PIP) & Disciplinary Updates
 
@@ -138,6 +152,7 @@ If a critical resource shortage threatens a project deadline:
 - **Data files live in the Obsidian vault, not the Hermes profile dir** — the roster and capacity JSONs live at `C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian\SB-Hermes\dashboard\data\`; checking the Hermes profile `data/` folder returns nothing. Verify the vault path before reading.
 
 - **Slack vs. Vault formatting** — Markdown tables render in Obsidian but are NOT supported in Slack; use bullet lists or labeled lines for Slack posts
+- **Single source of truth for calendar/summary files** — the running team calendar and weekly capacity summary live at ONE canonical location (vault root). Do not mirror the same Markdown summary into both the vault root and `dashboard/data/`; updates will drift apart. `dashboard/data/` holds tracker JSONs and status files; published Markdown summaries live at the vault root.
 - **JSON mutation via Python, not patch** — the patch tool fails on JSON files containing unicode escapes (e.g. `\\u2014` em dash in notes) with `JSONDecodeError`. Mutate with `json.load()` + `json.dump()` in a Python script, then re-validate that the file parses.
 - **Windows native Python path** — when running `python3` through bash (git-bash), a path starting `/c/Users/...` double-escapes to `C:\\c\\Users\\...` and the file is not found. Use the Windows-native path `C:/Users/...` (no leading slash) for `python3 -c` and for running a script file.
 - **Validate JSON after every write** — always re-run `python3 -c \"import json; json.load(open('dashboard/data/capacity.json'))\"` (and `team_profiles.json`) before reporting success; a syntax error breaks the dashboard silently.
