@@ -26,6 +26,7 @@ metadata:
 |------|------|---------|
 | `team_profiles.json` | `dashboard/data/team_profiles.json` | Full roster: name, role, org, slack_handle, channels, responsibilities, influence, notes, availability |
 | `capacity.json` | `dashboard/data/capacity.json` | Capacity tracker: total hours, utilization %, leave log, task capacity, sprint context |
+| `team_pto.json` | `dashboard/data/team_pto.json` | Leave/PTO log: `leaves` array of {id, member_name, role, organization, type, start_date, end_date, days, status, coverage, notes} |
 | `resource_capacity.json` | `dashboard/data/resource_capacity.json` | Live HTML dashboard status sync: total capacity hours, utilization %, pto_impact, skill_coverage |
 | `FRADevOps Team - Org Chart.md` | `SB-Hermes/FRADevOps Team - Org Chart.md` | Markdown table — must match active members in JSON |
 
@@ -39,6 +40,13 @@ metadata:
 6. **Validate** — grep for removed names (should return 0); verify JSON parses; check header count matches listed members
 7. **Update capacity tracker** — adjust `capacity.json` for leave/PTO: `total_team_capacity_hours`, `utilization_pct`, `leave_log`
 
+### Firestore Auto-Push (mandatory final step)
+EVERY team_profiles.json, capacity.json, team_pto.json, or leave/PTO change MUST end with the Firestore push before you reply. See the **Firestore Auto-Push Protocol** below for the exact commands and the required success format.
+
+8. **Update memory** — record what changed
+9. **Post capacity summary** — write to Obsidian vault (`2026-10-14-clin9-capacity-summary.md` pattern)
+10. **Confirm in Slack** — summarize changes and capacity impact in #clin9-capacity
+
 ### JSON mutation workflow (for capacity/PTO updates)
 When editing `team_profiles.json` or `capacity.json` (capacity tracker, PTO log, leave log, availability blocks):
 - **Mutate with Python, not the patch tool.** The patch tool fails on JSON files containing unicode escapes (e.g. `\u2014` em dash in notes) with `JSONDecodeError`. Use `json.load()` + `json.dump()` in a Python script and always re-validate the output parses.
@@ -49,24 +57,42 @@ When editing `team_profiles.json` or `capacity.json` (capacity tracker, PTO log,
 
 - **Markdown reports can also be externally modified.** The weekly capacity summary (`2026-10-14-clin9-capacity-summary.md`) may receive new sections from other agents or updates between your reads. Re-read before patching and confirm the section you intend to edit exists exactly as expected.
 
-7. **Update memory** — record what changed
-8. **Post capacity summary** — write to Obsidian vault (`2026-10-14-clin9-capacity-summary.md` pattern)
-9. **Confirm in Slack** — summarize changes and capacity impact in #clin9-capacity
-
 ## Capacity & Availability Updates
 
 When a team member reports OOO, reduced capacity, or sick leave:
 
 1. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
 2. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
-3. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add an entry to `leave_log` with affected tasks, sprint impact, and per-date hours; flag members exceeding 85% allocation
-4. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact`, and `skill_coverage`
+3. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add an entry to `leave_log` with affected tasks, sprint impact, and per-date hours; flag members exceeding 85% allocation. Then push both trackers to Firestore (mandatory final step):
+   `python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
+   `python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
+
+4. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact`, and `skill_coverage`. Then push:
+   `python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
+
 5. **Assess task-level impact** — single-point-of-failure roles (e.g. Technical Lead Ryan Powell across Tasks 1–7, single BAs across Tasks 3–5) are at risk when reduced
-5. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
-6. **Flag to @drighter** if the reduction threatens a sprint deadline
-7. **Post capacity summary** — write a markdown file to the Obsidian vault covering leave impact, capacity numbers, and risk items
-8. **Maintain the team calendar** — see 'Team Calendar Maintenance' below for the running 'who is in / who is out' artifact the team uses as its shared capacity-availability view.
-9. **Flag missing CLIN9 task mapping** — if the member has no current task allocation in `capacity.json` (e.g., O&M staff with no assignment), state in `sprint_impact` that the task is 'unmapped / confirm assignment,' and note the data gap in `availability_notes`. Do not guess hours lost against a task you cannot attribute. Ask the relevant task managers to confirm the sprint assignment before recomputing capacity.
+6. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
+7. **Flag to @drighter** if the reduction threatens a sprint deadline
+8. **Update `team_pto.json`** — append new leave entry to `leaves` array with fields {id, member_name, role, organization, type, start_date, end_date, days, status, coverage, notes}. Then push:
+   `python write_status.py --role pto --json-file "<path/to/team_pto.json>"`
+9. **Post capacity summary** — write a markdown file to the Obsidian vault covering leave impact, capacity numbers, and risk items
+
+### Firestore Auto-Push Protocol (mandatory final step)
+EVERY roster, capacity, or leave/PTO change MUST end with the Firestore push before you reply. Never consider an update complete until `write_status.py` prints the `[write_status] ✅` confirmation line.
+
+1. **Pull the latest `write_status.py`** from the HermesDashboard repo (`git pull origin main`) or run `write_status.py` from the dashboard repo directory (`dashboard/`).
+2. **Whenever `team_profiles.json` is modified**, execute:
+   `python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
+3. **Whenever `capacity.json` is modified**, execute:
+   `python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
+4. **Whenever a new leave entry is appended to `team_pto.json` under `leaves`**, execute:
+   `python write_status.py --role pto --json-file "<path/to/team_pto.json>"`
+5. **Verify each run prints the required success format** (below) before replying. If any step fails or prints a warning, stop and fix before replying.
+
+Required success format (exact), printed by `write_status.py`:
+- `[write_status] ✅ rm status updated -> team/members`
+- `[write_status] ✅ capacity status updated -> team/capacity`
+- `[write_status] ✅ pto status updated -> team/pto`
 
 ### Team Calendar Maintenance
 A running 'who is in / who is out' artifact is the team's shared capacity-availability layer. When the PM or a human asks to 'update the team calendar,' maintain a calendar artifact (not only the JSON leave-log entries):
@@ -158,5 +184,10 @@ If a critical resource shortage threatens a project deadline:
 - **Validate JSON after every write** — always re-run `python3 -c \"import json; json.load(open('dashboard/data/capacity.json'))\"` (and `team_profiles.json`) before reporting success; a syntax error breaks the dashboard silently.
 - **Alert before acting** — if a critical shortage emerges, alert #clin9-management and tag @drighter first; do not unilaterally reassign team members
 - **Agent-to-Slack constraint** — the agent has no Slack-post API, so the vault file is the authoritative record; the human posts the summary into #clin9-capacity
+
+## Related Skills
+
+- [[lcq-form-management]] — subcontractor Labor Qualification (Exhibit D) form processing: PDF fetch, extraction, team_profiles.json updates, and Firebase sync
+- [[dashboard-status-sync]] — Firestore push protocol
 
 ## Weekly Capacity Summary Protocol

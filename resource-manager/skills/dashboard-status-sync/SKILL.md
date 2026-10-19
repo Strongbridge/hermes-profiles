@@ -33,6 +33,7 @@ Always serve the dashboard via HTTP: `python3 -m http.server 8080` from the `das
 | BA (@business_analyst) | `ba_status.json` |
 | SM (@scrum_master) | `sm_status.json` |
 | Resource Manager (@Resource_Manager) | `resource_capacity.json` |
+| Resource Manager (@Resource_Manager) | `team_pto.json` |
 
 ## How to write your status
 
@@ -143,6 +144,20 @@ python write_status.py --role rm --json-file data/team_update.json
 
 **Important**: `team_members` must be the complete roster — the dashboard merges this data, so omitting a member removes them from the dashboard. Load `data/team_profiles.json` first to get the current full list, then modify only the changed entry.
 
+### Capacity and PTO roles: `--json-file` method
+
+For Resource Manager capacity tracker and leave/PTO updates, use the `--role capacity` and `--role pto` flags:
+
+```bash
+cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard"
+python write_status.py --role capacity --json-file data/capacity.json
+python write_status.py --role pto --json-file data/team_pto.json
+```
+
+`capacity.json` contains the capacity tracker (total hours, utilization %, leave log, task capacity, sprint context). `team_pto.json` contains a `leaves` array of {id, member_name, role, organization, type, start_date, end_date, days, status, coverage, notes}.
+
+**Important**: These roles push directly to Firestore (`team/capacity` and `team/pto`). Always run them after modifying the local JSON files — the Firestore push is the mandatory final step before replying.
+
 ## Pitfalls
 
 - **Read before write** — load the existing file first so you don't lose other data. For RM updates, load `data/team_profiles.json` to get the complete roster before writing `team_update.json`.
@@ -150,5 +165,5 @@ python write_status.py --role rm --json-file data/team_update.json
 - **Timestamps must be ISO** — `2026-09-22T17:50:00Z` format
 - **Server must be running** — `python3 -m http.server 8080` from `dashboard/` dir
 - **Don't use `file://`** — open via `http://127.0.0.1:8080/index.html`
-- **`write_status.py` role support** — the script supports `--role pm|ba|sm|rm`. The `rm` role requires `--json-file` pointing to a JSON with `team_members` (required) and optional `potential_google_candidates`. Script must be patched to add `rm` support if not present (it ships without it — check choices list before assuming).
+- **`write_status.py` role support** — the script supports `--role pm|ba|sm|rm|capacity|pto`. The `rm` role requires `--json-file` pointing to a JSON with `team_members` (required) and optional `potential_google_candidates`. The `capacity` and `pto` roles require `--json-file` pointing to `capacity.json` and `team_pto.json` respectively. Script must be patched to add these roles if not present (check choices list before assuming).
 - **`%%` in argparse help** — `%` is a format character in argparse help strings; use `%%` to escape or Python 3.12+ raises `ValueError: unsupported format character`
