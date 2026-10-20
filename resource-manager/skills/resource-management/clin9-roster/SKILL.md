@@ -15,7 +15,7 @@ metadata:
 
 ## When to use
 
-- **Roster changes**: additions, removals, role updates, PTO/availability changes, and Performance Improvement Plans (PIP) / disciplinary logging. Triggered by PM (@drighter) directives or standup reports.
+- **Roster changes**: additions, removals, role updates, PTO/availability changes, Performance Improvement Plans (PIP) / disciplinary logging, and Annual Merit Increase / Compensation updates. Triggered by PM (@drighter) directives or standup reports.
 - **Capacity tracker updates**: leave, sick, reduced capacity, or overtime requiring capacity recalculation.
 - **Capacity reporting**: weekly capacity summaries posted to #clin9-capacity before Sprint Planning.
 - **Capacity alerts**: critical resource shortages threatening project deadlines.
@@ -117,6 +117,15 @@ When updating a team member with a PIP or formal performance notice:
 3. **Update `team-profiles.md`**: Update the person's row in the roster markdown table with `⚠️ **Active PIP (Date)**` and summary of conditions.
 4. **Archive in Obsidian Vault**: Create a dedicated record in `O&M/Personnel/` or `Personnel/` (e.g., `PIP Notice - <Name>.md`) containing full document text, background context, review requirements, and disciplinary escalation levels.
 
+### Annual Merit Increases & Performance Review Updates
+
+When the PM (@drighter) or management provides team merit increase data:
+
+1. **Slack Attachment Fallback**: If a Slack file attachment (e.g. `image.png` or spreadsheet) fails with HTTP 403, search local synced directories (`OneDrive`, `Microsoft Teams Chat Files`, `Downloads`, `Pictures\Screenshots`) using `search_files` or a Python script filtering recent mtime and keywords (`Merit`, `Screenshot`, `.xlsx`, `.png`).
+2. **Cross-Reference Source Files**: Raw Excel spreadsheets (`Merit 2026 - Dan.xlsx`) may show pre-adjusted Manager Input percentages. Visual schedules or screenshots (`Screenshot...png`) reveal the final pro-rated factor and effective rate. Parse Excel via `read_file` and screenshots via `vision_analyze` to verify all numbers.
+3. **Archive in Obsidian Vault**: Save the complete merit increase table (appraisal ratings, manager inputs, pro-rated factors, final rates) to `O&M/Personnel/YYYY-MM-DD-team-merit-increases.md` with standard frontmatter (`type: personnel-compensation`, `status: approved`).
+4. **Report in Slack**: Provide a structured summary grouped by performance tier (Exceptional, Strong, Consistent) using bullet lists or labeled lines (no Markdown tables in Slack).
+
 ### Format for capacity reports
 
 - **Obsidian vault**: Markdown tables for rosters and capacity forecasts
@@ -167,6 +176,7 @@ If a critical resource shortage threatens a project deadline:
 ## Pitfalls
 
 - **Slack attachment 403 fallback** — when Slack file download returns 403, search local synced folders (`Downloads`, `Microsoft Teams Chat Files`, `OneDrive`) for the file by name rather than halting.
+- **Spreadsheet vs Pro-rated Visual Schedule** — raw merit spreadsheets often contain unadjusted manager inputs; always check for pro-rated factor visual schedules or screenshots to confirm the actual final effective rate when tenure pro-rating applies.
 - **Name discrepancies must be merged across all data sources** — when the PM flags that two entries are the same person (e.g. "Amivi Seddoh goes by Anna"), consolidate into ONE profile: `name` = the preferred name, `legal_name` = the legal name, and `alias` = "Legal Name (goes by Preferred)". Update the JSON, the Obsidian roster, the org chart, and any capacity/skill-coverage references before posting. Verify with grep that only one active row/card remains.
 - **JSON schema uses `role`** — not `title`; keep field names consistent
 - **Validate after write** — `python3 -c "import json; json.load(open('team_profiles.json'))"`; `python3 -c "import json; json.load(open('capacity.json'))"`; grep removed names to confirm
