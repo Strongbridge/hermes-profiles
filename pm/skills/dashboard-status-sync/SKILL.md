@@ -143,6 +143,28 @@ A syntax error breaks the dashboard silently — always validate.
 
 ---
 
+## Capturing a new or commencing task
+
+When a team member posts that work is beginning (e.g., "Arsene is beginning work on X"), run this branch before touching any health value:
+
+1. **Do not accept the report at face value.** Find the originating record — ADO/CLIN9 status docs, weekly reports, or CLIN9 Sprint Status.md — and confirm the work actually exists.
+2. **Map it.** Check the baseline 7-task structure (Task 1–7: PMT, Track Inspection POC, MCIA RCA, Visualizer, RSAC, Quiet Zone, SharePoint). If the item matches a task, update that task entry. If not, record it as a **new task**.
+3. **Set the health.** A new commencing item is at minimum `yellow` (unmapped, not yet productive). Do not mark `green` until it maps and shows delivered value.
+4. **Record it.** Add a `task_health` entry (and a note) in `pm_status.json`, and a matching section in `CLIN9 Sprint Status.md`. Refresh `last_updated` and `updated_by`.
+5. **Flag for sign-off.** Tag @drighter (PM) to confirm or exclude the mapping. An unmapped item is a sign-off item, not a resolved health status.
+6. **Confirm in Slack.** Only if the Slack connector is `connected: true`; otherwise leave the update as a note and flag the posting gap.
+
+| New item in baseline? | Starting health | Action |
+|---------------------|----------------|--------|
+| Yes (task 1–7) | green / yellow / red | Update that task's entry only |
+| No | yellow | Add a new task entry + flag mapping to PM |
+
+### Pitfalls
+- **Verify the work item's mapping to the baseline 7-task structure before recording health.** A team member's report of new work is a proposal, not a confirmed status — check the baseline 7-task structure first.
+- **Record a new item at yellow until its mapping is confirmed.** An unmapped item cannot be `green` until it is validated against the baseline structure.
+
+---
+
 ## Confirming task-status requests (CLIN9)
 
 When a requester asks to "confirm [task] — [status]" (e.g., "Confirm Imelda's site visit — Complete"), run this workflow:
@@ -153,9 +175,24 @@ When a requester asks to "confirm [task] — [status]" (e.g., "Confirm Imelda's 
 4. **Push the dashboard.** Run `write_status.py` for the PM role (or the relevant role) so the Firestore status reflects the change.
 5. **Confirm the dashboard.** Tell the requester the status is confirmed and the dashboard is updated.
 
-### Pitfall
-- **Do not close a task based only on the request.** Verify the source record first. A requester's instruction is a proposal, not a completed fact.
+### Closing a decision item (e.g., scope decision)
 
+When a requester asks to "close" a decision item (e.g., "close the Track Inspection scope decision"), the item is only closable once the decision has actually been made and recorded. Follow this workflow:
+
+1. **Investigate the source.** Search the Obsidian vault for the originating note/record, ADO exports, or CLIN9 status docs. In this session: the scope decision came from `clin9_daily_brief.md` (Sept 18, asking Robert for the go/no-go) and `CLIN9-Status-Update-2026-09-23.md` (listing it as Next Steps/Asks item #2).
+2. **Verify against reality.** Determine the true decision from the project record. In the CLIN9 scope-decision case: Robert's PM-status note already recorded `Scope decision confirmed with Federal PM (Robert): No formal scope change needed at this time. Removing 4 out-of-scope items. Mapped scope proceeding.` Verify the actual resolution before closing anything — a requester's instruction is a proposal, not a completed fact.
+3. **Update tracking docs.** Record the closed decision in every relevant tracker:
+   - `dashboard/data/pm_status.json` — Task `health` stays `yellow` (POC still in progress) but update `task_health["2"].notes` to record the closure and the resolution facts (removed items, retained items, mapped scope direction).
+   - `clin9_daily_brief.md` — replace the open-question/ask with a `**RESOLVED — <date>**` note showing the decision and resolution.
+   - Any `CLIN9-Status-Update-*.md` or Sprint Status file — mark the decision item `✅ RESOLVED <date>` with the resolution facts.
+4. **Push the dashboard.** Run `write_status.py` for the PM role so the Firestore status reflects the change:
+   ```bash
+   python write_status.py --role pm --health yellow --health-rationale "..." --tasks "1:green,2:yellow,3:green,4:gray,5:yellow,6:green,7:gray"
+   ```
+5. **Confirm the dashboard.** Tell the requester the decision item is closed and the dashboard is updated. The dashboard auto-refreshes every 60 seconds.
+
+### Pitfall
+- **Do not close a decision based only on the request.** Verify the decision was actually made and recorded before marking it closed. A requester's instruction to "close this item" is a proposal — the decision must be confirmed against the source record first. In this session, the scope decision was already confirmed in Robert's PM-status note (Sept 13), so it was safe to close; but always confirm the source record first.
 ## Slack posting gate
 
 Before posting to Slack, run `manage_connections(action='status')` and verify the connector is `connected: true`. If the connector shows `connected: false`, the post will fail until the Slack connector is configured. The dashboard pipeline (write_status.py → Firebase) works independently of Slack.

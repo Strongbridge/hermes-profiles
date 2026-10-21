@@ -152,6 +152,43 @@ Because Melissa, Daniel, and Anna are heavily shared, handle capacity bottleneck
 
 ---
 
+## CLIN9 Decision Closure — PM-Level Status Workflow
+
+When a CLIN9 decision item (e.g., **Track Inspection scope decision** — remove vs. scope change) needs closure, follow this workflow. It is the PM (Dan Righter) level of `dashboard-status-sync`; this skill covers the CLIN9 task context.
+
+1. **Investigate the source.** Search the Obsidian vault for the originating note/record (CLIN9 Daily Brief, CLIN9-Status-Update, ADO exports). Verify the decision was actually made by the responsible stakeholder (Robert / PM) before closing anything.
+2. **Record the resolution in the PM tracker.** Update `dashboard/data/pm_status.json`, `task_health["2"].notes` for Track Inspection POC (Task 2) to record: closure status, resolution facts (items removed, items retained), and forward direction.
+3. **Update the CLIN9 status documentation.** Reflect the resolution in `clin9_daily_brief.md` and `CLIN9-Status-Update-*.md` (mark `✅ RESOLVED <date>` with the resolution facts).
+4. **Push to the dashboard.** Run `write_status.py` for the PM role so the Firestore status reflects the change.
+
+### The Track Inspection scope decision (Task 2) — precedent
+- **Decision (2026-10-21):** Robert confirmed **no formal scope change warranted**. Resolution: **remove 4 out-of-scope items** (44611 Data Queue Sync, 44612 RSIS Sync, 44613 Downstream Integration); **retain 44610 Offline Data Queue** for NFR-9. Mapped scope proceeding.
+- **Recorded in:** `dashboard/data/pm_status.json` (task_health[2].notes), `clin9_daily_brief.md`, `CLIN9-Status-Update-2026-09-23.md`, and Firestore via `write_status.py`.
+
+### Pitfall
+- **Do not close a decision based only on the request.** Verify the decision was made and recorded by the responsible stakeholder (Robert/PM) against the source record first. In this session the scope decision was already confirmed in Robert's PM-status note (Sept 13), so it was safe to close; always confirm the source record first.
+
+## CLIN9 Status Inquiry Lookup
+
+When a stakeholder asks for the status of a CLIN9 item (a task, a new work item, a deliverable), use this lookup workflow:
+
+1. **Disambiguate the term.** CLIN9 acronyms are ambiguous ("ATS" = "ATS Single Audit Change Request", a new work item). Search the vault for the term (`search_files` pattern: `<term>`) before answering — the project record is the source of truth, never an assumption.
+2. **Check the dashboard data file first.** `dashboard/data/pm_status.json` (read via read_file) is the authoritative status roll-up and the source the Firestore dashboard reads. Verify the item's health there before asserting anything.
+3. **Read the CLIN9 status docs.** `clin9_daily_brief.md`, `CLIN9-Status-Update-*.md`, and `CLIN9 Sprint Status.md` carry the narrative, open questions, and pending confirmations (e.g., "mapping to a CLIN9 task pending confirmation with drighter").
+4. **Check baseline-vs-actual task keys.** The `task_health` object in pm_status.json is keyed by task number and is NOT limited to the baseline 7 tasks. New or task-line items appear as their own keys (e.g., `"8"` → ATS Single Audit Change Request). If the item is not a baseline task, report it as a new work item under its parent task line, with its owner, health, and any open mapping/confirmation question.
+
+### Status value map (task_health / overall)
+- **green** — on track / complete / pass / resolved
+- **yellow** — in progress / at risk / new item commencing
+- **red** — blocked / delayed / fail
+- **gray** — pending / not yet scheduled / awaiting authorization
+
+### Pitfalls
+- **Do not answer from a 7-task-centric assumption.** The baseline is 7 tasks, but the tracker now has 8+ (see `task_health` keys). A "task 8" may exist and be at risk, not missing.
+- **Do not answer from memory.** Read `dashboard/data/pm_status.json` and the vault docs before asserting a status — statuses change and the file is the source of record.
+
+---
+
 ## ADO Data Input & Capacity Formats
 
 ### Expected Input Pattern (Raw ADO Exports / Query Snippets)
