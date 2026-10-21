@@ -1,0 +1,13 @@
+model:
+  default: poolside/laguna-xs-2.1:free
+  provider: nous
+  base_url: https://inference-api.nousresearch.com/v1
+  aliases:
+    local-ollama: gemma4:e4b
+_config_version: 50
+fallback_model:
+  provider: nous
+  model: upstage/solar-mini4:free
+onboarding:
+  seen:
+    profile_build_offered: true

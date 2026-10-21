@@ -25,15 +25,32 @@ C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboa
 
 Always serve the dashboard via HTTP: `python3 -m http.server 8080` from the `dashboard/` directory, then open `http://127.0.0.1:8080/index.html`.
 
-## Your status file
+## Dashboard data directory
 
-| Bot | File |
-|-----|------|
-| PM (@project_manager) | `pm_status.json` |
-| BA (@business_analyst) | `ba_status.json` |
-| SM (@scrum_master) | `sm_status.json` |
-| Resource Manager (@Resource_Manager) | `resource_capacity.json` |
-| Resource Manager (@Resource_Manager) | `team_pto.json` |
+```
+C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard/data/
+```
+
+Always serve the dashboard via HTTP: `python3 -m http.server 8080` from the `dashboard/` directory, then open `http://127.0.0.1:8080/index.html`.
+
+## Dashboard write_status.py (RUNTIME SCRIPT)
+
+Use the dashboard's own `write_status.py` — **do NOT use local copies anywhere else in the file system**.
+
+```bash
+cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard"
+python write_status.py --portfolio clin9 --role rm --json-file "data/team_update.json" --tasks "1:pass,2:in_progress,3:in_progress,4:in_progress,5:in_progress,6:in_progress,7:in_progress" --notes "..."
+```
+
+**Required:** `--tasks` must map out every single task in the sprint (use `--tasks "1:pass,2:in_progress,..."` at minimum). The pipeline enforces this on every RM write.
+
+**Required flags for every RM dashboard write:**
+- `--portfolio clin9` (default portfolio)
+- `--role rm`
+- `--json-file` pointing to the JSON payload
+- `--tasks` mapping every task (see format below)
+
+**--tasks format:** `"1:pass,2:in_progress,3:in_progress,4:in_progress,5:in_progress,6:in_progress,7:in_progress"` — use the exact status token per task (pass/in_progress/blocked/red/fail etc.).
 
 ## How to write your status
 

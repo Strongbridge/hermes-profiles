@@ -1,0 +1,62 @@
+{
+  "jobs": [
+    {
+      "id": "490b2baf1fc4",
+      "name": "RSIS Helpdesk Follow-up Reminder",
+      "prompt": "You are helping DanRighter follow up on the RSIS helpdesk email and phone number.\n\nContext:\n- He reached out to Christina and Shristy again this morning (Tuesday, August 25, 2026) about getting the correct RSIS helpdesk contact info.\n- Note is saved at: SB-Hermes/RSIS Helpdesk Follow-up.md in the Obsidian vault.\n\nPlease remind him to follow up on this. Ask if he's heard back from Christina or Shristy, and nudge him to keep pushing until he gets the helpdesk email and phone number confirmed. Keep it brief.",
+      "skills": [],
+      "skill": null,
+      "model": "upstage/solar-pro4:free",
+      "provider": "nous",
+      "provider_snapshot": null,
+      "model_snapshot": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "interval",
+        "minutes": 1440,
+        "display": "every 1440m"
+      },
+      "schedule_display": "every 1440m",
+      "repeat": {
+        "times": null,
+        "completed": 14
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-08-25T10:57:30.218239-04:00",
+      "next_run_at": "2026-09-09T12:18:06.090351-04:00",
+      "last_run_at": "2026-09-08T12:18:06.090351-04:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "slack",
+        "chat_id": "C0BSK6369D0",
+        "chat_name": "fradevops",
+        "thread_id": "1787668392.794859",
+        "user_id": "U0BTDGZ88L8",
+        "scope_id": "T0BSK5G5EKC"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "fire_claim": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-09-08T12:17:12.578788-04:00",
+        "dispatched_at": "2026-09-08T12:17:47.259767-04:00",
+        "lateness_seconds": 34.7,
+        "kind": "on_time"
+      }
+    }
+  ],
+  "updated_at": "2026-09-08T12:18:06.093257-04:00"
+}

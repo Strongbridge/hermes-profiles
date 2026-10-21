@@ -1,0 +1,25 @@
+{
+  "source": "skills-sh/composiohq/skills/composio",
+  "source_url": "https://github.com/composiohq/skills/tree/c4b270016aa8c832bb6d5824175da1bb94690b89/skills/composio",
+  "bundle_hash": "sha256:f40f16a6d127d72bf3c79263178ea2a8673197f343c84ef870ade9541a587655",
+  "scanner_version": "skills-guard-v1",
+  "verdict": "dangerous",
+  "trust_level": "community",
+  "findings": [
+    {
+      "pattern_id": "curl_pipe_shell",
+      "severity": "critical",
+      "category": "supply_chain",
+      "file": "SKILL.md",
+      "line": 18,
+      "match": "curl -fsSL https://composio.dev/install | bash",
+      "description": "curl piped to shell (download-and-execute)"
+    }
+  ],
+  "rules": [
+    "curl_pipe_shell"
+  ],
+  "scanned_at": "2026-08-25T16:30:19.282946+00:00",
+  "summary": "composio: dangerous \u2014 1 finding(s) in supply_chain",
+  "fresh": true
+}

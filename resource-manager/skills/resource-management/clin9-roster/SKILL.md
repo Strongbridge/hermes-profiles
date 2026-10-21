@@ -153,9 +153,22 @@ Keep in JSON but mark inactive:
 ```
 Remove from org chart active tables only; update CLIN9 header count.
 
-## Weekly Capacity Summary Protocol
+## Dashboard sync (RM rolls)
 
-Before Sprint Planning, post a capacity summary to #clin9-capacity:
+For Resource Manager updates that include team member arrays or candidate data, use the **dashboard's own write_status.py** — the script at `C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard/write_status.py` (the dashboard root, not a copy elsewhere in the file system):
+
+```bash
+cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard"
+python write_status.py --portfolio clin9 --role rm --json-file "data/team_update.json" --tasks "1:pass,2:in_progress,3:in_progress,4:in_progress,5:in_progress,6:in_progress,7:in_progress" --notes "..."
+```
+
+**Required flags for every RM dashboard write:**
+- `--portfolio clin9` (default portfolio)
+- `--role rm`
+- `--json-file` pointing to the JSON payload
+- `--tasks` MUST map out every single task in the sprint (format: `"1:pass,2:in_progress,3:in_progress,4:in_progress,5:in_progress,6:in_progress,7:in_progress"`)
+
+**Read-before-write:** load `data/team_profiles.json` (and/or `data/capacity.json`) first so you don't lose other data. These files are externally synced and can change between reads. A patch attempt may return 'modified since last read' — check the file state first.
 
 1. **Total team capacity** — available hours for the sprint (after PTO/holiday deductions)
 2. **Per-team-member allocation** — who is on what task, at what percentage, and remaining capacity
@@ -193,7 +206,7 @@ If a critical resource shortage threatens a project deadline:
 - **Windows native Python path** — when running `python3` through bash (git-bash), a path starting `/c/Users/...` double-escapes to `C:\\c\\Users\\...` and the file is not found. Use the Windows-native path `C:/Users/...` (no leading slash) for `python3 -c` and for running a script file.
 - **Validate JSON after every write** — always re-run `python3 -c \"import json; json.load(open('dashboard/data/capacity.json'))\"` (and `team_profiles.json`) before reporting success; a syntax error breaks the dashboard silently.
 - **Alert before acting** — if a critical shortage emerges, alert #clin9-management and tag @drighter first; do not unilaterally reassign team members
-- **Agent-to-Slack constraint** — the agent has no Slack-post API, so the vault file is the authoritative record; the human posts the summary into #clin9-capacity
+- **Agent-to-Slack posting** — the agent CAN post to Slack via `connectors__slack__SEND_MESSAGE` once the Slack connector is authorized (`manage_connections` action=connect). Verify connection status first — `manage_connections` action=status shows `connected:false` until authorized. When authorized, post capacity summaries directly to `#clin9-capacity` using the Slack send_message connector. Channel IDs: `#devops-team` = `C0C4APQ8EJ1`.
 
 ## Related Skills
 

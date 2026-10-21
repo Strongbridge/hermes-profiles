@@ -1,0 +1,24 @@
+{
+  "_comment": "UniFi WireGuard client creation config",
+  "_notes": [
+    "controller_url: base URL for the UniFi Network API.",
+    "  - Cloud-hosted console (via Site Manager connector):",
+    "    https://api.ui.com/v1/connector/consoles/{consoleId}/network/integration",
+    "    Replace {consoleId} with the full console ID from the console URL,",
+    "    e.g. 8C3066F4A00F000000000A031C6E000000000A9276B40000000069D8E265:168355353",
+    "  - Direct console (self-hosted or reachable on LAN):",
+    "    https://{console-host-ip-or-hostname}/proxy/network/integration",
+    "    e.g. https://192.168.1.1/proxy/network/integration",
+    "  - The script uses this as the base for all API calls. Do NOT include",
+    "    /v1/ at the end — the script appends /v1/sites/... etc."
+  ],
+  "controller_url": "https://api.ui.com/v1/connector/consoles/8C3066F4A00F000000000A031C6E000000000A9276B40000000069D8E265:168355353/network/integration",
+  "api_key": "gmuK1_l4CzdSGIzrGoITn36qC7LYz3CM",
+  "site_id": "default",
+  "vpn_id": "WireGuard1",
+  "vpn_subnet_cidr": "192.168.3.0/24",
+  "vpn_server_public_key": "oC1SzPBjRURW213U+kpsbsCMIJHARt7iG9cqA55c1zw=",
+  "vpn_server_endpoint": "23.31.111.185:51820",
+  "vpn_dns": ["192.168.3.1", "fd01:ec44:d2bd:b589::1"],
+  "output_dir": "C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Downloads"
+}

@@ -1,0 +1,323 @@
+{
+  "version": 1,
+  "installed": {
+    "ascii-art": {
+      "source": "official",
+      "identifier": "official/creative/ascii-art",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:29e23c2fdb90e5ab",
+      "install_path": "creative/ascii-art",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:08.071981+00:00",
+      "updated_at": "2026-09-04T12:19:08.071981+00:00"
+    },
+    "excalidraw": {
+      "source": "official",
+      "identifier": "official/creative/excalidraw",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:359112274e8262e0",
+      "install_path": "creative/excalidraw",
+      "files": [
+        "references/colors.md",
+        "references/dark-mode.md",
+        "references/examples.md",
+        "scripts/upload.py",
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:09.130784+00:00",
+      "updated_at": "2026-09-04T12:19:09.130784+00:00"
+    },
+    "pretext": {
+      "source": "official",
+      "identifier": "official/creative/pretext",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:9e2e8f6151b4be1b",
+      "install_path": "creative/pretext",
+      "files": [
+        "references/patterns.md",
+        "SKILL.md",
+        "templates/donut-orbit.html",
+        "templates/hello-orb-flow.html"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:09.594814+00:00",
+      "updated_at": "2026-09-04T12:19:09.594814+00:00"
+    },
+    "sketch": {
+      "source": "official",
+      "identifier": "official/creative/sketch",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:bea886ff483216bf",
+      "install_path": "creative/sketch",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:09.634514+00:00",
+      "updated_at": "2026-09-04T12:19:09.634514+00:00"
+    },
+    "touchdesigner-mcp": {
+      "source": "official",
+      "identifier": "official/creative/touchdesigner-mcp",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:0c6b0a3ffb64b73c",
+      "install_path": "creative/touchdesigner-mcp",
+      "files": [
+        "references/3d-scene.md",
+        "references/animation.md",
+        "references/audio-reactive.md",
+        "references/dat-scripting.md",
+        "references/external-data.md",
+        "references/geometry-comp.md",
+        "references/glsl.md",
+        "references/layout-compositor.md",
+        "references/mcp-tools.md",
+        "references/midi-osc.md",
+        "references/network-patterns.md",
+        "references/operator-tips.md",
+        "references/operators.md",
+        "references/panel-ui.md",
+        "references/particles.md",
+        "references/pitfalls.md",
+        "references/postfx.md",
+        "references/projection-mapping.md",
+        "references/python-api.md",
+        "references/replicator.md",
+        "references/troubleshooting.md",
+        "scripts/setup.sh",
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:10.378410+00:00",
+      "updated_at": "2026-09-04T12:19:10.378410+00:00"
+    },
+    "evaluating-llms-harness": {
+      "source": "official",
+      "identifier": "official/mlops/evaluation/evaluating-llms-harness",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:b518f45966286421",
+      "install_path": "mlops/evaluation/evaluating-llms-harness",
+      "files": [
+        "references/api-evaluation.md",
+        "references/benchmark-guide.md",
+        "references/custom-tasks.md",
+        "references/distributed-eval.md",
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:10.700246+00:00",
+      "updated_at": "2026-09-04T12:19:10.700246+00:00"
+    },
+    "weights-and-biases": {
+      "source": "official",
+      "identifier": "official/mlops/evaluation/weights-and-biases",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:4286e3db3985d52f",
+      "install_path": "mlops/evaluation/weights-and-biases",
+      "files": [
+        "references/artifacts.md",
+        "references/integrations.md",
+        "references/sweeps.md",
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:10.987785+00:00",
+      "updated_at": "2026-09-04T12:19:10.987785+00:00"
+    },
+    "llama-cpp": {
+      "source": "official",
+      "identifier": "official/mlops/inference/llama-cpp",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:43a4ec8fb07acce8",
+      "install_path": "mlops/inference/llama-cpp",
+      "files": [
+        "references/advanced-usage.md",
+        "references/hub-discovery.md",
+        "references/optimization.md",
+        "references/quantization.md",
+        "references/server.md",
+        "references/troubleshooting.md",
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:11.193839+00:00",
+      "updated_at": "2026-09-04T12:19:11.193839+00:00"
+    },
+    "serving-llms-vllm": {
+      "source": "official",
+      "identifier": "official/mlops/inference/serving-llms-vllm",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:688c281ab63bb0ea",
+      "install_path": "mlops/inference/serving-llms-vllm",
+      "files": [
+        "references/optimization.md",
+        "references/quantization.md",
+        "references/server-deployment.md",
+        "references/troubleshooting.md",
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:11.322387+00:00",
+      "updated_at": "2026-09-04T12:19:11.322387+00:00"
+    },
+    "huggingface-hub": {
+      "source": "official",
+      "identifier": "official/mlops/huggingface-hub",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:55fa8eb6c3b4be8c",
+      "install_path": "mlops/huggingface-hub",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:11.336849+00:00",
+      "updated_at": "2026-09-04T12:19:11.336849+00:00"
+    },
+    "openhue": {
+      "source": "official",
+      "identifier": "official/smart-home/openhue",
+      "trust_level": "builtin",
+      "scan_verdict": "backfilled",
+      "content_hash": "sha256:177f4de2ef06e4d9",
+      "install_path": "smart-home/openhue",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {
+        "backfilled_from": "optional-skills"
+      },
+      "installed_at": "2026-09-04T12:19:14.174928+00:00",
+      "updated_at": "2026-09-04T12:19:14.174928+00:00"
+    },
+    "grok": {
+      "source": "official",
+      "identifier": "official/autonomous-ai-agents/grok",
+      "trust_level": "builtin",
+      "scan_verdict": "dangerous",
+      "content_hash": "sha256:6c0f764fdbc2bc07",
+      "install_path": "autonomous-ai-agents/grok",
+      "files": [
+        "SKILL.md"
+      ],
+      "metadata": {},
+      "scan_provenance": {
+        "bundle_hash": "sha256:6c0f764fdbc2bc07fdaed20c3b954179e6c8f7654277ec544e32e194acb16bc5",
+        "scanner_version": "skills-guard-v2",
+        "source": "official",
+        "source_url": "official/autonomous-ai-agents/grok",
+        "verdict": "dangerous",
+        "trust_level": "builtin",
+        "findings": [
+          {
+            "pattern_id": "curl_pipe_shell",
+            "severity": "critical",
+            "category": "supply_chain",
+            "file": "SKILL.md",
+            "line": 37,
+            "match": "- The official installer `curl -fsSL https://x.ai/cli/install.sh | bash` also",
+            "description": "curl piped to shell (download-and-execute)"
+          },
+          {
+            "pattern_id": "unpinned_npm_install",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "SKILL.md",
+            "line": 36,
+            "match": "- **Install (preferred):** `npm install -g @xai-official/grok`",
+            "description": "npm install without version pinning"
+          },
+          {
+            "pattern_id": "unpinned_npm_install",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "SKILL.md",
+            "line": 280,
+            "match": "4. **Prefer npm install over the curl installer** — `npm install -g",
+            "description": "npm install without version pinning"
+          },
+          {
+            "pattern_id": "git_clone",
+            "severity": "medium",
+            "category": "supply_chain",
+            "file": "SKILL.md",
+            "line": 205,
+            "match": "terminal(command=\"REVIEW=$(mktemp -d) && git clone https://github.com/user/repo.git $REVIEW && cd $REVIEW && gh pr ch...",
+            "description": "clones a git repository at runtime"
+          },
+          {
+            "pattern_id": "agent_config_ref",
+            "severity": "low",
+            "category": "persistence",
+            "file": "SKILL.md",
+            "line": 49,
+            "match": "- **Claude Code / AGENTS.md compatible with zero config** — Grok auto-reads",
+            "description": "references agent config files (informational; only modification intent is scored)"
+          },
+          {
+            "pattern_id": "agent_config_ref",
+            "severity": "low",
+            "category": "persistence",
+            "file": "SKILL.md",
+            "line": 50,
+            "match": "`CLAUDE.md`, `.claude/` (skills, agents, MCPs, hooks, rules), and the",
+            "description": "references agent config files (informational; only modification intent is scored)"
+          },
+          {
+            "pattern_id": "agent_config_ref",
+            "severity": "low",
+            "category": "persistence",
+            "file": "SKILL.md",
+            "line": 51,
+            "match": "`AGENTS.md` family. Existing project context just works.",
+            "description": "references agent config files (informational; only modification intent is scored)"
+          }
+        ],
+        "rules": [
+          "agent_config_ref",
+          "curl_pipe_shell",
+          "git_clone",
+          "unpinned_npm_install"
+        ],
+        "scanned_at": "2026-09-04T16:23:24.170706+00:00",
+        "summary": "grok: dangerous — 7 finding(s) in persistence, supply_chain",
+        "fresh": true
+      },
+      "installed_at": "2026-09-04T16:23:24.219105+00:00",
+      "updated_at": "2026-09-04T16:23:24.219105+00:00"
+    }
+  }
+}

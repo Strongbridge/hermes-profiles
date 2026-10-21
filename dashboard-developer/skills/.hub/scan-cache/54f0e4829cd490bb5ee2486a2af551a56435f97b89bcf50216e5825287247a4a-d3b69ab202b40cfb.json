@@ -1,0 +1,53 @@
+{
+  "bundle_hash": "sha256:54f0e4829cd490bb5ee2486a2af551a56435f97b89bcf50216e5825287247a4a",
+  "scanner_version": "skills-guard-v8",
+  "source": "@asif2bd/openclaw-token-optimizer",
+  "source_url": "@asif2bd/openclaw-token-optimizer",
+  "verdict": "safe",
+  "trust_level": "community",
+  "findings": [
+    {
+      "pattern_id": "agent_config_ref",
+      "severity": "low",
+      "category": "persistence",
+      "file": "CHANGELOG.md",
+      "line": 59,
+      "match": "- Changed `context_optimizer.py generate-agents` to print to stdout by default; writing `AGENTS.md.optimized` now req...",
+      "description": "references agent config files (informational; only modification intent is scored)"
+    },
+    {
+      "pattern_id": "agent_config_ref",
+      "severity": "low",
+      "category": "persistence",
+      "file": "CHANGELOG.md",
+      "line": 87,
+      "match": "- **Bootstrap size limits patch** \u2014 `bootstrapMaxChars` / `bootstrapTotalMaxChars` config keys to cap how large works...",
+      "description": "references agent config files (informational; only modification intent is scored)"
+    },
+    {
+      "pattern_id": "agent_config_ref",
+      "severity": "low",
+      "category": "persistence",
+      "file": "README.md",
+      "line": 135,
+      "match": "python3 scripts/optimizer.py context /path/to/SOUL.md /path/to/AGENTS.md --json",
+      "description": "references agent config files (informational; only modification intent is scored)"
+    },
+    {
+      "pattern_id": "python_subprocess",
+      "severity": "medium",
+      "category": "execution",
+      "file": "scripts\\optimizer.py",
+      "line": 28,
+      "match": "result = subprocess.run(['openclaw', *args], capture_output=True, text=True, timeout=45, check=False)",
+      "description": "Python subprocess execution"
+    }
+  ],
+  "rules": [
+    "agent_config_ref",
+    "python_subprocess"
+  ],
+  "scanned_at": "2026-10-05T03:13:51.514421+00:00",
+  "summary": "openclaw-token-optimizer: safe \u2014 4 finding(s) in execution, persistence",
+  "fresh": true
+}

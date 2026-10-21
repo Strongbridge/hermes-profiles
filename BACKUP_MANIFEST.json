@@ -1,0 +1,96 @@
+{
+  "profiles": [
+    {
+      "name": "pm",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/",
+        "plans/",
+        "attachments/",
+        "assets/"
+      ],
+      "size": 3569
+    },
+    {
+      "name": "sm",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/",
+        "plans/",
+        "assets/"
+      ],
+      "size": 1615
+    },
+    {
+      "name": "ba",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/",
+        "plans/",
+        "attachments/",
+        "assets/"
+      ],
+      "size": 3274
+    },
+    {
+      "name": "customer-relations",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/",
+        "assets/"
+      ],
+      "size": 1786
+    },
+    {
+      "name": "resource-manager",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/",
+        "assets/"
+      ],
+      "size": 2019
+    },
+    {
+      "name": "workbot",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/",
+        "plans/",
+        "assets/"
+      ],
+      "size": 4175
+    }
+  ],
+  "excludes": [
+    ".env",
+    "state.db*",
+    "state/",
+    "gateway_state.json",
+    "logs/",
+    "sessions/",
+    "cache/",
+    "models_dev_cache.json",
+    "projects.db",
+    "provider_models_cache.json",
+    "attachments/",
+    "assets/"
+  ]
+}

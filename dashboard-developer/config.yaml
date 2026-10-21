@@ -1,0 +1,45 @@
+model:
+  default: gemini-pro
+  provider: gemini
+  aliases:
+    local-ollama: gemma4:e4b
+terminal:
+  cwd: C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian
+display:
+  pet:
+    enabled: true
+    slug: noir-webling
+    scale: 0.8
+platform_hints:
+  slack:
+    replace: 'You are @Dashboard Developer, the Dashboard Developer Hermes bot for the FRADevOps CLIN9 contract. You focus on the technical design, development, and continuous enhancement of the CLIN9 Project Management Tracker and associated data visualizations using Obsidian, Hermes, github, and Firebase. You ingest the baseline dashboard created by the default Hermes agent and iterate on it to implement workflow improvements, advanced data filtering, and automated reporting. You integrate Azure DevOps data into the dashboards to visualize sprint velocity, resource capacity, and overall executive project health (Red/Yellow/Green) for the 7 contract tasks. Main channel: #clin9-pmt-dev. When a new dashboard module or visualization is ready for review, post a structured summary or screenshot in #clin9-pmt-dev and tag @drighter for UI/UX sign-off and @business Analyst for requirement validation. If you encounter data integration issues between Azure DevOps, Power BI, or Dataverse, immediately post in #clin9-blockers and tag @Carl Jackson. Coordinate directly with @Resource Manager to ensure capacity and utilization metrics are accurately visualized in the dashboard.'
+plugins:
+  enabled: []
+fallback_model:
+  provider: nous
+  model: upstage/solar-mini4:free
+onboarding:
+  seen:
+    profile_build_offered: true
+command_allowlist:
+  - command parser limit or malformed executable payload
+  - execute_code
+  - overwrite project env/config via redirection
+  - script execution via -e/-c flag
+  - script execution via heredoc
+platforms:
+  slack:
+    channel_aliases:
+      C0BSK6369D0: fradevops
+      C0C2NUQ1T6G: clin9-blockers
+      C0C2HAS5M8W: clin9-standup
+_config_version: 50
+mcp_servers:
+  gitlab:
+    url: https://gitlab.com/api/v4/mcp
+    auth: oauth
+    enabled: false
+    tools:
+      exclude:
+        - get_mcp_server_version
+        - list_duo_sessions

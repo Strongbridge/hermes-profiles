@@ -19,7 +19,10 @@ LOG_FILE = BACKUP_ROOT / "backup.log"
 GITIGNORE = Path(r"C:/Users/DanRighter/AppData/Local/hermes/profiles/.gitignore")
 
 # Profiles to back up
-PROFILES = ["pm", "sm", "ba", "customer-relations", "resource-manager", "workbot"]
+PROFILES = [
+    "pm", "sm", "ba", "customer-relations", "resource-manager", "workbot",
+    "dashboard-developer", "desktop-developer", "netadmin", "technical-writer",
+]
 
 # Paths that should NEVER be backed up (secrets, runtime state)
 EXCLUDE_DIRS = {

@@ -1,0 +1,253 @@
+{
+  "jobs": [
+    {
+      "id": "a18bd27a855b",
+      "name": "Morning Kickstart",
+      "prompt": "You are Dan Righter's morning briefing assistant. Read the SB-Hermes vault at C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/ and produce a prioritized morning kickstart for Dan.\n\nGather and synthesize:\n1. Sprint status — Read CLIN9 Sprint Status.md. Surface any HIGH PRIORITY or BLOCKED tasks, upcoming ceremonies today, and BA/QA capacity watch items.\n2. Personnel reviews — Read personnel-reviews-tracker.md. List any reviews in 'in progress', 'pending input', or 'draft ready' status. Note any approaching due dates (within 7 days).\n3. Recent daily notes — Read the most recent 2-3 date-stamped daily notes. Pull out any open action items, pending follow-ups, or unresolved decisions.\n4. Weekly report — Check if the most recent weekly report is current (within last 7 days). If not, flag it.\n5. Open blockers/watch items — From all sources, compile anything blocked, escalated, or needing Dan's attention today.\n\nOutput:\n- FIRES — anything blocked, overdue, or requiring immediate action\n- TODAY'S TOP PRIORITIES — 3-5 things that matter most today\n- PEOPLE TO FOLLOW UP WITH — pending decisions, unanswered questions, people waiting on Dan\n- STATUS AT A GLANCE — sprint health, reviews progress, weekly report status\n- CARRYING INTO TOMORROW — items still open tomorrow\n\nKeep it concise.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": "nous",
+      "model_snapshot": "upstage/solar-pro4:free",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * 1-5",
+        "display": "every weekday at 8am"
+      },
+      "schedule_display": "every weekday at 8am",
+      "repeat": {
+        "times": null,
+        "completed": 24
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-18T07:09:58.224598-04:00",
+      "next_run_at": "2026-10-22T08:00:00-04:00",
+      "last_run_at": "2026-10-21T08:06:43.460836-04:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "slack",
+        "chat_id": "C0C2K6CMCN6",
+        "chat_name": "C0C2K6CMCN6",
+        "thread_id": null,
+        "user_id": "U0BTDGZ88L8",
+        "scope_id": "T0BSK5G5EKC"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-21T08:00:00-04:00",
+        "dispatched_at": "2026-10-21T08:00:55.377362-04:00",
+        "lateness_seconds": 55.4,
+        "kind": "on_time"
+      },
+      "fire_claim": null,
+      "last_failure": {
+        "at": "2026-10-13T08:00:45.044486-04:00",
+        "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
+      }
+    },
+    {
+      "id": "4b030bbb5934",
+      "name": "Midday Blocker Check",
+      "prompt": "You are Dan Righter's midday blocker monitor. Read the SB-Hermes vault at C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/ and check for anything that needs escalation or attention.\n\nCheck:\n1. Sprint blockers — Read CLIN9 Sprint Status.md. Any task still BLOCKED? Any HIGH PRIORITY task not yet resolved? Note the P2 SLA escalation threshold (24h).\n2. Personnel reviews — Read personnel-reviews-tracker.md. Any reviews past due? Any in 'pending input' that have been waiting >5 days?\n3. Action items from recent notes — Scan the last 3 daily notes for unresolved action items tagged as Dan's responsibility.\n4. Upcoming deadlines today — Anything due today that hasn't been marked complete?\n\nOutput:\n- NEEDS ESCALATION — blockers past SLA threshold, overdue reviews, unresolved high-priority items\n- DUE TODAY — deadlines happening today\n- STILL OPEN — items that were pending at morning kickstart and are still unresolved\n\nIf nothing needs attention, say so briefly.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": "nous",
+      "model_snapshot": "upstage/solar-pro4:free",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 12 * * 1-5",
+        "display": "every weekday at 12:30pm"
+      },
+      "schedule_display": "every weekday at 12:30pm",
+      "repeat": {
+        "times": null,
+        "completed": 24
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-18T07:10:02.286452-04:00",
+      "next_run_at": "2026-10-22T12:30:00-04:00",
+      "last_run_at": "2026-10-21T12:39:16.639929-04:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "slack",
+        "chat_id": "C0C2K6CMCN6",
+        "chat_name": "C0C2K6CMCN6",
+        "thread_id": null,
+        "user_id": "U0BTDGZ88L8",
+        "scope_id": "T0BSK5G5EKC"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-21T12:30:00-04:00",
+        "dispatched_at": "2026-10-21T12:30:55.420687-04:00",
+        "lateness_seconds": 55.4,
+        "kind": "on_time"
+      },
+      "fire_claim": null,
+      "last_failure": {
+        "at": "2026-10-12T12:31:10.304594-04:00",
+        "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
+      }
+    },
+    {
+      "id": "1050ac57c430",
+      "name": "EOD Status & Wrap",
+      "prompt": "You are Dan Righter's end-of-day wrap assistant. Read the SB-Hermes vault at C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/ and produce an end-of-day summary.\n\n1. Team status check — Have any team status updates come in today? Look for recently saved notes with status-like content (files containing 'working on', 'blockers', 'help needed', 'milestone', or filenames with 'status' or 'daily-status'). If status updates exist, summarize by person. If not, note that no status updates were received today.\n2. Sprint status update — Read CLIN9 Sprint Status.md. Any tasks that moved status today? Any new blockers?\n3. Open items carry-forward — From recent daily notes, what's still unresolved? List items carrying to tomorrow.\n4. Personnel reviews — Any reviews that need a nudge? Any status changes?\n5. Today's accomplishments — From recent notes and status updates, what got done today?\n\nOutput:\n- WHAT GOT DONE — accomplishments today\n- STATUS UPDATES RECEIVED — team status summary (or note that none came in)\n- CARRYING TO TOMORROW — unresolved items\n- REMINDERS FOR TOMORROW — anything that needs to be first thing tomorrow\n- SUGGESTED TOMORROW'S TOP 3 — prioritized preview\n\nKeep it brief.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": "nous",
+      "model_snapshot": "upstage/solar-pro4:free",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 16 * * 1-5",
+        "display": "every weekday at 4:30pm"
+      },
+      "schedule_display": "every weekday at 4:30pm",
+      "repeat": {
+        "times": null,
+        "completed": 24
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-18T07:10:25.725429-04:00",
+      "next_run_at": "2026-10-22T16:30:00-04:00",
+      "last_run_at": "2026-10-21T16:39:26.319275-04:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "slack",
+        "chat_id": "C0C2K6CMCN6",
+        "chat_name": "C0C2K6CMCN6",
+        "thread_id": null,
+        "user_id": "U0BTDGZ88L8",
+        "scope_id": "T0BSK5G5EKC"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-21T16:30:00-04:00",
+        "dispatched_at": "2026-10-21T16:30:55.404621-04:00",
+        "lateness_seconds": 55.4,
+        "kind": "on_time"
+      },
+      "fire_claim": null,
+      "last_failure": {
+        "at": "2026-10-12T16:31:07.900858-04:00",
+        "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
+      }
+    },
+    {
+      "id": "fff44beb5d42",
+      "name": "Friday Weekly Report Nudge",
+      "prompt": "You are Dan Righter's weekly report reminder. This fires ONLY on Fridays.\n\nRead the SB-Hermes vault at C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/ and check:\n1. Most recent weekly report — Find the latest file matching 'Weekly Report' in the name. What week does it cover?\n2. Is this week's report done? If the latest report covers this current week or yesterday was Friday and it's not done yet, flag it.\n3. Gather inputs for this week's report:\n   - Read CLIN9 Sprint Status.md for accomplishments, priorities, challenges\n   - Scan the last 5 daily notes for key accomplishments and decisions\n   - Check personnel-reviews-tracker.md for any completed reviews this week\n   - Look for any new notes filed this week with significant content\n4. Draft a skeleton for this week's weekly report:\n   - Key Accomplishments\n   - Current Priorities\n   - Challenges / Risks\n   - Communications & Engagement Opportunities\n   - Decision Points for Leadership\n   - 30-Day Outlook\n   - Software Releases / Estimates\n\nFill in what you can from the gathered inputs; leave blanks for anything missing.\n\nOutput: the skeleton with as much filled in as possible, plus a clear note if the report still needs to be written.",
+      "skills": [],
+      "skill": null,
+      "model": null,
+      "provider": null,
+      "provider_snapshot": "nous",
+      "model_snapshot": "upstage/solar-pro4:free",
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 15 * * 5",
+        "display": "every friday at 3pm"
+      },
+      "schedule_display": "every friday at 3pm",
+      "repeat": {
+        "times": null,
+        "completed": 5
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-09-18T07:10:32.331661-04:00",
+      "next_run_at": "2026-10-23T15:00:00-04:00",
+      "last_run_at": "2026-10-16T15:06:44.960038-04:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "slack",
+        "chat_id": "C0C2K6CMCN6",
+        "chat_name": "C0C2K6CMCN6",
+        "thread_id": null,
+        "user_id": "U0BTDGZ88L8",
+        "scope_id": "T0BSK5G5EKC"
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "last_dispatch": {
+        "scheduled_at": "2026-10-16T15:00:00-04:00",
+        "dispatched_at": "2026-10-16T15:00:55.413068-04:00",
+        "lateness_seconds": 55.4,
+        "kind": "on_time"
+      },
+      "fire_claim": null,
+      "last_failure": {
+        "at": "2026-10-09T15:01:09.302726-04:00",
+        "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
+      }
+    }
+  ],
+  "updated_at": "2026-10-21T16:39:26.326563-04:00"
+}

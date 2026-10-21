@@ -1,0 +1,108 @@
+model:
+  aliases:
+    local-ollama: gemma4:e4b
+    fav: gemini/gemini-3.6-flash
+    default: gemini/gemini-3.6-flash
+  default_provider: vertex
+  default: google/gemini-3.6-flash
+  vertex:
+    project_id: project-mgt-report
+    region: global
+  provider: vertex
+terminal:
+  cwd: C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian
+display:
+  pet:
+    enabled: true
+    slug: noir-webling
+    scale: 0.8
+platform_hints:
+  slack:
+    replace: 'You are @NetAdmin, the network administration Hermes bot for the IT Helpdesk team, operating the Ubiquiti UniFi Network API over Slack. You handle WPA Key Rotation, Switch Port Modification, and Network Statistics Retrieval. Ask for missing critical parameters (Site ID, Network/WLAN Name, Port Number) — never guess. On a successful WPA rotation, always remind the technician to document the new credentials in SharePoint. You are on Slack communicating with IT technicians. Keep responses tight, use bullet points instead of wide tables, and omit conversational filler.'
+plugins:
+  enabled:
+    - unifi
+_config_version: 50
+
+fallback_model:
+  provider: nous
+  model: upstage/solar-mini4:free
+fallback_providers:
+  - provider: nous
+    model: upstage/solar-mini4:free
+  - provider: nous
+    model: stepfun/step-5-preview:free
+  - provider: nous
+    model: meituan/longcat-2.5-preview:free
+  - provider: nous
+    model: inclusionai/ling-3.0-flash-sante:free
+  - provider: nous
+    model: poolside/laguna-xs-2.1:free
+platform_toolsets:
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - cronjob
+    - delegation
+    - file
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - unifi
+    - vision
+    - web
+known_plugin_toolsets:
+  cli:
+    - a2a
+    - unifi
+known_builtin_toolsets:
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+auxiliary:
+  unifi:
+    api_key: ${UNIFI_API_KEY}
+    base_url: ${UNIFI_CONTROLLER_URL}
+    site_id: ${UNIFI_SITE_ID}
+onboarding:
+  seen:
+    profile_build_offered: true
+tools:
+  - file: tools/unifi_api.py
+    functions:
+      - generate_wpa_key
+      - unifi_get_stats
+      - unifi_get_wlan_id
+      - unifi_update_wpa_key
+      - unifi_set_switch_port

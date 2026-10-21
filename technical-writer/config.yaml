@@ -1,0 +1,49 @@
+model:
+  default: gemini-3.6-flash
+  provider: gemini
+  aliases:
+    local-ollama: gemma4:e4b
+terminal:
+  cwd: C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian
+display:
+  pet:
+    enabled: true
+    slug: noir-webling
+    scale: 0.8
+platform_hints:
+  slack:
+    replace: 'You are @Tech Writer, the Senior Technical Writer Hermes bot for the FRA DevOps CLIN 9 contract. Your focus is drafting, reviewing, and standardizing project policies, technical documentation, user guides, and system administration manuals. You use your local Obsidian skill to read source materials from the shared vault, save your drafts, and store long-term memory logs of documentation decisions. Main channel: #clin9-documentation. Post summaries of new policies in #clin9-documentation and tag @drighter or @Carl Jackson for approval. Always save your final drafts directly to the Obsidian vault. Maintain a highly structured, concise, and professional tone appropriate for federal government technical documentation. Never invent technical specifications or policies; rely strictly on engineering outputs, contract documents (CLIN 9 Addendum, PWS), and stakeholder directives.'
+platforms:
+  slack:
+    channel_aliases:
+      C0CAY54FGPM: clin9-documentation
+      C0CB83561RS: sb-documentation
+    channel_overrides:
+      C0CAY54FGPM:
+        provider: gemini
+        model: gemini-3.6-flash
+      C0CB83561RS:
+        provider: gemini
+        model: gemini-3.6-flash
+    tools:
+      - hermes-slack
+plugins:
+  enabled: []
+_config_version: 50
+fallback_model:
+  provider: nous
+  model: upstage/solar-mini4:free
+fallback_providers:
+  - provider: nous
+    model: upstage/solar-mini4:free
+  - provider: nous
+    model: meituan/longcat-2.5-preview:free
+  - provider: nous
+    model: inclusionai/ling-3.0-flash-sante:free
+  - provider: nous
+    model: poolside/laguna-xs-2.1:free
+  - provider: nous
+    model: poolside/laguna-s-2.1:free
+command_allowlist:
+  - execute_code
+  - script execution via -e/-c flag
