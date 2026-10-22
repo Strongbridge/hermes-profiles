@@ -1,10 +1,10 @@
 model:
   aliases:
     local-ollama: gemma4:e4b
-    fav: gemini/gemini-3.6-flash
-    default: gemini/gemini-3.6-flash
+    fav: google/gemini-3-pro
+    default: google/gemini-4-argon
   default_provider: vertex
-  default: google/gemini-3.6-flash
+  default: google/gemini-3.8-flash
   vertex:
     project_id: project-mgt-report
     region: global
@@ -27,10 +27,10 @@ platforms:
     channel_overrides:
       C0CAY54FGPM:
         provider: vertex
-        model: gemini-3.6-flash
+        model: google/gemini-4-argon
       C0CB83561RS:
         provider: vertex
-        model: gemini-3.6-flash
+        model: google/gemini-4-argon
     tools:
       - hermes-slack
 plugins:
@@ -40,6 +40,14 @@ fallback_model:
   provider: nous
   model: upstage/solar-mini4:free
 fallback_providers:
+  - provider: vertex
+    model: google/gemini-3-pro
+  - provider: vertex
+    model: google/gemini-3.8-flash
+  - provider: vertex
+    model: google/gemini-3.7-flash
+  - provider: vertex
+    model: google/gemini-3.6-flash
   - provider: nous
     model: upstage/solar-mini4:free
   - provider: nous

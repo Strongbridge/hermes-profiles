@@ -64,17 +64,17 @@ When a team member reports OOO, reduced capacity, or sick leave:
 1. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
 2. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
 3. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add an entry to `leave_log` with affected tasks, sprint impact, and per-date hours; flag members exceeding 85% allocation. Then push both trackers to Firestore (mandatory final step):
-   `python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
-   `python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
+   `uv run python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
+   `uv run python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
 
 4. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact`, and `skill_coverage`. Then push:
-   `python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
+   `uv run python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
 
 5. **Assess task-level impact** — single-point-of-failure roles (e.g. Technical Lead Ryan Powell across Tasks 1–7, single BAs across Tasks 3–5) are at risk when reduced
 6. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
 7. **Flag to @drighter** if the reduction threatens a sprint deadline
 8. **Update `team_pto.json`** — append new leave entry to `leaves` array with fields {id, member_name, role, organization, type, start_date, end_date, days, status, coverage, notes}. Then push:
-   `python write_status.py --role pto --json-file "<path/to/team_pto.json>"`
+   `uv run python write_status.py --role pto --json-file "<path/to/team_pto.json>"`
 9. **Post capacity summary** — write a markdown file to the Obsidian vault covering leave impact, capacity numbers, and risk items
 
 ### Firestore Auto-Push Protocol (mandatory final step)
@@ -82,11 +82,11 @@ EVERY roster, capacity, or leave/PTO change MUST end with the Firestore push bef
 
 1. **Pull the latest `write_status.py`** from the HermesDashboard repo (`git pull origin main`) or run `write_status.py` from the dashboard repo directory (`dashboard/`).
 2. **Whenever `team_profiles.json` is modified**, execute:
-   `python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
+   `uv run python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
 3. **Whenever `capacity.json` is modified**, execute:
-   `python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
+   `uv run python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
 4. **Whenever a new leave entry is appended to `team_pto.json` under `leaves`**, execute:
-   `python write_status.py --role pto --json-file "<path/to/team_pto.json>"`
+   `uv run python write_status.py --role pto --json-file "<path/to/team_pto.json>"`
 5. **Verify each run prints the required success format** (below) before replying. If any step fails or prints a warning, stop and fix before replying.
 
 Required success format (exact), printed by `write_status.py`:
@@ -121,10 +121,11 @@ When updating a team member with a PIP or formal performance notice:
 
 When the PM (@drighter) or management provides team merit increase data:
 
-1. **Slack Attachment Fallback**: If a Slack file attachment (e.g. `image.png` or spreadsheet) fails with HTTP 403, search local synced directories (`OneDrive`, `Microsoft Teams Chat Files`, `Downloads`, `Pictures\Screenshots`) using `search_files` or a Python script filtering recent mtime and keywords (`Merit`, `Screenshot`, `.xlsx`, `.png`).
-2. **Cross-Reference Source Files**: Raw Excel spreadsheets (`Merit 2026 - Dan.xlsx`) may show pre-adjusted Manager Input percentages. Visual schedules or screenshots (`Screenshot...png`) reveal the final pro-rated factor and effective rate. Parse Excel via `read_file` and screenshots via `vision_analyze` to verify all numbers.
-3. **Archive in Obsidian Vault**: Save the complete merit increase table (appraisal ratings, manager inputs, pro-rated factors, final rates) to `O&M/Personnel/YYYY-MM-DD-team-merit-increases.md` with standard frontmatter (`type: personnel-compensation`, `status: approved`).
-4. **Report in Slack**: Provide a structured summary grouped by performance tier (Exceptional, Strong, Consistent) using bullet lists or labeled lines (no Markdown tables in Slack).
+1. **Slack Attachment Fallback**: If a Slack file attachment (e.g. `image.png` or spreadsheet) fails with HTTP 403, search local synced directories (`OneDrive`, `Microsoft Teams Chat Files`, `Downloads`, `Pictures/Screenshots`) with `search_files` or a Python script filtering recent mtime and keywords (`Merit`, `Screenshot`, `.xlsx`, `.png`). Do not halt on 403.
+2. **Cross-Reference Source Files**: Raw Excel spreadsheets (`Merit 2026 - Dan.xlsx`) may show pre-adjusted Manager Input percentages; visual schedules/screenshots (`Screenshot...png`) reveal the final pro-rated factor and effective rate. Parse Excel via `read_file` and screenshots via `vision_analyze` to verify all numbers.
+3. **Map to Canonical Roster**: Cross-reference every name extracted from the attachment against `team_profiles.json` and the org chart, resolving aliases (e.g. `Lia` = `Liasan` = Liaisan Bradshaw). The canonical `name` field from the JSON is the source of truth for any profile updates.
+4. **Archive in Obsidian Vault**: Save the complete merit increase table (appraisal ratings, manager inputs, pro-rated factors, final rates) grouped by tier to `O&M/Personnel/YYYY-MM-DD-team-merit-increases.md` with standard frontmatter (`type: personnel-compensation`, `status: approved`).
+5. **Report in Slack**: Provide a structured summary grouped by performance tier (Exceptional, Strong, Consistent) using bullet lists or labeled lines — no Markdown tables in Slack. Reference the vault file for the full table.
 
 ### Format for capacity reports
 
@@ -188,6 +189,7 @@ If a critical resource shortage threatens a project deadline:
 
 ## Pitfalls
 
+- **Use `uv run python` for `write_status.py`** — system `python` / `python3` may lack `google.cloud.firestore` dependencies in the global environment; invoking `uv run python write_status.py` from `dashboard/` resolves the venv environment cleanly.
 - **Slack attachment 403 fallback** — when Slack file download returns 403, search local synced folders (`Downloads`, `Microsoft Teams Chat Files`, `OneDrive`) for the file by name rather than halting.
 - **Spreadsheet vs Pro-rated Visual Schedule** — raw merit spreadsheets often contain unadjusted manager inputs; always check for pro-rated factor visual schedules or screenshots to confirm the actual final effective rate when tenure pro-rating applies.
 - **Name discrepancies must be merged across all data sources** — when the PM flags that two entries are the same person (e.g. "Amivi Seddoh goes by Anna"), consolidate into ONE profile: `name` = the preferred name, `legal_name` = the legal name, and `alias` = "Legal Name (goes by Preferred)". Update the JSON, the Obsidian roster, the org chart, and any capacity/skill-coverage references before posting. Verify with grep that only one active row/card remains.
@@ -206,7 +208,12 @@ If a critical resource shortage threatens a project deadline:
 - **Windows native Python path** — when running `python3` through bash (git-bash), a path starting `/c/Users/...` double-escapes to `C:\\c\\Users\\...` and the file is not found. Use the Windows-native path `C:/Users/...` (no leading slash) for `python3 -c` and for running a script file.
 - **Validate JSON after every write** — always re-run `python3 -c \"import json; json.load(open('dashboard/data/capacity.json'))\"` (and `team_profiles.json`) before reporting success; a syntax error breaks the dashboard silently.
 - **Alert before acting** — if a critical shortage emerges, alert #clin9-management and tag @drighter first; do not unilaterally reassign team members
-- **Agent-to-Slack posting** — the agent CAN post to Slack via `connectors__slack__SEND_MESSAGE` once the Slack connector is authorized (`manage_connections` action=connect). Verify connection status first — `manage_connections` action=status shows `connected:false` until authorized. When authorized, post capacity summaries directly to `#clin9-capacity` using the Slack send_message connector. Channel IDs: `#devops-team` = `C0C4APQ8EJ1`.
+- **Agent-to-Slack posting** — the agent CAN post to Slack via `connectors__slack__SEND_MESSAGE` once the Slack connector is authorized. The connector is NOT authorized by default, so follow this flow every time you need to post:
+  1. `manage_connections` action=status — shows `connected:false` until authorized.
+  2. `manage_connections` action=connect (target `slack`) — returns a `connect_url`.
+  3. Present the `connect_url` to the user and wait for them to open it in a browser and authorize. Do NOT post to Slack until this completes.
+  4. Re-check `manage_connections` action=status — `connected:true` before posting. If still `false`, re-present the URL.
+  5. When authorized, post capacity summaries directly to `#clin9-capacity` using the Slack send_message connector. Channel IDs: `#devops-team` = `C0C4APQ8EJ1`.
 
 ## Related Skills
 

@@ -211,3 +211,10 @@ terminal(command="tmux new-session -d -s resumed 'hermes --resume 20260225_14305
 - **Secrets in `.env`, settings in `config.yaml`** — never tell a user to put a non-credential setting in `.env`.
 - **Profile-safe paths** — `get_hermes_home()` in code, `$HERMES_HOME` when resolving paths in a session.
 - **Never hand-edit `config.yaml` for the user** — use `hermes config set KEY VAL`; a stray indent can corrupt the file and break the live gateway.
+
+## Configuration rules
+
+- **`fallback_providers` is global, not per-channel.** The Slack/Discord/Telegram `channel_overrides` block only carries the primary `model` and `provider`, plus an optional `system_prompt`. There is no per-channel fallback list.
+- **Every channel shares the top-level `fallback_providers` chain** (defined at the root of `config.yaml`), resolved after the primary fails. Configure different channels with different fallbacks is a no-op — the list is shared.
+- **Channel primary-model failure is visible.** On a primary failure (e.g. an API `400`), the gateway logs it and advances the global chain. To isolate a channel from a failing model, change that channel's primary model rather than expecting per-channel fallbacks.
+- **Use `hermes config set section.key value`** to edit; never hand-edit `config.yaml`. Verify with `hermes config check` after editing; `hermes model` / `hermes doctor` to confirm the active model and providers.
