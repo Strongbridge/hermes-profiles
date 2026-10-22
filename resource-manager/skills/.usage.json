@@ -20,15 +20,15 @@
     "created_by": "agent",
     "first_seen_at": null,
     "last_patched_at": "2026-10-21T21:03:22.863417+00:00",
-    "last_reused_patch_generation": 18,
-    "last_used_at": "2026-10-21T21:02:44.588455+00:00",
-    "last_viewed_at": "2026-10-21T21:02:44.550929+00:00",
+    "last_reused_patch_generation": 20,
+    "last_used_at": "2026-10-22T15:56:51.194260+00:00",
+    "last_viewed_at": "2026-10-22T15:56:51.143182+00:00",
     "patch_count": 20,
     "patch_generation": 20,
     "pinned": false,
     "state": "active",
-    "use_count": 28,
-    "view_count": 28
+    "use_count": 29,
+    "view_count": 29
   },
   "dashboard-status-sync": {
     "archived_at": null,

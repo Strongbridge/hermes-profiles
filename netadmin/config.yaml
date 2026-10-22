@@ -22,7 +22,7 @@ platform_hints:
 plugins:
   enabled:
     - unifi
-_config_version: 50
+_config_version: 51
 
 fallback_model:
   provider: nous

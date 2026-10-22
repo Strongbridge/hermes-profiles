@@ -33,7 +33,7 @@ platforms:
       C0BSK6369D0: fradevops
       C0C2NUQ1T6G: clin9-blockers
       C0C2HAS5M8W: clin9-standup
-_config_version: 50
+_config_version: 51
 mcp_servers:
   gitlab:
     url: https://gitlab.com/api/v4/mcp

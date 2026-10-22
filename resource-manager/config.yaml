@@ -48,7 +48,7 @@ platforms:
         model: google/gemini-3.6-flash
     tools:
       - hermes-slack
-_config_version: 50
+_config_version: 51
 fallback_model:
   provider: nous
   model: upstage/solar-mini4:free

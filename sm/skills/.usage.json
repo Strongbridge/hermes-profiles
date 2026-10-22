@@ -176,7 +176,7 @@
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
-    "state": "active",
+    "state": "stale",
     "use_count": 1,
     "view_count": 1
   },
@@ -256,7 +256,7 @@
     "view_count": 0
   },
   "daily-from-notes": {
-    "archived_at": null,
+    "archived_at": "2026-10-22T15:46:54.035155+00:00",
     "created_at": "2026-09-16T17:41:08.502990+00:00",
     "created_by": "agent",
     "last_patched_at": null,
@@ -266,7 +266,7 @@
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
-    "state": "stale",
+    "state": "archived",
     "use_count": 0,
     "view_count": 0
   },

@@ -1,8 +1,14 @@
 model:
-  default: gemini-3.6-flash
-  provider: gemini
   aliases:
     local-ollama: gemma4:e4b
+    fav: gemini/gemini-3.6-flash
+    default: gemini/gemini-3.6-flash
+  default_provider: vertex
+  default: google/gemini-3.6-flash
+  vertex:
+    project_id: project-mgt-report
+    region: global
+  provider: vertex
 terminal:
   cwd: C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian
 display:
@@ -20,16 +26,16 @@ platforms:
       C0CB83561RS: sb-documentation
     channel_overrides:
       C0CAY54FGPM:
-        provider: gemini
+        provider: vertex
         model: gemini-3.6-flash
       C0CB83561RS:
-        provider: gemini
+        provider: vertex
         model: gemini-3.6-flash
     tools:
       - hermes-slack
 plugins:
   enabled: []
-_config_version: 50
+_config_version: 51
 fallback_model:
   provider: nous
   model: upstage/solar-mini4:free
@@ -45,5 +51,6 @@ fallback_providers:
   - provider: nous
     model: poolside/laguna-s-2.1:free
 command_allowlist:
+  - delete in root path
   - execute_code
   - script execution via -e/-c flag

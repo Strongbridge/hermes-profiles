@@ -66,3 +66,11 @@ Use `patch` for focused note changes when the current content gives you stable c
 ## Wikilinks
 
 Obsidian links notes with `[[Note Name]]` syntax. When creating notes, use these to link related content.
+
+## Memory Storage Policy
+
+Standing rule for where to store memories in the Obsidian vault:
+- **General session memories** (user profile, session logs, configuration, cross-cutting guidance): store in the `documentation/` folder.
+- **Project-specific memories** (CLIN9, tasks, deliverables, engineering outputs): store in their respective directories (e.g., `CLIN9 5009/`), never in the general `documentation/` folder.
+
+Rule of thumb: anything that belongs to a project's scope goes in that project's directory; everything else that is still a memory goes in `documentation/`. When in doubt, place a memory in its most specific applicable project directory.
