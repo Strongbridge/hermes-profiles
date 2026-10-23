@@ -1,8 +1,8 @@
 model:
   aliases:
     local-ollama: gemma4:e4b
-    fav: gemini/gemini-3.6-flash
-    default: gemini/gemini-3.6-flash
+    fav: google/gemini-3.6-flash
+    default: google/gemini-3.6-flash
   default_provider: vertex
   default: google/gemini-3.6-flash
   vertex:

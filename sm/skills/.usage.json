@@ -170,15 +170,15 @@
     "created_by": "agent",
     "first_seen_at": null,
     "last_patched_at": "2026-10-07T11:58:28.949987+00:00",
-    "last_reused_patch_generation": 0,
-    "last_used_at": "2026-10-07T11:58:19.936361+00:00",
-    "last_viewed_at": "2026-10-07T11:58:19.914287+00:00",
+    "last_reused_patch_generation": 2,
+    "last_used_at": "2026-10-23T11:19:29.187425+00:00",
+    "last_viewed_at": "2026-10-23T11:19:29.164792+00:00",
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
     "state": "stale",
-    "use_count": 1,
-    "view_count": 1
+    "use_count": 2,
+    "view_count": 2
   },
   "cllin9-scrum-master": {
     "archived_at": null,
@@ -186,14 +186,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-10-07T13:17:56.674991+00:00",
-    "last_viewed_at": "2026-10-07T13:17:56.637258+00:00",
+    "last_used_at": "2026-10-23T11:19:30.214547+00:00",
+    "last_viewed_at": "2026-10-23T11:19:30.178260+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 10,
-    "view_count": 10
+    "use_count": 11,
+    "view_count": 11
   },
   "codebase-inspection": {
     "archived_at": null,

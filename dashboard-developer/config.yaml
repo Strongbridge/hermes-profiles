@@ -1,5 +1,5 @@
 model:
-  default: gemini-pro
+  default: gemini-3.6-flash
   provider: gemini
   aliases:
     local-ollama: gemma4:e4b

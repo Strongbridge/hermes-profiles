@@ -205,3 +205,17 @@ Before posting to Slack, run `manage_connections(action='status')` and verify th
 - **Timestamps must be ISO** — `2026-09-22T17:50:00Z` format
 - **Server must be running** — `python3 -m http.server 8080` from `dashboard/` dir, or browser can't fetch JSON
 - **Don't use `file://`** — open via `http://127.0.0.1:8080/index.html`, not the file path
+
+### Workflow pitfall: write_file is blocked after reads; patch is the fallback
+- **write_file may refuse even after a full read** — the stale-write guard can trigger on any read pattern. If write_file returns a "stale write" or "last read with offset/limit pagination" error, switch to `patch` for targeted edits.
+- **patch fails on Unicode-encoded files** — fuzzy matching can choke on Windows text files with em dashes (—), arrows (→), or emojis. When patch returns "Could not find a match", use `terminal` with Python and exact string matching instead:
+  ```python
+  import io
+  p = "SB-Hermes/CLIN9 5009/CLIN9 Sprint Status.md"
+  with io.open(p, encoding='utf-8') as f:
+      content = f.read()
+  content = content.replace(old_unicode, new_string)
+  with io.open(p, 'w', encoding='utf-8') as f:
+      f.write(content)
+  ```
+- **Validate after every write** — read back with `read_file` or run `python3 -c "import json; json.load(open('pm_status.json')); print('JSON OK')"` to catch silent JSON corruption before Slack confirmation.

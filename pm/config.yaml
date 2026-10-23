@@ -1,6 +1,6 @@
 model:
-  default: google/gemini-3.6-flash
-  provider: vertex
+  default: poolside/laguna-xs-2.1:free
+  provider: nous
   vertex:
     project_id: project-mgt-report
     region: global
@@ -35,8 +35,8 @@ platforms:
       C0C4APQ8EJ1: devops-team
     channel_overrides:
       C0C4APQ8EJ1:
-        provider: vertex
-        model: google/gemini-3.6-flash
+        provider: nous
+        model: poolside/laguna-xs-2.1:free
     tools:
       - hermes-slack
 
@@ -80,6 +80,8 @@ fallback_model:
 fallback_providers:
   - provider: nous
     model: upstage/solar-mini4:free
+  - provider: nous
+    model: poolside/laguna-xs-2.1:free
   - provider: nous
     model: stepfun/step-5-preview:free
   - provider: nous
