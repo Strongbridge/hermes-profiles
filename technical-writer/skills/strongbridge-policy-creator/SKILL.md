@@ -15,21 +15,17 @@ Use this skill when the user asks to:
 
 ## Steps
 
-1. **Understand the Policy Subject**: Identify the topic and scope of the new policy the user wants to create. Ask clarifying questions if necessary.
-2. **Review the Template**: Fetch and review the reference template `Acceptable_Use_Policy_-_SB-AU-001.docx` using the `skills:get_skill_resources` tool.
-3. **Draft the Policy**: Follow the exact structure of the template, which includes:
-   - **Title**: Strongbridge [Topic] Policy
-   - **Effective Date**: Set to a future or current date, or ask the user.
-   - **Version History Table**: Date, Description (Initial version), Version (1.0), Author.
-   - **Numbered Sections**: 
-     - 1. Purpose
-     - 2. Scope
-     - [Topic-specific sections structured with bold subheadings]
-     - Consequences of Violating the Policy
-     - Acknowledgment of Policy
-     - Policy Review and Updates
-   - **Sign-off Block**: Approved By Name, Title, Date.
-4. **Output**: Present the drafted policy in clean Markdown format for the user to review.
+1. **Research and Contextualize**: Before drafting, search the Obsidian vault for relevant research or existing policy requirements (`SB-Hermes/` directory). 
+2. **Understand the Policy Subject**: Identify the topic and scope. Ask clarifying questions if necessary.
+3. **Review the Template**: Reference `Acceptable_Use_Policy_-_SB-AU-001.docx` for structural consistency.
+4. **Draft the Policy**: Use the standard template structure:
+   - Title
+   - Effective Date
+   - Version History Table
+   - Numbered Sections (1. Purpose, 2. Scope, [Topic-specific], Consequences, Acknowledgment, Review and Updates)
+   - Sign-off Block
+5. **Save and Distribute**: Save the finalized Markdown file directly to the Obsidian vault at `/documentation/policies/`. Post a summary and request for approval in #clin9-documentation tagging the relevant stakeholders.
+6. **Support Multiple Formats**: When requested, convert the markdown draft to a `.docx` document using the `docx` skill tools to ensure compatibility with client review processes.
 
 ## Reviewing and rewriting an existing policy
 
