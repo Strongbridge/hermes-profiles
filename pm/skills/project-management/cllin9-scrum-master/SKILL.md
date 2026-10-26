@@ -134,17 +134,25 @@ Because Melissa, Daniel, and Anna are heavily shared, handle capacity bottleneck
 ## CLIN9 Staffing Transition Documentation
 
 ### Procedure — drafting a swap/transition closure summary
-1. **Identify the source record.** Search the Obsidian vault for relevant notes (`search_files` pattern: `swap`, `Charge Code`, `bill rate`, `<name> swap`). Do not rely on Slack alone — the vault is the source of record for CLIN9 content.
-2. **Extract the decision facts.** For each party: current role, proposed role, bill rate, charge code status, and any open conditions.
-3. **Classify status.** Mark each condition: CLOSED (resolved), OPEN (pending sign-off), or REMAINING ACTION.
-4. **Write the document.** Save as `CLIN9 <Party A>-<Party B> Swap - <Subject>.md` in the vault root. Use frontmatter (created date + tags), then sections: Bottom Line, Swap Summary, status per condition, next steps.
-5. **Verify.** Read the file back and confirm all parties, rates, and status labels are accurate against the source record.
+1. Identify the source record. Search the Obsidian vault for relevant notes (e.g., `search_files` pattern: `swap`, `Charge Code`, `bill rate`, `<name> swap`). Do not rely on Slack alone — the vault is the source of record for CLIN9 content.
+2. Extract the decision facts. For each party: current role, proposed role, bill rate, charge code status, and any open conditions.
+3. Classify status. Mark each condition: CLOSED (resolved), OPEN (pending sign-off), or REMAINING ACTION.
+4. Write the document. Save as `CLIN9 <Party A>-<Party B> Swap - <Subject>.md` in the vault root. Use frontmatter (created date + tags), then sections: Bottom Line, Swap Summary, status per condition, next steps.
+5. Verify. Read the file back and confirm all parties, rates, and status labels are accurate against the source record.
+
+### Closure workflow — from summary to dashboard
+The draft summary is the first artifact; the closure is not complete until the PM tracker, status docs, and dashboard all reflect it. Follow these steps after the closure summary is written:
+
+1. **Record in the PM tracker.** Update `dashboard/data/pm_status.json` with a `staffing_transitions` entry (keyed by swap name, e.g. `tim_moore_hayden_carol_swap`) containing: `status`, `date_closed`, `resolution`, `approved_by`. Also update `notes` and `last_updated` fields.
+2. **Update the CLIN9 status documentation.** Reflect the resolution in `CLIN9-Status-Update-*.md` and `clin9_daily_brief.md`. Replace any `Pending` entries for the swap with `CLOSED <date>` and the resolution facts.
+3. **Push to the dashboard.** Run `python3 write_status.py --role pm --health <green|yellow|red|gray> --tasks "1:green,..." --notes "..."` from the `dashboard/` directory so Firestore `devopsstore` reflects the change. Add any relevant `staffing_transitions` context to the notes field if the PM status JSON carries it.
 
 ### Format conventions
-- Frontmatter: `created: <date>`, `tags:` (clin9, staffing, swap, draft, charge-code)
+- Frontmatter: `created: <date>`, `tags:` (clin9, staffing, swap, charge-code)
 - Headings: `# Title`, `## Bottom Line`, `## Swap Summary`, `## Status`, `## Next Steps`
 - Tables for party/role/bill-rate comparisons
 - Bullets with explicit **CLOSED**/**OPEN** labels
+- Staffing transition record in `pm_status.json` under `staffing_transitions.<swap_name>` with fields: `status`, `date_closed`, `resolution`, `approved_by`
 
 ### Pitfalls
 - Draft from Slack alone — never. The vault is the source of record; Slack messages rot.
@@ -168,6 +176,27 @@ When a CLIN9 decision item (e.g., **Track Inspection scope decision** — remove
 ### Pitfall
 - **Do not close a decision based only on the request.** Verify the decision was made and recorded by the responsible stakeholder (Robert/PM) against the source record first. In this session the scope decision was already confirmed in Robert's PM-status note (Sept 13), so it was safe to close; always confirm the source record first.
 
+## Work Item Closure Procedure
+
+When a work item is completed (e.g., "Personnel Reviews" — 17 team member reviews), follow this workflow to properly close and archive it:
+
+1. **Verify completion against the source record.** Confirm all items are completed and submitted before marking closed. For Personnel Reviews: the tracker showed all 17 of 17 reviews marked `completed` with "Closed per PM instruction."
+
+2. **Update the tracker file.** Add a `CLOSED` status header with:
+   - Closure date
+   - Closing owner (PM @drighter)
+   - Reason for closure
+   - Archive note (preserve the file for historical reference)
+
+3. **Update the task inventory.** Mark the work item as CLOSED in `task-inventory-interview.md` with the closure date and summary of what was accomplished.
+
+4. **Optionally update the dashboard.** If the work item maps to a baseline task, update `dashboard/data/pm_status.json` task_health entry. If it was a standalone personal item (like Personnel Reviews), no dashboard update is required.
+
+5. **Confirm closure in Slack.** Tag the relevant team/stakeholder (@drighter) to acknowledge the work item is closed and archived.
+
+### Pitfall
+- **Check the tracker status before closing.** Do not mark a work item closed based only on the request — verify the source record shows completion (all items marked completed) first. In the Personnel Reviews case, the tracker already showed all 17 as `completed`; the closure was a formality. If a tracker shows items still `in progress` or `pending`, investigate and resolve those before closing.
+
 ## CLIN9 Status Inquiry Lookup
 
 When a stakeholder asks for the status of a CLIN9 item (a task, a new work item, a deliverable), use this lookup workflow:
@@ -186,6 +215,40 @@ When a stakeholder asks for the status of a CLIN9 item (a task, a new work item,
 ### Pitfalls
 - **Do not answer from a 7-task-centric assumption.** The baseline is 7 tasks, but the tracker now has 8+ (see `task_health` keys). A "task 8" may exist and be at risk, not missing.
 - **Do not answer from memory.** Read `dashboard/data/pm_status.json` and the vault docs before asserting a status — statuses change and the file is the source of record.
+
+---
+
+## Daily Standup Note Capture (PM Workflow)
+
+When a team standup is shared via Slack or chat, capture the key points into the project vault for PM status roll-ups and cross-task blocker tracking.
+
+### Extraction and Structuring
+
+1. Identify the source — Slack message (or equivalent) addressed to the team or scrum master.
+
+2. Extract content into the standard standup sections:
+   - **Team Updates**: Each team member's name + current work status + ticket IDs or work item references.
+   - **Blockers & Dependencies**: Items with explicit follow-ups ("awaiting data from X", "escalate if no response"), or items flagged as "not a blocker yet but will be soon."
+   - **Security & Compliance Questions**: Questions from stakeholders with the assignee and current status.
+   - **Facilitator Updates & Next Steps**: Action items from facilitators with owners and deadlines.
+
+3. Condense the content into your own words, preserving ticket IDs and names. Do not paste raw message text.
+
+4. Add a timestamp and source (e.g., standup date/end time).
+
+5. Save to the vault using the `obsidian` skill workflow (create or edit the note file).
+
+### Handling Vault Capacity
+
+When the vault is near capacity:
+1. Check current size before adding new content.
+2. Consolidate existing entries: combine duplicates, remove outdated info, condense verbose entries.
+3. Then add the new content.
+
+### Cross-Referencing
+
+- Link ticket IDs to existing vault notes.
+- Link to related topics (e.g., existing finding notes).
 
 ---
 

@@ -168,16 +168,16 @@
     "archived_at": null,
     "created_at": "2026-09-15T16:44:03.187144+00:00",
     "created_by": null,
-    "last_patched_at": "2026-10-16T14:34:23.123731+00:00",
-    "last_reused_patch_generation": 4,
-    "last_used_at": "2026-10-21T14:44:32.146250+00:00",
-    "last_viewed_at": "2026-10-21T14:44:32.093875+00:00",
-    "patch_count": 4,
-    "patch_generation": 4,
+    "last_patched_at": "2026-10-26T13:21:47.042698+00:00",
+    "last_reused_patch_generation": 5,
+    "last_used_at": "2026-10-26T17:04:00.522622+00:00",
+    "last_viewed_at": "2026-10-26T17:04:00.478973+00:00",
+    "patch_count": 5,
+    "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 30,
-    "view_count": 30
+    "use_count": 35,
+    "view_count": 35
   },
   "codebase-inspection": {
     "archived_at": null,
@@ -245,14 +245,14 @@
     "created_by": null,
     "last_patched_at": "2026-10-21T12:37:42.515814+00:00",
     "last_reused_patch_generation": 2,
-    "last_used_at": "2026-10-23T11:25:05.999314+00:00",
-    "last_viewed_at": "2026-10-23T11:25:05.956708+00:00",
+    "last_used_at": "2026-10-26T13:27:24.159703+00:00",
+    "last_viewed_at": "2026-10-26T13:27:24.128342+00:00",
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 23,
-    "view_count": 23
+    "use_count": 25,
+    "view_count": 25
   },
   "design-md": {
     "archived_at": null,
@@ -590,14 +590,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-10-22T20:30:15.561935+00:00",
-    "last_viewed_at": "2026-10-22T20:30:15.511255+00:00",
+    "last_used_at": "2026-10-26T17:03:59.482591+00:00",
+    "last_viewed_at": "2026-10-26T17:03:59.450536+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 22,
-    "view_count": 22
+    "use_count": 23,
+    "view_count": 23
   },
   "opencode": {
     "archived_at": null,
@@ -785,14 +785,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-10-08T01:08:51.224703+00:00",
-    "last_viewed_at": "2026-10-08T01:08:51.213377+00:00",
+    "last_used_at": "2026-10-26T17:04:01.515563+00:00",
+    "last_viewed_at": "2026-10-26T17:04:01.480351+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 4,
-    "view_count": 4
+    "use_count": 5,
+    "view_count": 5
   },
   "songsee": {
     "archived_at": null,
