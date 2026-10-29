@@ -25,15 +25,15 @@
       "schedule_display": "every weekday at 8am",
       "repeat": {
         "times": null,
-        "completed": 29
+        "completed": 30
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-18T07:09:58.224598-04:00",
-      "next_run_at": "2026-10-29T08:00:00-04:00",
-      "last_run_at": "2026-10-28T08:10:56.848679-04:00",
+      "next_run_at": "2026-10-30T08:00:00-04:00",
+      "last_run_at": "2026-10-29T08:03:59.828444-04:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -51,9 +51,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T08:00:00-04:00",
-        "dispatched_at": "2026-10-28T08:00:35.870513-04:00",
-        "lateness_seconds": 35.9,
+        "scheduled_at": "2026-10-29T08:00:00-04:00",
+        "dispatched_at": "2026-10-29T08:00:35.838938-04:00",
+        "lateness_seconds": 35.8,
         "kind": "on_time"
       },
       "fire_claim": null,
@@ -62,7 +62,7 @@
         "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
       },
       "canonical_completions": [
-        "82e2bc5cc52a4f8da6897c139f9ed3fa"
+        "df9e67c0e96c440e915c64627457e448"
       ]
     },
     {
@@ -90,15 +90,15 @@
       "schedule_display": "every weekday at 12:30pm",
       "repeat": {
         "times": null,
-        "completed": 29
+        "completed": 30
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-18T07:10:02.286452-04:00",
-      "next_run_at": "2026-10-29T12:30:00-04:00",
-      "last_run_at": "2026-10-28T12:35:11.995682-04:00",
+      "next_run_at": "2026-10-30T12:30:00-04:00",
+      "last_run_at": "2026-10-29T12:35:08.172964-04:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -116,9 +116,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-28T12:30:00-04:00",
-        "dispatched_at": "2026-10-28T12:30:35.839549-04:00",
-        "lateness_seconds": 35.8,
+        "scheduled_at": "2026-10-29T12:30:00-04:00",
+        "dispatched_at": "2026-10-29T12:30:35.883171-04:00",
+        "lateness_seconds": 35.9,
         "kind": "on_time"
       },
       "fire_claim": null,
@@ -127,7 +127,7 @@
         "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
       },
       "canonical_completions": [
-        "25166a0539bf4ae0a284f8cc79f88527"
+        "e629bb37fa6a4c529cce20eec1bb2718"
       ]
     },
     {
@@ -261,5 +261,5 @@
       ]
     }
   ],
-  "updated_at": "2026-10-28T16:35:19.308147-04:00"
+  "updated_at": "2026-10-29T12:35:09.432813-04:00"
 }
