@@ -25,20 +25,20 @@
       "schedule_display": "every weekday at 8am",
       "repeat": {
         "times": null,
-        "completed": 30
+        "completed": 31
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-18T07:09:58.224598-04:00",
-      "next_run_at": "2026-10-30T08:00:00-04:00",
-      "last_run_at": "2026-10-29T08:03:59.828444-04:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-11-02T08:00:00-04:00",
+      "last_run_at": "2026-10-30T08:28:12.352332-04:00",
+      "last_status": "error",
+      "last_error": "interrupted",
       "last_delivery_error": null,
       "last_delivery_unverified": null,
-      "failure_streak": 0,
+      "failure_streak": 1,
       "deliver": "origin",
       "origin": {
         "platform": "slack",
@@ -51,18 +51,18 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-10-29T08:00:00-04:00",
-        "dispatched_at": "2026-10-29T08:00:35.838938-04:00",
+        "scheduled_at": "2026-10-30T08:00:00-04:00",
+        "dispatched_at": "2026-10-30T08:00:35.831333-04:00",
         "lateness_seconds": 35.8,
         "kind": "on_time"
       },
       "fire_claim": null,
       "last_failure": {
-        "at": "2026-10-13T08:00:45.044486-04:00",
-        "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
+        "at": "2026-10-30T08:28:12.352332-04:00",
+        "detail": "interrupted"
       },
       "canonical_completions": [
-        "df9e67c0e96c440e915c64627457e448"
+        "996291a65cf245faa7a08b1117d24930"
       ]
     },
     {
@@ -261,5 +261,5 @@
       ]
     }
   ],
-  "updated_at": "2026-10-29T16:32:34.948154-04:00"
+  "updated_at": "2026-10-30T08:28:12.476815-04:00"
 }
