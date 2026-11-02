@@ -1,11 +1,12 @@
 model:
-  default: poolside/laguna-xs-2.1:free
+  default: upstage/solar-mini4:free
   provider: nous
   vertex:
     project_id: project-mgt-report
     region: global
   aliases:
     local-ollama: gemma4:e4b
+  base_url: https://inference-api.nousresearch.com/v1
 terminal:
   cwd: C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian
 display:
@@ -90,3 +91,5 @@ fallback_providers:
     model: inclusionai/ling-3.0-flash-sante:free
   - provider: nous
     model: poolside/laguna-xs-2.1:free
+agent:
+  reasoning_effort: medium
