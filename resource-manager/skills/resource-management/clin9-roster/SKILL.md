@@ -67,9 +67,8 @@ When a team member reports OOO, reduced capacity, or sick leave:
    `uv run python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
    `uv run python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
 
-4. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact`, and `skill_coverage`. Then push:
-   `uv run python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
-
+4. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact` (map date key `"YYYY-MM-DD"` to `"8h lost (Name - Planned OOO - Reason)"`), and `skill_coverage`.
+   - **Alignment rule:** `capacity.json` and `resource_capacity.json` carry *different* `total_team_capacity_hours` values (e.g. 302 vs 304 at the time of a PTO). Every PTO/leave change must subtract the same number of hours from BOTH files so the two trackers do not drift. Recompute `utilization_pct` in each file independently.
 5. **Assess task-level impact** — single-point-of-failure roles (e.g. Technical Lead Ryan Powell across Tasks 1–7, single BAs across Tasks 3–5) are at risk when reduced
 6. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
 7. **Flag to @drighter** if the reduction threatens a sprint deadline
@@ -105,7 +104,28 @@ A running 'who is in / who is out' artifact is the team's shared capacity-availa
 6. **Write the calendar file** to `team/Calendar/<Project> Team Calendar.md` in the Obsidian vault.
 7. **Notify in Slack** — post the calendar's headliner to `#clin9-capacity` (bullet/labeled lines, not tables) and tag relevant stakeholders; if a shortage threatens a deadline, alert `#clin9-management` and tag `@drighter`.
 
-### Performance Improvement Plan (PIP) & Disciplinary Updates
+### Updating the Calendar for a New Leave
+When adding a member's new PTO/reduced-availability entry to an existing calendar artifact:
+
+1. **Add a row to BOTH tables** — the calendar artifact `team/Calendar/<Project> Team Calendar.md` has two tables that must be updated together:
+   - **Active Leave & Scheduled PTO Summary table** — one row per member listing dates, workdays/hours, and status & impact.
+   - **Upcoming Calendar at a Glance table** — one row per date with the team members out, hours lost, and coverage notes.
+2. **Verify row count** — after editing, run `grep -c "MemberName" <file>` for each table to confirm the member appears exactly once per table. A duplicate row indicates a partially-applied earlier edit and must be removed.
+3. **Use Python, not the patch tool, when the file has blank lines or duplicates** — the patch tool's fuzzy matching fails on calendar files with multiple consecutive blank lines or a duplicate row left over from a prior edit. Read the file, modify the text in Python, and write it back.
+4. **Re-read before every edit** — the vault is externally synced; the file may have changed between your reads. Always re-read, then patch with the current content.
+
+### Calendar Artifact Structure (capacity-availability layer)
+The team calendar artifact `team/Calendar/<Project> Team Calendar.md` is the shared "who is in / who is out" layer. It records:
+
+1. **Active Leave & Scheduled PTO Summary** — current leaves, dates, and coverage impact.
+2. **Upcoming Calendar at a Glance** — the next 7-14 days of team availability, including federal holidays (0h lost, no PTO consumed).
+3. **Key Resource & Bottleneck Alerts** — single-point-of-failure roles and double-shortage windows (e.g., both primary and relief BA OOO concurrently).
+
+Keep this file in sync with `team_profiles.json` per-member `availability` and `capacity.json` `leave_log` (source of truth). Do not create a second calendar per session.
+
+### Slack vs. Vault formatting
+- **Obsidian vault**: Markdown tables render fully (both calendar tables, rosters, forecasts).
+- **Slack (channel posts)**: tables are NOT supported. Translate any calendar row into bullet/labeled lines.
 
 When updating a team member with a PIP or formal performance notice:
 
@@ -201,6 +221,7 @@ If a critical resource shortage threatens a project deadline:
 - **Capacity updates go in BOTH team_profiles.json AND capacity.json** — the capacity tracker is a separate file (`capacity.json`), not just the notes field; keep both in sync
 - **Verify weekday and holidays before recording PTO** — every leave entry must carry `day_of_week` and `hours_lost`, since capacity math is exact: a standard day = 8h, a federal holiday drops the whole day. E.g., no federal holiday falls in March, so Mar 18, 2027 is a full 8h day. Always check the weekday before logging hours.
 - **Multi-range PTO & Federal Holiday Gaps** — When processing PTO requests with non-contiguous date ranges or spanning federal holidays (e.g. Nov 6–10 & 12–13 bridging Veterans Day on Nov 11), break the leave into distinct `team_pto.json` entries per contiguous range, exclude federal holidays from PTO hours lost (0 PTO hours consumed on federal holidays), and explicitly document the holiday bridge in `sprint_impact` and calendar views.
+- **Multi-day PTO Spanning Weekends** — When a PTO date range spans a weekend (e.g., May 13–17 spanning Thursday to Monday), exclude weekend days (0h lost) from PTO hour calculations so that total workdays match requested PTO (e.g., 3 workdays = 24h). Log each workday explicitly in `leave_entries`, `resource_capacity.json`, and calendar views while skipping weekend dates.
 - **Data files live in the Obsidian vault, not the Hermes profile dir** — the roster and capacity JSONs live at `C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian\SB-Hermes\dashboard\data\`; checking the Hermes profile `data/` folder returns nothing. Verify the vault path before reading.
 
 - **Slack vs. Vault formatting** — Markdown tables render in Obsidian but are NOT supported in Slack; use bullet lists or labeled lines for Slack posts
@@ -216,7 +237,8 @@ If a critical resource shortage threatens a project deadline:
   4. Re-check `manage_connections` action=status — `connected:true` before posting. If still `false`, re-present the URL.
   5. When authorized, post capacity summaries directly to `#clin9-capacity` using the Slack send_message connector. Channel IDs: `#devops-team` = `C0C4APQ8EJ1`.
 
-## Related Skills
+- **Multi-member PTO on same date in `resource_capacity.json`** — when multiple team members are OOO on the same date (e.g. Nov 27 with Jay Paige and Lia Bradshaw), update `pto_impact["YYYY-MM-DD"]` to summarize the combined impact (e.g. `"16h lost (Jay Paige 8h, Liasan Bradshaw 8h)"`). Combine their entries into a single row in the Upcoming Calendar at a Glance table with total hours lost.
+- **Calendar artifact has two tables that must stay in sync** — when adding a PTO entry, you must add a row to BOTH the Active Leave summary table and the Upcoming Calendar at a Glance table. Updating only one table produces a broken "who is in / who is out" view. A duplicate row in either table indicates a partially-applied edit; use `grep -c "MemberName"` to verify row counts, and edit with Python (read + replace + write) instead of the patch tool when the file has multiple consecutive blank lines or a leftover duplicate.
 
 - [[lcq-form-management]] — subcontractor Labor Qualification (Exhibit D) form processing: PDF fetch, extraction, team_profiles.json updates, and Firebase sync
 - [[dashboard-status-sync]] — Firestore push protocol
