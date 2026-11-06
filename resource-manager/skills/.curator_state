@@ -1,9 +1,9 @@
 {
-  "last_report_path": "C:\\Users\\DanRighter\\AppData\\Local\\hermes\\profiles\\resource-manager\\logs\\curator\\20261030-164027",
-  "last_run_at": "2026-10-30T16:40:27.931767+00:00",
-  "last_run_duration_seconds": 1.994578,
-  "last_run_summary": "auto: no changes; llm: skipped (consolidation off)",
+  "last_report_path": "C:\\Users\\DanRighter\\AppData\\Local\\hermes\\profiles\\resource-manager\\logs\\curator\\20261106-172349",
+  "last_run_at": "2026-11-06T17:23:49.643791+00:00",
+  "last_run_duration_seconds": 2.280286,
+  "last_run_summary": "auto: 1 marked stale, 1 archived; llm: skipped (consolidation off)",
   "last_run_summary_shown_at": null,
   "paused": false,
-  "run_count": 5
+  "run_count": 6
 }
