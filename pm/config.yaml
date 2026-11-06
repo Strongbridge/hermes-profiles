@@ -25,7 +25,7 @@ plugins:
 onboarding:
   seen:
     busy_input_prompt: true
-_config_version: 51
+_config_version: 52
 platforms:
   slack:
     channel_aliases:

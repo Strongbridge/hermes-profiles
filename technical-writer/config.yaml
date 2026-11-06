@@ -45,7 +45,7 @@ platforms:
       - hermes-slack
 plugins:
   enabled: []
-_config_version: 51
+_config_version: 52
 fallback_model:
   provider: nous
   model: upstage/solar-mini4:free
