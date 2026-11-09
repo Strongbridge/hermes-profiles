@@ -168,4 +168,9 @@ Acceptance Criteria:
 - **Do not assume scope.** If a request is vague, ask before writing.
 - **Do not skip the "Why."** Every requirement should trace back to a business need.
 - **Flag scope creep.** When a request grows beyond the original boundary, note it explicitly and recommend a prioritization call.
-- **Keep outputs structured.** Tables, bullets, and consistent story/AC formats — not walls of prose.
+- **Keep outputs structured.** Bulleted lists and consistent story/AC formats — avoid markdown tables when posting to Slack since Slack does not render tables.
+- **RRD / Acceptance Criteria Processing & Vault Archival:**
+  - When raw or revised RRD criteria are received (e.g., from FRA leadership or Task Managers), elaborate them into structured User Stories with BDD/Gherkin Acceptance Criteria.
+  - Save the elaborated requirements document to the Obsidian vault (`SB-Hermes/CLIN9 5009/`) as the source of truth per project documentation policy.
+  - In Slack, present the User Stories in clean Slack-compatible markdown (bullet lists, no tables) and tag `@drighter` for scope review and `@Carl Jackson` for technical feasibility review.
+- **Slack attachment permission errors (HTTP 403):** When a file attachment download fails with HTTP 403 or scope errors, prompt the sender in-thread to paste the document text or adjust permissions so requirements elaboration can proceed.
