@@ -24,8 +24,11 @@ Use this skill when the user asks to:
    - Version History Table
    - Numbered Sections (1. Purpose, 2. Scope, [Topic-specific], Consequences, Acknowledgment, Review and Updates)
    - Sign-off Block
-5. **Save and Distribute**: Save the finalized Markdown file directly to the Obsidian vault at `/documentation/policies/`. Post a summary and request for approval in #clin9-documentation tagging the relevant stakeholders.
-6. **Support Multiple Formats**: When requested, convert the markdown draft to a `.docx` document using the `docx` skill tools to ensure compatibility with client review processes.
+### Deliverables and Distribution
+- Save all finalized drafts (Markdown and Word) directly to the Obsidian vault at `/documentation/policies/` or the appropriate project-specific subfolder (e.g., `SB-Hermes/documentation/policies/`).
+- If a user cannot access files in Obsidian or reports issues with Slack file previews, use `connectors__slack__UPLOAD_OR_CREATE_A_FILE_IN_SLACK` to provide direct attachments in the conversation thread.
+- Always post a summary and tag stakeholders (@drighter, @Carl Jackson, etc.) for final sign-off in the main coordination channel (e.g., #clin9-documentation).
+- Never leave finished documentation stranded in a thread; the vault is the official system of record.
 
 ## Reviewing and rewriting an existing policy
 

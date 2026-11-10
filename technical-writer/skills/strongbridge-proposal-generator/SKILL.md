@@ -18,7 +18,7 @@ Use when: Generating, tracking, and drafting professional government contract pr
 ## Guidelines
 1. **Source Ingestion**: Automatically parse `Opportunity-Pipeline.md` and `SLED-Opportunity-Pipeline.md` to identify active solicitations.
 2. **Deduplication**: Check the target output directory (`Procurement/Draft-Proposals/`) to ensure a proposal file is not created twice for the same Solicitation/Notice ID.
-3. **Information Infill**: Leverage `Corporate-Offerings/` (master profile, technical capabilities, and past performance case studies) to populate company credentials, certifications (CMMI Level 3, ISO 9001/20000/27001), and relevant case study content.
+3. **Pipeline Readability**: Ensure solicitation register tables in `Opportunity-Pipeline.md` and `SLED-Opportunity-Pipeline.md` remain human-readable by strictly limiting columns to: `ID / Sol #`, `Title`, `Agency`, `Portal`, `Type`, `Dates (Posted/Due)`, and `Details`. Group related items in cells (e.g., `Set-Aside / NAICS`) to prevent horizontal scrolling.
 4. **Elephant Goldfish Review**: Pass the draft through the Elephant Goldfish review protocol to ensure strict compliance, citations, and structural standards.
 5. **Information Gaps**: If critical requirements are unknown, generate a gap action item in `Procurement/Research-Gaps.md` so the research assistant agent knows to find the answer.
 6. **Review & Compliance**: All generated proposals must pass the Elephant Goldfish review protocol before finalization.
