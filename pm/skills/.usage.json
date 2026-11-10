@@ -170,14 +170,14 @@
     "created_by": null,
     "last_patched_at": "2026-10-26T13:21:47.042698+00:00",
     "last_reused_patch_generation": 5,
-    "last_used_at": "2026-10-29T00:03:36.525877+00:00",
-    "last_viewed_at": "2026-10-29T00:03:36.486550+00:00",
+    "last_used_at": "2026-11-09T23:17:32.502531+00:00",
+    "last_viewed_at": "2026-11-09T23:17:32.460305+00:00",
     "patch_count": 5,
     "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 38,
-    "view_count": 38
+    "use_count": 39,
+    "view_count": 39
   },
   "codebase-inspection": {
     "archived_at": null,
@@ -740,14 +740,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": "2026-10-08T01:32:48.203033+00:00",
-    "last_viewed_at": "2026-10-08T01:32:48.176334+00:00",
+    "last_used_at": "2026-11-09T23:17:31.459130+00:00",
+    "last_viewed_at": "2026-11-09T23:17:31.432586+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 4,
-    "view_count": 4
+    "use_count": 5,
+    "view_count": 5
   },
   "sdlc-review": {
     "archived_at": null,
