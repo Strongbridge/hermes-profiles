@@ -46,6 +46,11 @@ EVERY team_profiles.json, capacity.json, team_pto.json, or leave/PTO change MUST
 8. **Update memory** — record what changed
 9. **Post capacity summary** — write to Obsidian vault (`2026-10-14-clin9-capacity-summary.md` pattern)
 10. **Confirm in Slack** — summarize changes and capacity impact in #clin9-capacity
+    - **Slack-post prerequisite (must be done before any Slack post):** confirm the Slack connector is authorized. Run `manage_connections` action=status (target `slack`) — it must show `connected:true`. If it shows `connected:false`, run `manage_connections` action=connect (target `slack`) to get a `connect_url`, present it to the user, and wait for them to open it in a browser and authorize. Do NOT attempt `connectors__slack__SEND_MESSAGE` until the status shows `connected:true` (the tool is unavailable before authorization and fails with 'does not exist'). Re-verify with `manage_connections` action=status after every connect attempt.
+    - **Direct method:** `hermes send --to slack:<CHANNEL_ID> --subject "<subject>" --file "<windows-native-path>"` — reuses the gateway's platform credentials; no `manage_connections` authorization needed. Use Windows-native path with forward slashes: `C:/Users/...` (no leading slash).
+    - **Channel IDs:** `#clin9-capacity` = `C0C4FMUL3SS`, `#devops-team` = `C0C4APQ8EJ1`, `#clin9-management` = `C0C2K6CMCN6`, `#clin9-standup` = `C0C2HAS5M8W`, `#clin9-requirements` = `C0C2HAGS2QN`, `#clin9-blockers` = `C0C2NUQ1T6G`.
+    - **Fallback:** if the direct method fails, use `manage_connections` action=status → connect (`slack`) → post via `connectors__slack__SEND_MESSAGE` on channel `C0C4FMUL3SS`.
+    - Slack posts use bullet/labeled lines (NO Markdown tables). Vault files may use tables.
 
 ### JSON mutation workflow (for capacity/PTO updates)
 When editing `team_profiles.json` or `capacity.json` (capacity tracker, PTO log, leave log, availability blocks):
@@ -61,9 +66,15 @@ When editing `team_profiles.json` or `capacity.json` (capacity tracker, PTO log,
 
 When a team member reports OOO, reduced capacity, or sick leave:
 
-1. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
-2. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
-3. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add an entry to `leave_log` with affected tasks, sprint impact, and per-date hours; flag members exceeding 85% allocation. Then push both trackers to Firestore (mandatory final step):
+1. **Verify the report against the roster before acting** — do not change any tracker based on a human report alone. Specifically:
+   - **Locate the member in `team_profiles.json`** and read their `availability` field (leave_start, leave_end, pto entries with dates).
+   - **Confirm against `availability` dates** — check whether today's date falls inside the member's leave window or on a per-date PTO entry. Confirm the weekday (e.g., `datetime.date(2026,11,10).strftime('%A')`) and check no federal holiday falls on it.
+   - **Confirm sole-off status** — scan the `availability` windows of ALL active members against today's date. Report the true headcount off today, not just the reporter's member. Feasibility: run a small script that lists every member whose leave/PTO window contains today.
+   - **Compute daily capacity impact** — standard day = 8h; half-day = 4h; federal holiday/weekend = 0h. Record per-date `hours_lost` rather than assuming 8h.
+
+2. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
+3. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
+4. **Update `capacity.json`** — adjust `total_team_capacity_hours` and `utilization_pct`; add an entry to `leave_log` with affected tasks, sprint impact, and per-date hours; flag members exceeding 85% allocation. Then push both trackers to Firestore (mandatory final step):
    `uv run python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
    `uv run python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
 
@@ -225,7 +236,7 @@ If a critical resource shortage threatens a project deadline:
 - **Data files live in the Obsidian vault, not the Hermes profile dir** — the roster and capacity JSONs live at `C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian\SB-Hermes\dashboard\data\`; checking the Hermes profile `data/` folder returns nothing. Verify the vault path before reading.
 
 - **Slack vs. Vault formatting** — Markdown tables render in Obsidian but are NOT supported in Slack; use bullet lists or labeled lines for Slack posts
-- **Single source of truth for calendar/summary files** — the running team calendar and weekly capacity summary live at ONE canonical location (vault root). Do not mirror the same Markdown summary into both the vault root and `dashboard/data/`; updates will drift apart. `dashboard/data/` holds tracker JSONs and status files; published Markdown summaries live at the vault root.
+- **Single source of truth for calendar/summary files** — the running team calendar lives at the vault root (e.g. `team/Calendar/CLIN9 Team Calendar.md`). Weekly capacity summary Markdown reports live in `dashboard/data/` following the existing naming pattern (e.g. `2026-11-12-clin9-capacity-summary.md`). Tracker JSONs (`capacity.json`, `team_profiles.json`, `team_pto.json`) and the live dashboard state (`resource_capacity.json`) live in `dashboard/data/`; do not mirror a Markdown summary into two places, or the two copies drift apart.
 - **JSON mutation via Python, not patch** — the patch tool fails on JSON files containing unicode escapes (e.g. `\\u2014` em dash in notes) with `JSONDecodeError`. Mutate with `json.load()` + `json.dump()` in a Python script, then re-validate that the file parses.
 - **Windows native Python path** — when running `python3` through bash (git-bash), a path starting `/c/Users/...` double-escapes to `C:\\c\\Users\\...` and the file is not found. Use the Windows-native path `C:/Users/...` (no leading slash) for `python3 -c` and for running a script file.
 - **Validate JSON after every write** — always re-run `python3 -c \"import json; json.load(open('dashboard/data/capacity.json'))\"` (and `team_profiles.json`) before reporting success; a syntax error breaks the dashboard silently.
@@ -246,3 +257,13 @@ If a critical resource shortage threatens a project deadline:
 - [[dashboard-status-sync]] — Firestore push protocol
 
 ## Weekly Capacity Summary Protocol
+
+Every Sprint Planning cycle, post a capacity summary to `#clin9-capacity` before the planning session, using the `dashboard/data/<YYYY-MM-DD>-clin9-capacity-summary.md` naming pattern. The summary must contain, in order:
+
+1. **Headline** — total available hours and utilization % for the sprint window.
+2. **Per-member availability** — who is allocated, to what tasks, at what percentage, and remaining capacity (bullet/labeled lines; no tables).
+3. **Leave/holiday impact** — capacity reduction for upcoming sprint windows, including federal holidays (0h) and bridging multi-range PTO.
+4. **Skill coverage gaps** — thin or missing cross-functional coverage across the 7 CLIN9 tasks.
+5. **Bottleneck alert (if any)** — over-allocated members, single points of failure (e.g., only one Sr. Dev on a task), or a capacity shortfall threatening a deadline. Alert `#clin9-management` and tag `@drighter` in that case; never reassign tasks unilaterally.
+
+Keep the markdown summary in `dashboard/data/` only — do not mirror the same summary into another location, or the two copies drift apart.

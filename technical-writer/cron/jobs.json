@@ -23,15 +23,15 @@
       "schedule_display": "0 9 * * *",
       "repeat": {
         "times": null,
-        "completed": 5
+        "completed": 6
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-11-04T13:53:22.876795-05:00",
-      "next_run_at": "2026-11-10T09:00:00-05:00",
-      "last_run_at": "2026-11-09T09:01:54.739063-05:00",
+      "next_run_at": "2026-11-11T09:00:00-05:00",
+      "last_run_at": "2026-11-10T09:04:28.102483-05:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -50,16 +50,128 @@
       "enabled_toolsets": null,
       "workdir": "C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian\\SB-Hermes",
       "last_dispatch": {
-        "scheduled_at": "2026-11-09T09:00:00-05:00",
-        "dispatched_at": "2026-11-09T09:00:08.113703-05:00",
-        "lateness_seconds": 8.1,
+        "scheduled_at": "2026-11-10T09:00:00-05:00",
+        "dispatched_at": "2026-11-10T09:00:08.195000-05:00",
+        "lateness_seconds": 8.2,
         "kind": "on_time"
       },
       "fire_claim": null,
       "canonical_completions": [
-        "f91d07a2a87c4ed6b003ff5e26924c3f"
+        "b16fc984cc6448b69fbb9dd30383098e"
+      ]
+    },
+    {
+      "id": "b1c061b5e248",
+      "name": "WeeklyHardwareEvaluator",
+      "prompt": "Run the strongbridge-hardware-evaluator skill. The script reads the Hardware-Recommendations vault and prints a formatted weekly technical hardware recommendation report to stdout. Deliver the printed output to the SB-netops Slack channel for automatic posting. Use the skill for guidance and structure.",
+      "skills": [
+        "strongbridge-hardware-evaluator"
+      ],
+      "skill": "strongbridge-hardware-evaluator",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * 1",
+        "display": "0 8 * * 1"
+      },
+      "schedule_display": "0 8 * * 1",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-11-10T10:22:22.911464-05:00",
+      "next_run_at": "2026-11-16T08:00:00-05:00",
+      "last_run_at": "2026-11-10T10:41:42.016888-05:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "last_failure": null,
+      "failure_streak": 0,
+      "deliver": "slack:C0C91831Y5B",
+      "origin": {
+        "platform": "local",
+        "chat_id": "20261022_084347_978f1f",
+        "chat_name": null,
+        "thread_id": null,
+        "user_id": "sid:S-1-12-1-3094185524-1277805205-3767180694-3694723171",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": "C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian\\SB-Hermes",
+      "fire_claim": null,
+      "canonical_completions": [
+        "3fa23fdc466541d5a6795fa0fae2ab87"
+      ]
+    },
+    {
+      "id": "16687decefaf",
+      "name": "Weekly Proposal Opportunities Report",
+      "prompt": "Run the weekly proposal opportunities script to generate a technical alert report on active opportunities, highlighting close-in deadlines, and list draft proposal paths. Post the formatted report directly to Slack C0CGLS772AG. Load the strongbridge-proposal-generator skill before running.",
+      "skills": [
+        "strongbridge-proposal-generator"
+      ],
+      "skill": "strongbridge-proposal-generator",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": "weekly_proposal_opportunities_report.py",
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * 1",
+        "display": "0 8 * * 1"
+      },
+      "schedule_display": "0 8 * * 1",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-11-10T10:55:51.948810-05:00",
+      "next_run_at": "2026-11-16T08:00:00-05:00",
+      "last_run_at": "2026-11-10T11:01:44.090599-05:00",
+      "last_status": "ok",
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "last_failure": null,
+      "failure_streak": 0,
+      "deliver": "slack:C0CGLS772AG",
+      "origin": {
+        "platform": "local",
+        "chat_id": "20261022_084347_978f1f",
+        "chat_name": null,
+        "thread_id": null,
+        "user_id": "sid:S-1-12-1-3094185524-1277805205-3767180694-3694723171",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": "C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian\\SB-Hermes",
+      "fire_claim": null,
+      "canonical_completions": [
+        "8e5f0eba8fb643f6b2c8a35e2d3c214b"
       ]
     }
   ],
-  "updated_at": "2026-11-09T09:01:54.742150-05:00"
+  "updated_at": "2026-11-10T11:01:45.571111-05:00"
 }
