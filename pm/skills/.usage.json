@@ -170,14 +170,14 @@
     "created_by": null,
     "last_patched_at": "2026-10-26T13:21:47.042698+00:00",
     "last_reused_patch_generation": 5,
-    "last_used_at": "2026-11-09T23:17:32.502531+00:00",
-    "last_viewed_at": "2026-11-09T23:17:32.460305+00:00",
+    "last_used_at": "2026-11-10T22:26:26.143155+00:00",
+    "last_viewed_at": "2026-11-10T22:26:26.106446+00:00",
     "patch_count": 5,
     "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 39,
-    "view_count": 39
+    "use_count": 40,
+    "view_count": 40
   },
   "codebase-inspection": {
     "archived_at": null,
@@ -545,14 +545,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": null,
-    "last_viewed_at": null,
+    "last_used_at": "2026-11-10T22:26:27.191880+00:00",
+    "last_viewed_at": "2026-11-10T22:26:27.146066+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 0,
-    "view_count": 0
+    "use_count": 1,
+    "view_count": 1
   },
   "node-inspect-debugger": {
     "archived_at": null,
