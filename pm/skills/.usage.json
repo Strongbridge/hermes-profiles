@@ -170,14 +170,14 @@
     "created_by": null,
     "last_patched_at": "2026-10-26T13:21:47.042698+00:00",
     "last_reused_patch_generation": 5,
-    "last_used_at": "2026-11-10T22:26:26.143155+00:00",
-    "last_viewed_at": "2026-11-10T22:26:26.106446+00:00",
+    "last_used_at": "2026-11-12T15:42:05.193327+00:00",
+    "last_viewed_at": "2026-11-12T15:42:05.154155+00:00",
     "patch_count": 5,
     "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 40,
-    "view_count": 40
+    "use_count": 43,
+    "view_count": 43
   },
   "codebase-inspection": {
     "archived_at": null,
@@ -243,16 +243,16 @@
     "archived_at": null,
     "created_at": "2026-09-25T15:26:54.763529+00:00",
     "created_by": null,
-    "last_patched_at": "2026-10-21T12:37:42.515814+00:00",
-    "last_reused_patch_generation": 2,
-    "last_used_at": "2026-10-27T13:08:46.580341+00:00",
-    "last_viewed_at": "2026-10-27T13:08:46.549628+00:00",
-    "patch_count": 2,
-    "patch_generation": 2,
+    "last_patched_at": "2026-11-12T15:58:58.269005+00:00",
+    "last_reused_patch_generation": 3,
+    "last_used_at": "2026-11-12T15:59:01.976545+00:00",
+    "last_viewed_at": "2026-11-12T15:59:01.954338+00:00",
+    "patch_count": 3,
+    "patch_generation": 3,
     "pinned": false,
     "state": "active",
-    "use_count": 26,
-    "view_count": 26
+    "use_count": 32,
+    "view_count": 32
   },
   "design-md": {
     "archived_at": null,

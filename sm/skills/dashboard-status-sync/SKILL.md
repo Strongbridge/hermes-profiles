@@ -140,3 +140,4 @@ A syntax error breaks the dashboard silently — always validate.
 - **Timestamps must be ISO** — `2026-09-22T17:50:00Z` format
 - **Server must be running** — `python3 -m http.server 8080` from `dashboard/` dir, or browser can't fetch JSON
 - **Don't use `file://`** — open via `http://127.0.0.1:8080/index.html`, not the file path
+- **Cross-role status consistency** — when leadership clarifies a task status (e.g., in progress vs pending), update both your bot's status file (`sm_status.json`) and verify alignment across `ba_status.json` and `pm_status.json` to prevent dashboard state drift across roles.

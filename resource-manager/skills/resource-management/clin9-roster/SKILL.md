@@ -71,6 +71,7 @@ When a team member reports OOO, reduced capacity, or sick leave:
    - **Confirm against `availability` dates** — check whether today's date falls inside the member's leave window or on a per-date PTO entry. Confirm the weekday (e.g., `datetime.date(2026,11,10).strftime('%A')`) and check no federal holiday falls on it.
    - **Confirm sole-off status** — scan the `availability` windows of ALL active members against today's date. Report the true headcount off today, not just the reporter's member. Feasibility: run a small script that lists every member whose leave/PTO window contains today.
    - **Compute daily capacity impact** — standard day = 8h; half-day = 4h; federal holiday/weekend = 0h. Record per-date `hours_lost` rather than assuming 8h.
+   - **Confirm against existing PTO log before appending** — before adding a leave entry, scan `team_pto.json`, `capacity.json` `leave_log`, and `team_profiles.json` for any entry covering the requested dates. The PTO may already be recorded (reported via another channel, or added by a separate process). If an entry exists, do NOT create a duplicate — verify the coverage notes and reconcile the live mirror only.
 
 2. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
 3. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
@@ -78,8 +79,9 @@ When a team member reports OOO, reduced capacity, or sick leave:
    `uv run python write_status.py --role rm --json-file "<path/to/team_profiles.json>"`
    `uv run python write_status.py --role capacity --json-file "<path/to/capacity.json>"`
 
-4. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact` (map date key `"YYYY-MM-DD"` to `"8h lost (Name - Planned OOO - Reason)"`), and `skill_coverage`.
+5. **Update `resource_capacity.json`** — sync live dashboard state: ISO timestamp, `total_team_capacity_hours`, `utilization_pct`, `pto_impact` (map date key `"YYYY-MM-DD"` to `"8h lost (Name - Planned OOO - Reason)"`), and `skill_coverage`.
    - **Alignment rule:** `capacity.json` and `resource_capacity.json` carry *different* `total_team_capacity_hours` values (e.g. 302 vs 304 at the time of a PTO). Every PTO/leave change must subtract the same number of hours from BOTH files so the two trackers do not drift. Recompute `utilization_pct` in each file independently.
+   - **Drift reconciliation:** if `resource_capacity.json` has drifted in BOTH total AND `pto_impact` (missing shared-OOO members on a date), do NOT derive hours by subtraction. Re-sync the mirror wholesale to the authoritative `capacity.json`: set `total_team_capacity_hours` and `utilization_pct` to match, rebuild every `pto_impact["YYYY-MM-DD"]` from `capacity.json`'s `leave_log` so all members OOO that date share one combined row, and refresh `notes` to a current-state summary. Validate JSON, then push via `uv run python write_status.py --role capacity --json-file "<path/to/resource_capacity.json>"`.
 5. **Assess task-level impact** — single-point-of-failure roles (e.g. Technical Lead Ryan Powell across Tasks 1–7, single BAs across Tasks 3–5) are at risk when reduced
 6. **Identify backup** — cross-functional team members who can absorb work (e.g., Amivi Seddoh for BA support)
 7. **Flag to @drighter** if the reduction threatens a sprint deadline
@@ -249,9 +251,10 @@ If a critical resource shortage threatens a project deadline:
   5. When authorized, post capacity summaries directly to `#clin9-capacity` using the Slack send_message connector. Channel IDs: `#devops-team` = `C0C4APQ8EJ1`.
 
 - **Multi-member PTO on same date in `resource_capacity.json`** — when multiple team members are OOO on the same date (e.g. Nov 27 with Jay Paige and Lia Bradshaw), update `pto_impact["YYYY-MM-DD"]` to summarize the combined impact (e.g. `"16h lost (Jay Paige 8h, Liasan Bradshaw 8h)"`). Combine their entries into a single row in the Upcoming Calendar at a Glance table with total hours lost.
+- **Check existing PTO before recording** — when a human (PM/Slack) reports PTO, always scan `team_pto.json`, `capacity.json` `leave_log`, and `team_profiles.json` for an entry covering those dates first. The PTO may already be recorded (via a separate channel or an added process). If an entry exists, do NOT duplicate — verify and reconcile the live mirror only. Duplicates inflate leave hours and silently break capacity math.
 - **Fuzzy name resolution on roster updates** — PM directives or Slack messages may contain typos in team member names (e.g. "Alex honeygoskty" for Alex Honeygosky). Always query `team_profiles.json` case-insensitively using first name or surname substring before creating a new profile or reporting an error.
 - **Partial-day OOO calculations** — When processing partial-day OOO requests (e.g. 4h/day across multiple dates), record exact per-date `hours_lost` (e.g. 4h on Thu, 4h on Fri) and sum cumulative lost hours (8h) for capacity reduction math. In `resource_capacity.json` `pto_impact`, specify the partial hours (e.g. `"4h lost (Alex Honeygosky - Planned 4h OOO)"`), and annotate the Calendar "Upcoming Calendar at a Glance" table rows with the exact daily hours lost (`Alex Honeygosky (4h)`).
-- **Calendar artifact has two tables that must stay in sync** — when adding a PTO entry, you must add a row to BOTH the Active Leave summary table and the Upcoming Calendar at a Glance table. Updating only one table produces a broken "who is in / who is out" view. A duplicate row in either table indicates a partially-applied edit; use `grep -c "MemberName"` to verify row counts, and edit with Python (read + replace + write) instead of the patch tool when the file has multiple consecutive blank lines or a leftover duplicate.
+- **Human-vs-HR date discrepancy** — when a human reporter states a PTO or availability date that differs from HR system data, record the HR system data as authoritative, flag the discrepancy to the reporter, and proceed with the HR data. Do not create duplicate leave entries.
 
 - [[lcq-form-management]] — subcontractor Labor Qualification (Exhibit D) form processing: PDF fetch, extraction, team_profiles.json updates, and Firebase sync
 - [[dashboard-status-sync]] — Firestore push protocol
@@ -267,3 +270,29 @@ Every Sprint Planning cycle, post a capacity summary to `#clin9-capacity` before
 5. **Bottleneck alert (if any)** — over-allocated members, single points of failure (e.g., only one Sr. Dev on a task), or a capacity shortfall threatening a deadline. Alert `#clin9-management` and tag `@drighter` in that case; never reassign tasks unilaterally.
 
 Keep the markdown summary in `dashboard/data/` only — do not mirror the same summary into another location, or the two copies drift apart.
+
+## External HR System Data via Links
+
+When PTO or personnel data arrives via an external HR system link (e.g., Strongbridge BambooHR employee view, TTC HCM) rather than a direct human report:
+
+1. **Verify the date and weekday** — confirm the date lands on a weekday and is not a federal holiday using `datetime.date(YYYY,MM,DD).strftime('%A')`. A partial-day PTO (e.g., 4h) records `hours_lost` = 4, not 8.
+2. **Cross-reference with any human-reported dates** — if the reporter gave a different date, record the HR system data as authoritative, flag the discrepancy to the reporter, and proceed with the HR data.
+3. **Record in `team_profiles.json`** — append the new `pto` entry to the member's `availability` field; update `total_pto_hours` by the number of hours lost.
+4. **Record in `team_pto.json`** — append a new leave entry to the `leaves` array with fields `{id, member_name, role, organization, type, start_date, end_date, days, hours_lost, status, coverage, notes}`.
+5. **Update `capacity.json`** — add a leave log entry under `leave_log` with `leave_entries` per date, capacity reduction, affected tasks, and a `skill_coverage_concern` note.
+6. **Update `resource_capacity.json`** — update `pto_impact["YYYY-MM-DD"]` to combine the new hours with any existing entries for that date (e.g., `"12h lost (Jay Paige 8h, Melissa Willis 4h)"`); subtract the hours from `total_team_capacity_hours` and recompute `utilization_pct`.
+7. **Push to Firestore** — run in sequence:
+   `uv run python write_status.py --role rm --json-file "data/team_profiles.json"`
+   `uv run python write_status.py --role capacity --json-file "data/capacity.json"`
+   `uv run python write_status.py --role pto --json-file "data/team_pto.json"`
+   Each must print the `[write_status] ✅` confirmation line.
+8. **Post Slack update** — post a brief capacity summary to `#clin9-capacity` (bullet/labeled lines, no tables) summarizing the new PTO and total impact.
+
+## Human-vs-HR Date Discrepancy
+
+When a human reporter states a PTO or availability date that differs from HR system data:
+
+1. **Trust the HR system data** — the HR system is the authoritative source for the true date/amount; do not create duplicate leave entries.
+2. **Flag the discrepancy** — note the difference to the reporter so the HR source can be corrected if needed.
+3. **Record the HR data** — follow the normal PTO recording workflow (see "External HR System Data via Links") using the HR system dates.
+4. **Verify before posting** — re-read the tracker files after the change; a failed write means the file was modified externally, so re-read and re-apply rather than assuming the change was lost.

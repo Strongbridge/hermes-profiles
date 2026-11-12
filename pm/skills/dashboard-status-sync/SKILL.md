@@ -191,8 +191,18 @@ When a requester asks to "close" a decision item (e.g., "close the Track Inspect
    ```
 5. **Confirm the dashboard.** Tell the requester the decision item is closed and the dashboard is updated. The dashboard auto-refreshes every 60 seconds.
 
-### Pitfall
-- **Do not close a decision based only on the request.** Verify the decision was actually made and recorded before marking it closed. A requester's instruction to "close this item" is a proposal — the decision must be confirmed against the source record first. In this session, the scope decision was already confirmed in Robert's PM-status note (Sept 13), so it was safe to close; but always confirm the source record first.
+### PM health-status directive (e.g., "list RSAC and Visualizer as Healthy")
+When the PM directs a health status for named tasks:
+1. **Read** `dashboard/data/pm_status.json` first — it is the source of record for task health.
+2. **Verify against the source records.** Cross-check the named tasks against the vault status docs (`CLIN9 Sprint Status.md`, `clin9_daily_brief.md`, `CLIN9-Status-Update-*.md`) and the existing `task_health` entries. A PM's directive is a confirmation of state, not a grant to overwrite.
+3. **Map the label to the JSON value.** "Healthy" → `task_health[<N>].health = "green"` (green = on track / complete / pass / resolved per the status value map).
+4. **Apply the change** and update `health_rationale`, `notes`, and the affected `task_health[<N>].notes` to reflect the confirmed status.
+5. **Validate** the JSON (`python3 -c "import json; json.load(open('pm_status.json'))"`).
+6. **Confirm in Slack** only if the connector is `connected: true`; otherwise note the posting gap (see "Slack posting gate").
+
+### Pitfall — verify before applying a health directive
+Do not apply a PM's "list X as Healthy" directive without first checking the vault status docs and `task_health`. If verification contradicts the directive (e.g., a task the directive calls healthy is actually blocked), stop and escalate rather than writing a status the source records do not support.
+
 ## Slack posting gate
 
 Before posting to Slack, run `manage_connections(action='status')` and verify the connector is `connected: true`. If the connector shows `connected: false`, the post will fail until the Slack connector is configured. The dashboard pipeline (write_status.py → Firebase) works independently of Slack.
@@ -219,3 +229,53 @@ Before posting to Slack, run `manage_connections(action='status')` and verify th
       f.write(content)
   ```
 - **Validate after every write** — read back with `read_file` or run `python3 -c "import json; json.load(open('pm_status.json')); print('JSON OK')"` to catch silent JSON corruption before Slack confirmation.
+
+## Firestore-driven dashboard data (risk register)
+
+The CLIN9 HTML dashboard (`dashboard-standalone.html`) reads non-status data — most
+notably the risk register — from Firestore in real time, not from the local JSON seed.
+The live source of truth is a single project and database:
+
+- Project: `fradevops-a51a2`
+- Database: `devopsstore`
+- Collection: `risk_register` (document ID = risk ID, e.g. `R-001`, `R-002`)
+- Auth: Google service-account credentials set via the `GOOGLE_APPLICATION_CREDENTIALS`
+  environment variable (the project `.env` points to `project-mgt-report-sa.json`).
+
+The local file `dashboard/data/risk_update.json` is a seed/mirror of the last-known
+state, not the dashboard source. Treat it as a record of changes; re-sync it after every
+write so the on-disk record matches Firestore.
+
+### Procedure
+
+1. **Read the live source first.** Stream the `risk_register` collection from Firestore
+   to see the current state before changing anything.
+2. **Update the live collection.** For each risk, set the document (id, title, severity,
+   status, date, source, notes, description) with `merge=True`, plus `closed_date` and
+   `closure_reason` when resolving a risk.
+3. **Verify from Firestore.** Re-stream the collection and confirm every change landed.
+4. **Re-sync the local seed.** Write the updated state to `dashboard/data/risk_update.json`.
+5. **Validate the JSON** (parse it).
+6. **Confirm in Slack** only if the Slack connector is `connected: true`; otherwise note
+   the posting gap.
+
+### Write recipe (the method that works)
+
+Set the service-account credential and use the `google-cloud-firestore` client:
+
+```bash
+cd "C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/dashboard"
+GOOGLE_APPLICATION_CREDENTIALS="C:/Users/DanRighter/AppData/Local/hermes/secrets/project-mgt-report-sa.json" \
+python3 -c "
+import os, google.cloud.firestore
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:/Users/DanRighter/AppData/Local/hermes/secrets/project-mgt-report-sa.json'
+db = google.cloud.firestore.Client(project='fradevops-a51a2', database='devopsstore')
+"
+```
+
+### Pitfall
+
+The HTML dashboard reads from Firestore, so editing **only** the local JSON does NOT
+update the visible dashboard. Conversely, the local JSON is NOT the source of truth —
+if the local seed drifts from Firestore, re-sync it from a verified Firestore read
+rather than re-pushing from the JSON.
