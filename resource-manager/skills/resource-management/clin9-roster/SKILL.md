@@ -127,7 +127,23 @@ When adding a member's new PTO/reduced-availability entry to an existing calenda
 3. **Use Python, not the patch tool, when the file has blank lines or duplicates** — the patch tool's fuzzy matching fails on calendar files with multiple consecutive blank lines or a duplicate row left over from a prior edit. Read the file, modify the text in Python, and write it back.
 4. **Re-read before every edit** — the vault is externally synced; the file may have changed between your reads. Always re-read, then patch with the current content.
 
+## Calendar and markdown table editing
+
+Calendar artifacts (and any Obsidian `*.md` table) are edited as plain-text files, and the most common failure is a misaligned anchor: the replace target silently does not exist, so the change is silently skipped and a duplicate row is appended on a later re-run. Follow this order every time.
+
+1. **Re-read the file fresh** — do not trust a prior read; the vault syncs and other agents edit it too.
+2. **Print exact anchor bytes with `repr` before replacing** — table rows start with a single pipe (`| cell ...`), not two. Rendered previews from `read_file` can mislead. If the anchor is not present by `in`, fix the anchor; do not widen it.
+3. **Make each edit idempotent** — check for the target row's existence first; if it is already present, exit without another insert. This is what prevents duplicate PTO rows after a re-run.
+4. **Verify row counts after the edit** — `grep -c "<anchor>" <file>` must show exactly one occurrence per row.
+5. **Write back with Python**, then re-read the file to confirm the diff before closing.
+
+### Calendar editing pitfalls
+
+- **Calendar anchor strings are exact** — a `replace()` with a hand-typed anchor silently no-ops when the file differs by a single pipe or trailing space (e.g. `| | **Liasan Bradshaw**` vs `|| | **Liasan Bradshaw**`). Re-run the script with an idempotent early-exit (`if row already present: exit`) so a partially-applied edit cannot double-add a row.
+- **Two tables must move together** — the calendar artifact has an "Active Leave & Scheduled PTO Summary" table and an "Upcoming Calendar at a Glance" table; add rows to both, and keep the "combined on one date" row (e.g. Fri Nov 27 with Jay Paige + Liasan Bradshaw + Abu Yillah = 24h) in the at-a-glance table.
+- **Use Python, not the patch tool, when the file has blank lines or duplicates** — the patch tool's fuzzy matching fails on calendar files with multiple consecutive blank lines or a duplicate row left over from a prior edit. Read the file, modify the text in Python, and write it back.
 ### Calendar Artifact Structure (capacity-availability layer)
+
 The team calendar artifact `team/Calendar/<Project> Team Calendar.md` is the shared "who is in / who is out" layer. It records:
 
 1. **Active Leave & Scheduled PTO Summary** — current leaves, dates, and coverage impact.

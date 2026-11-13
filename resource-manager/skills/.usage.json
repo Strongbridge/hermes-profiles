@@ -21,14 +21,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-11-12T15:33:44.396662+00:00",
     "last_reused_patch_generation": 40,
-    "last_used_at": "2026-11-12T15:33:48.728731+00:00",
-    "last_viewed_at": "2026-11-12T15:33:48.694393+00:00",
+    "last_used_at": "2026-11-13T19:24:14.776885+00:00",
+    "last_viewed_at": "2026-11-13T19:24:14.737689+00:00",
     "patch_count": 40,
     "patch_generation": 40,
     "pinned": false,
     "state": "active",
-    "use_count": 60,
-    "view_count": 60
+    "use_count": 62,
+    "view_count": 62
   },
   "dashboard-status-sync": {
     "archived_at": null,
