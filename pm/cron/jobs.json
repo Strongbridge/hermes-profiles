@@ -25,15 +25,15 @@
       "schedule_display": "every weekday at 8am",
       "repeat": {
         "times": null,
-        "completed": 41
+        "completed": 42
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-18T07:09:58.224598-04:00",
-      "next_run_at": "2026-11-16T08:00:00-05:00",
-      "last_run_at": "2026-11-13T08:03:10.065418-05:00",
+      "next_run_at": "2026-11-17T08:00:00-05:00",
+      "last_run_at": "2026-11-16T08:02:59.674052-05:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -51,9 +51,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-11-13T08:00:00-05:00",
-        "dispatched_at": "2026-11-13T08:00:08.049774-05:00",
-        "lateness_seconds": 8.0,
+        "scheduled_at": "2026-11-16T08:00:00-05:00",
+        "dispatched_at": "2026-11-16T08:00:08.059971-05:00",
+        "lateness_seconds": 8.1,
         "kind": "on_time"
       },
       "fire_claim": null,
@@ -62,7 +62,7 @@
         "detail": "RuntimeError: No access token found for Nous Portal login. Run `hermes -p pm model` to re-authenticate."
       },
       "canonical_completions": [
-        "a20138eb5cb94fc4ad3ca3f83ac14b8b"
+        "2b88a64a2fca4f4991921e9a6c45f7db"
       ]
     },
     {
@@ -90,15 +90,15 @@
       "schedule_display": "every weekday at 12:30pm",
       "repeat": {
         "times": null,
-        "completed": 41
+        "completed": 42
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-18T07:10:02.286452-04:00",
-      "next_run_at": "2026-11-16T12:30:00-05:00",
-      "last_run_at": "2026-11-13T12:33:36.665651-05:00",
+      "next_run_at": "2026-11-17T12:30:00-05:00",
+      "last_run_at": "2026-11-16T12:35:34.217680-05:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -116,9 +116,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-11-13T12:30:00-05:00",
-        "dispatched_at": "2026-11-13T12:30:08.655702-05:00",
-        "lateness_seconds": 8.7,
+        "scheduled_at": "2026-11-16T12:30:00-05:00",
+        "dispatched_at": "2026-11-16T12:30:08.038126-05:00",
+        "lateness_seconds": 8.0,
         "kind": "on_time"
       },
       "fire_claim": null,
@@ -127,7 +127,7 @@
         "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
       },
       "canonical_completions": [
-        "d4940cd19c9f468f925033b3aa0e0cd5"
+        "93225502529d472dbc81182094a02b01"
       ]
     },
     {
@@ -261,5 +261,5 @@
       ]
     }
   ],
-  "updated_at": "2026-11-13T16:32:14.048786-05:00"
+  "updated_at": "2026-11-16T12:35:34.716061-05:00"
 }

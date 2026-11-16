@@ -15,7 +15,7 @@ metadata:
 
 ## When to Use
 
-Use when a Slack message addressed to the Hermes agent contains `save this`, `add to obsidian`, or `remember` and you want the content saved as a note in the local Obsidian vault. The agent must be addressed (e.g. `@hermes`, `@hermes Agent`); ambient trigger phrases in unaddressed messages are ignored.
+Use when a Slack message addressed to the Hermes agent contains `save this`, `add to obsidian`, `add to transcripts`, or `remember` and you want the content saved as a note in the local Obsidian vault. The agent must be addressed (e.g. `@hermes`, `@hermes Agent`); ambient trigger phrases in unaddressed messages are ignored.
 
 ## Trigger Patterns
 
@@ -23,6 +23,7 @@ The skill activates when a Slack message **addressed to the Hermes agent** conta
 
 - `save this`
 - `add to obsidian`
+- `add to transcripts`
 - `remember`
 
 The agent mention can be `@hermes`, `@hermes Agent`, or any variation that routes to the agent. The trigger phrase can appear anywhere in the message.

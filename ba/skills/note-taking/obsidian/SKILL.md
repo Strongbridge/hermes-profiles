@@ -25,6 +25,7 @@ The documented vault-path convention is the `OBSIDIAN_VAULT_PATH` environment va
 
 - The documented fallback `~/Documents/Obsidian Vault` is a convention, not a guarantee. OneDrive-synced vaults, custom locations, and profile-specific paths are common; an agent trusting the fallback writes into an empty or wrong folder with no error. Confirm the actual vault path before assuming — list the working directory, check for a `.obsidian` config folder, or resolve `OBSIDIAN_VAULT_PATH` in terminal — and switch back to file tools once the real path is known.
 - File tools do not expand shell variables. Do not pass paths containing `$OBSIDIAN_VAULT_PATH` to `read_file`, `write_file`, `patch`, or `search_files`; resolve the vault path first and pass a concrete absolute path.
+- Prefer `patch` over `write_file` when updating existing notes — `write_file` refuses to overwrite files that were last read using paginated or partial `read_file` calls. Using `patch` avoids stale-read lockouts and preserves surrounding note structure.
 
 If the vault path is unknown, `terminal` is acceptable for resolving `OBSIDIAN_VAULT_PATH` or checking whether the fallback path exists. Once the path is known, switch back to file tools.
 
