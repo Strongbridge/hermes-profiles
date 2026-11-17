@@ -24,6 +24,7 @@ The skill activates when a Slack message **addressed to the Hermes agent** conta
 - `save this`
 - `add to obsidian`
 - `add to transcripts`
+- `file this under`
 - `remember`
 
 The agent mention can be `@hermes`, `@hermes Agent`, or any variation that routes to the agent. The trigger phrase can appear anywhere in the message.
@@ -85,6 +86,8 @@ SB-Hermes/ (active Obsidian vault root)
 ```
 
 Notes are saved directly into `SB-Hermes/`. Do not nest further unless the user asks.
+
+If the user explicitly specifies a subfolder or category (e.g. `file this under transcripts`), save the note in the requested target location (e.g. `SB-Hermes/Granola/Transcripts/`) and maintain cross-links via `[[wikilink]]` to preserve vault navigation standards.
 
 ## Linking to Earlier Notes
 
