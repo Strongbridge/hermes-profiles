@@ -65,7 +65,10 @@ python write_status.py --portfolio clin9 --role pm --health green \
 | Task detail | `--task-health` (JSON) | `--task-requirements` (JSON) | `--task-progress` (JSON) |
 | Blockers | — | — | `--blockers` (JSON array) |
 | Notes | `--notes` | `--notes` | `--notes` |
-| Portfolio | `--portfolio <id>` (default: clin9) | `--portfolio <id>` | `--portfolio <id>` |
+|| Portfolio | `--portfolio <id>` (default: clin9) | `--portfolio <id>` | `--portfolio <id>` |
+|| Full status JSON (merge) | `--json-file <path>` | — | — |
+
+> **Recommended PM form.** Use `--json-file` when pushing `pm_status.json`: it merges the current file on top of the base record, preserving every existing `task_health` note. Use the flag-only form (`--health`/`--task-health`) only when you intend to overwrite task detail.
 
 ### Validate after writing
 

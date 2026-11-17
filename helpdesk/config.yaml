@@ -1,0 +1,35 @@
+model:
+  aliases:
+    local-ollama: gemma4:e4b
+    fav: google/gemini-3.8-flash
+    default: google/gemini-3.8-flash
+  default_provider: vertex
+  default: google/gemini-3.8-flash
+  vertex:
+    project_id: project-mgt-report
+    region: global
+  provider: vertex
+_config_version: 52
+fallback_model:
+  provider: nous
+  model: upstage/solar-mini4:free
+fallback_providers:
+  - provider: vertex
+    model: google/gemini-3.5-flash
+  - provider: vertex
+    model: google/gemini-3.5-flash
+  - provider: vertex
+    model: google/gemini-3.1-flash-lite
+  - provider: nous
+    model: upstage/solar-mini4:free
+  - provider: nous
+    model: meituan/longcat-2.5-preview:free
+  - provider: nous
+    model: inclusionai/ling-3.0-flash-sante:free
+  - provider: nous
+    model: poolside/laguna-xs-2.1:free
+  - provider: nous
+    model: poolside/laguna-s-2.1:free
+command_allowlist:
+  - access to Hermes secrets (Windows path)
+  - script execution via -e/-c flag

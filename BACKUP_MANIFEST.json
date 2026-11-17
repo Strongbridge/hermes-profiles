@@ -1,31 +1,12 @@
 {
   "profiles": [
     {
-      "name": "pm",
+      "name": "default",
       "copied": [
         "config.yaml",
-        "SOUL.md",
-        "skills/",
-        "cron/",
-        "platforms/",
-        "plans/",
-        "attachments/",
-        "assets/"
+        "profiles/"
       ],
-      "size": 3569
-    },
-    {
-      "name": "sm",
-      "copied": [
-        "config.yaml",
-        "SOUL.md",
-        "skills/",
-        "cron/",
-        "platforms/",
-        "plans/",
-        "assets/"
-      ],
-      "size": 1615
+      "size": 0
     },
     {
       "name": "ba",
@@ -35,11 +16,9 @@
         "skills/",
         "cron/",
         "platforms/",
-        "plans/",
-        "attachments/",
-        "assets/"
+        "plans/"
       ],
-      "size": 3274
+      "size": 0
     },
     {
       "name": "customer-relations",
@@ -48,10 +27,76 @@
         "SOUL.md",
         "skills/",
         "cron/",
-        "platforms/",
-        "assets/"
+        "platforms/"
       ],
-      "size": 1786
+      "size": 0
+    },
+    {
+      "name": "dashboard-developer",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/"
+      ],
+      "size": 0
+    },
+    {
+      "name": "desktop-developer",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/"
+      ],
+      "size": 0
+    },
+    {
+      "name": "helpdesk",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/"
+      ],
+      "size": 0
+    },
+    {
+      "name": "netadmin",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/"
+      ],
+      "size": 0
+    },
+    {
+      "name": "pm",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/",
+        "plans/"
+      ],
+      "size": 0
+    },
+    {
+      "name": "research-assistant",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/"
+      ],
+      "size": 0
     },
     {
       "name": "resource-manager",
@@ -60,10 +105,31 @@
         "SOUL.md",
         "skills/",
         "cron/",
-        "platforms/",
-        "assets/"
+        "platforms/"
       ],
-      "size": 2019
+      "size": 0
+    },
+    {
+      "name": "sm",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/"
+      ],
+      "size": 0
+    },
+    {
+      "name": "technical-writer",
+      "copied": [
+        "config.yaml",
+        "SOUL.md",
+        "skills/",
+        "cron/",
+        "platforms/"
+      ],
+      "size": 0
     },
     {
       "name": "workbot",
@@ -73,10 +139,9 @@
         "skills/",
         "cron/",
         "platforms/",
-        "plans/",
-        "assets/"
+        "plans/"
       ],
-      "size": 4175
+      "size": 0
     }
   ],
   "excludes": [

@@ -1,0 +1,77 @@
+# Research Assistant Profile Configuration
+
+model:
+  default_provider: vertex
+  provider: vertex
+  default: google/gemini-3.8-flash
+  aliases:
+    local-ollama: gemma4:e4b
+    research-pro: google/gemini-3.1-pro
+    research-fast: google/gemini-3.8-flash
+    fav: google/gemini-3.8-flash
+  vertex:
+    project_id: project-mgt-report
+    region: global
+
+terminal:
+  cwd: C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian
+  timeout: 300
+
+display:
+  pet:
+    enabled: false
+  interactive: false
+
+agent:
+  max_turns: 200
+  reasoning_effort: high
+
+platform_hints:
+  slack:
+    replace: 'You are Hermes Research Agent, an elite autonomous research agent designed to investigate complex topics, synthesize vast amounts of information, and deliver precise, actionable intelligence. Your primary directives are accuracy, exhaustive depth, objective analysis, and rigorous citation. You break queries into hypotheses, evaluate authoritative sources, identify consensus and contradictions, and document every claim with proper attribution.'
+
+platforms:
+  slack:
+    channel_aliases:
+      C0CAY54FGPM: clin9-documentation
+    tools:
+      - hermes-slack
+  telegram:
+    channel_aliases:
+      - research
+fallback_model:
+  provider: nous
+  model: upstage/solar-mini4:free
+fallback_providers:
+  - provider: vertex
+    model: google/gemini-3.6-flash
+  - provider: vertex
+    model: google/gemini-3.5-flash
+  - provider: vertex
+    model: google/gemini-3.1-flash-lite
+  - provider: nous
+    model: upstage/solar-mini4:free
+  - provider: nous
+    model: meituan/longcat-2.5-preview:free
+  - provider: nous
+    model: inclusionai/ling-3.0-flash-sante:free
+  - provider: nous
+    model: poolside/laguna-xs-2.1:free
+  - provider: nous
+    model: poolside/laguna-s-2.1:free
+known_plugin_toolsets:
+  cli:
+    - browser
+    - web
+    - skills
+    - file
+    - research
+
+runtime:
+  nofile_soft_limit: 4096
+
+gateway:
+  multiplex_profiles: true
+_config_version: 52
+command_allowlist:
+  - access to Hermes secrets (Windows path)

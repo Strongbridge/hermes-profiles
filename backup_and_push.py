@@ -18,10 +18,12 @@ SSH_KEY = Path(r"C:\Users\DanRighter\.ssh\id_ed25519_hermes")
 LOG_FILE = BACKUP_ROOT / "backup.log"
 GITIGNORE = Path(r"C:/Users/DanRighter/AppData/Local/hermes/profiles/.gitignore")
 
-# Profiles to back up
+# Profiles to back up (legacy + canonical). "default" is the main
+# ~/.hermes profile home and is handled specially in main().
 PROFILES = [
     "pm", "sm", "ba", "customer-relations", "resource-manager", "workbot",
     "dashboard-developer", "desktop-developer", "netadmin", "technical-writer",
+    "helpdesk", "research-assistant",
 ]
 
 # Paths that should NEVER be backed up (secrets, runtime state)
@@ -62,7 +64,7 @@ def should_exclude(name):
             return True
     return False
 
-def copy_profile(src_profile_dir: Path, dst_profile_dir: Path):
+def copy_profile(src_profile_dir: Path, dst_profile_dir: Path, is_default: bool = False):
     """Copy a profile's relevant files to the backup directory."""
     if not src_profile_dir.exists():
         log(f"SKIP {src_profile_dir.name}: source not found")
@@ -85,6 +87,9 @@ def copy_profile(src_profile_dir: Path, dst_profile_dir: Path):
     # Subdirectories to copy (skip EXCLUDE_DIRS — copying then deleting them
     # just wastes I/O and changes parent dir mtimes, forcing a full git rescan)
     subdirs = ["skills", "cron", "platforms", "plans"]
+    if is_default:
+        # The default profile home contains the canonical profiles/ dir
+        subdirs.append("profiles")
     for subdir in subdirs:
         src_subdir = src_profile_dir / subdir
         dst_subdir = dst_profile_dir / subdir
@@ -201,9 +206,15 @@ def main():
     profiles_count = 0
     
     for profile_name in PROFILES:
-        src = PROFILES_DIR / profile_name
-        dst = BACKUP_ROOT / profile_name
-        size = copy_profile(src, dst)
+        is_default = (profile_name == "default")
+        if is_default:
+            # The default profile lives at the ~/.hermes profile home
+            src = Path(r"C:\Users\DanRighter\.hermes")
+            dst = BACKUP_ROOT / "default"
+        else:
+            src = PROFILES_DIR / profile_name
+            dst = BACKUP_ROOT / profile_name
+        size = copy_profile(src, dst, is_default)
         total_size += size
         if size > 0 or (src.exists() and any(src.iterdir())):
             profiles_count += 1

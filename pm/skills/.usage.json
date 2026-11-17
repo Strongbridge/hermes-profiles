@@ -243,16 +243,16 @@
     "archived_at": null,
     "created_at": "2026-09-25T15:26:54.763529+00:00",
     "created_by": null,
-    "last_patched_at": "2026-11-12T15:58:58.269005+00:00",
+    "last_patched_at": "2026-11-17T13:21:49.450302+00:00",
     "last_reused_patch_generation": 3,
-    "last_used_at": "2026-11-12T15:59:01.976545+00:00",
-    "last_viewed_at": "2026-11-12T15:59:01.954338+00:00",
-    "patch_count": 3,
-    "patch_generation": 3,
+    "last_used_at": "2026-11-17T13:19:13.584032+00:00",
+    "last_viewed_at": "2026-11-17T13:19:13.556547+00:00",
+    "patch_count": 5,
+    "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 32,
-    "view_count": 32
+    "use_count": 33,
+    "view_count": 33
   },
   "design-md": {
     "archived_at": null,

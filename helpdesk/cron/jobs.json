@@ -1,0 +1,113 @@
+{
+  "jobs": [
+    {
+      "id": "7b1a95b39511",
+      "name": "ManageEngine & Security Audit Daily Check",
+      "prompt": "Run the comprehensive daily security audit covering ManageEngine Endpoint Central and Microsoft 365 / Intune using the manageengine-endpoint-central-audit skill.\n\nChecks to perform:\n[ManageEngine]\n1. Security alerts & severity ratings (active vulnerabilities breakdown, critical CVEs, CVSS scores)\n2. Patch deployment summary (installed, applicable, missing count and severity, scan status)\n3. New vulnerabilities identified overnight (last 24 hours)\n4. Manual patch status validated across 5 random systems\n\n[Microsoft 365 & Intune via Graph API]\n5. MS365 - Microsoft Secure Score reviewed\n6. MS365 - Threat protection summary reviewed (email, endpoints)\n7. MS365 - Active alerts triaged\n8. MS365 - Audit logs reviewed for unusual user activity\n9. Intune - Sign-in to Intune Admin Center / Service Health\n10. Intune - Confirm 100% enrolled device compliance or exceptions\n11. Intune - Check failed policy syncs\n12. Intune - Review conditional access enforcement logs\n\n[Interactive / Input Field]\n13. Enter a number\n\nFILE ARCHIVE REQUIREMENT:\nSave the Markdown report to Obsidian at:\n\"C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/Security Audits/Security_Audit_Report_YYYYMMDD.md\"\n\nEMAIL DISPATCH REQUIREMENT:\nExecute python3 \"C:/Users/DanRighter/AppData/Local/hermes/profiles/helpdesk/scripts/send_audit_email.py\" to email the styled HTML report as helpdesk@sb-llc.com to:\n- cgrimaldi@sb-llc.com\n- drighter@sb-llc.com\n- memmanuel@sb-llc.com\n- cjackson@sb-llc.com\n\nDeliver the summary table here in the session.",
+      "skills": [
+        "manageengine-endpoint-central-audit"
+      ],
+      "skill": "manageengine-endpoint-central-audit",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *",
+        "display": "every day at 8am"
+      },
+      "schedule_display": "every day at 8am",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-11-17T10:50:45.886006-05:00",
+      "next_run_at": "2026-11-18T08:00:00-05:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "last_failure": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "local",
+        "chat_id": "local-8159c2c46f1cd2ab9831341f05c08d9b37f27a418db638bddf16f9079c969a1c",
+        "chat_name": null,
+        "thread_id": null,
+        "user_id": "sid:S-1-12-1-3094185524-1277805205-3767180694-3694723171",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "attach_to_session": true,
+      "timezone": "America/New_York"
+    },
+    {
+      "id": "fae80cbffa17",
+      "name": "Weekly Friday Patch Remediation Task Creator",
+      "prompt": "Execute the ManageEngine Friday patch remediation workflow using the manageengine-friday-patch-remediation skill.\n1. Authenticate to Endpoint Central Cloud via the saved Zoho credentials in helpdesk/.env.\n2. Query /dcapi/threats/systemreport/patches to identify all endpoints with missing Critical and Important patches.\n3. Collect missing Patch IDs and target Resource IDs.\n4. Schedule or create the deployment task using Endpoint Central policy 'Deploy any time at the earliest_Friday Window' (Template ID: 79468000003821028).\n5. Ensure the task installation start time (installaftertime) is explicitly set for after 8:00 AM on that Friday (format: 'YYYY-MM-DD 08:00').\n6. Record the scheduled remediation actions and affected endpoints to Obsidian at:\n   \"C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian/SB-Hermes/Security Audits/Friday_Remediation_Log_YYYYMMDD.md\"\n7. Report the summary of patches scheduled for remediation after 8:00 AM here in the session.",
+      "skills": [
+        "manageengine-friday-patch-remediation"
+      ],
+      "skill": "manageengine-friday-patch-remediation",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 5",
+        "display": "every friday at 9am"
+      },
+      "schedule_display": "every friday at 9am",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-11-17T12:22:26.155631-05:00",
+      "next_run_at": "2026-11-20T09:00:00-05:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "last_failure": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "local",
+        "chat_id": "local-8159c2c46f1cd2ab9831341f05c08d9b37f27a418db638bddf16f9079c969a1c",
+        "chat_name": null,
+        "thread_id": null,
+        "user_id": "sid:S-1-12-1-3094185524-1277805205-3767180694-3694723171",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null,
+      "attach_to_session": true,
+      "timezone": "America/New_York"
+    }
+  ],
+  "updated_at": "2026-11-17T12:25:59.459229-05:00"
+}

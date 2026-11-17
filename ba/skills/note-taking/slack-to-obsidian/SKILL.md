@@ -87,7 +87,7 @@ SB-Hermes/ (active Obsidian vault root)
 
 Notes are saved directly into `SB-Hermes/`. Do not nest further unless the user asks.
 
-If the user explicitly specifies a subfolder or category (e.g. `file this under transcripts`), save the note in the requested target location (e.g. `SB-Hermes/Granola/Transcripts/`) and maintain cross-links via `[[wikilink]]` to preserve vault navigation standards.
+If the user explicitly specifies a subfolder or category (e.g. `file this under transcripts` or `add to transcripts`), save the note in the requested target location (e.g. `SB-Hermes/Granola/Transcripts/`). For transcripts in `Granola/Transcripts/`, follow the established filename convention `<Meeting Title> MM-DD-YYYY-transcript.md` (e.g., `D365 Standup 11-17-2026-transcript.md`) rather than timestamp-first slugs, and maintain cross-links via `[[wikilink]]` where applicable to preserve vault navigation standards.
 
 ## Linking to Earlier Notes
 
