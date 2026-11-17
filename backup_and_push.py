@@ -21,7 +21,7 @@ GITIGNORE = Path(r"C:/Users/DanRighter/AppData/Local/hermes/profiles/.gitignore"
 # Profiles to back up (legacy + canonical). "default" is the main
 # ~/.hermes profile home and is handled specially in main().
 PROFILES = [
-    "pm", "sm", "ba", "customer-relations", "resource-manager", "workbot",
+    "default", "pm", "sm", "ba", "customer-relations", "resource-manager", "workbot",
     "dashboard-developer", "desktop-developer", "netadmin", "technical-writer",
     "helpdesk", "research-assistant",
 ]

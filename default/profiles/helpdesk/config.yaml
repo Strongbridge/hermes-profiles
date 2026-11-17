@@ -1,0 +1,30 @@
+model:
+  default: gemma4:e4b
+  default_provider: local-ollama
+  provider: local-ollama
+
+  aliases:
+    local-ollama: gemma4:e4b
+
+terminal:
+  cwd: C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian
+  timeout: 180
+
+display:
+  pet:
+    enabled: false
+
+platform_hints:
+  slack:
+    replace: 'No platform persona set for the helpdesk profile.'
+
+platforms:
+  slack:
+    channel_aliases:
+      CHANNEL_ID: channel-name
+    tools:
+      - hermes-slack
+
+fallback_model:
+  provider: nous
+  model: upstage/solar-mini4:free
