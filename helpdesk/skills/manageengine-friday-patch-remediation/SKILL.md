@@ -1,7 +1,7 @@
 ---
 name: manageengine-friday-patch-remediation
 description: "Schedule Friday patch remediation for Endpoint Central."
-version: 1.1.0
+version: 1.2.0
 author: helpdesk
 license: MIT
 metadata:
@@ -13,6 +13,19 @@ metadata:
 
 ## When to Use
 Use this skill when scheduling weekly patch remediation tasks in Endpoint Central for missing vulnerabilities identified during daily audits, targeting the Friday maintenance window for deployment after 8:00 AM.
+
+---
+
+## Standing User Preferences & Delivery Invariants
+
+1. **Obsidian Archival Invariant**:
+   - Every remediation action **MUST** be recorded directly into the Obsidian vault under:
+     `{OBSIDIAN_VAULT_PATH}/SB-Hermes/Security Audits/Friday_Remediation_Log_YYYYMMDD.md`
+   - Read `OBSIDIAN_VAULT_PATH` from `.env` (defaults to `C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian`).
+   - The directory path MUST include `SB-Hermes/`: `{OBSIDIAN_VAULT_PATH}/SB-Hermes/Security Audits/`.
+
+2. **Deployment Time Invariant**:
+   - The task installation start time (`installaftertime`) MUST explicitly be set for **after 8:00 AM** on the target Friday (e.g. `YYYY-MM-DD 08:00`).
 
 ---
 
@@ -76,5 +89,5 @@ Endpoint Central has pre-configured Friday deployment policies available:
 
 4. **Step 4: Audit & Log**
    * Append remediation action to the Obsidian vault at:
-     `Obsidian/SB-Hermes/Security Audits/Friday_Remediation_Log_YYYYMMDD.md`
+     `{OBSIDIAN_VAULT_PATH}/SB-Hermes/Security Audits/Friday_Remediation_Log_YYYYMMDD.md`
    * Include task name, target count, patch count, scheduled start time (`08:00 AM`), and affected CVEs.

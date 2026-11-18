@@ -1,11 +1,11 @@
 ---
 name: manageengine-endpoint-central-audit
 description: "Audit Endpoint Central and Microsoft 365/Intune checks."
-version: 2.2.0
+version: 2.4.0
 author: helpdesk
 metadata:
   hermes:
-    tags: [audit, endpoint-central, manageengine, microsoft365, intune, security-score, patch-management, email]
+    tags: [audit, endpoint-central, manageengine, microsoft365, intune, security-score, patch-management, email, sharepoint]
 ---
 
 # Unified Endpoint Central & Microsoft 365 / Intune Audit Skill
@@ -18,8 +18,9 @@ This skill executes daily, scheduled, or ad-hoc security compliance audits cover
 
 1. **Obsidian Archival Invariant**:
    - Every completed audit run **MUST** save its full Markdown report directly into the Obsidian vault under:
-     `{OBSIDIAN_VAULT_PATH}/Security Audits/Security_Audit_Report_YYYYMMDD.md`
+     `{OBSIDIAN_VAULT_PATH}/SB-Hermes/Security Audits/Security_Audit_Report_YYYYMMDD.md`
    - Read `OBSIDIAN_VAULT_PATH` from `.env` (defaults to `C:/Users/DanRighter/OneDrive - Strongbridge/Documents/Obsidian`).
+   - The directory path MUST include `SB-Hermes/`: `{OBSIDIAN_VAULT_PATH}/SB-Hermes/Security Audits/`.
    - Deliver the saved file path using the desktop `MEDIA:/absolute/path` URI prefix alongside the summary table.
 
 2. **Automated Scheduled Execution & Email Dispatch**:
@@ -31,7 +32,40 @@ This skill executes daily, scheduled, or ad-hoc security compliance audits cover
      - **Requires Permission**: `Mail.Send` (Application permission with tenant admin consent) on the App Registration.
      - **Script**: `scripts/send_audit_email.py` (or Python script executed with native Windows path `C:/Users/...`).
 
-3. **Execution Script Path Invariant on Windows**:
+3. **SharePoint List Submission Invariant & Exact Schema Mapping**:
+   - **Site**: `https://strongbridgecorp.sharepoint.com/sites/StrongbridgeCorpIT` (Site ID: `strongbridgecorp.sharepoint.com,9369db06-8f56-4b02-a4bf-61377c1e2406,ecf99055-1cbc-4b28-a3a6-9ffa93b82fb1`).
+   - **Target List**: `Strongbridge Daily Security Check` (List ID: `1f9363d2-8884-4ca2-8daa-c8d359fe18f6`).
+   - **Permission Requirement**: For automated app writes via Microsoft Graph (`POST /v1.0/sites/{site-id}/lists/{list-id}/items`), the App Registration requires **`Sites.Manage.All`** (or `Sites.ReadWrite.All`) with admin consent.
+   - **Avoid `Sites.Selected` Dead-ends**: `Sites.Selected` grants zero access until an explicit site-level permission grant is created. In modern Microsoft 365 tenants (post September 2024), legacy multi-tenant PnP PowerShell interactive auth is deprecated (`Specified method is not supported`). Do not direct the user to connect with interactive PnP without a pre-registered custom app. Always recommend granting `Sites.Manage.All` directly in Entra ID.
+   - **Exact Column Mapping for Graph `POST`**:
+     ```json
+     {
+       "fields": {
+         "Title": "Daily Security Check - YYYY-MM-DD",
+         "field_1": "Dan Righter",
+         "field_2": "HH:MM AM/PM",
+         "field_3": true,
+         "field_4": "Yes",
+         "field_5": "Ok",
+         "field_6": 2.0,
+         "field_7": "Complete",
+         "field_8": "Yes",
+         "field_9": "Yes",
+         "field_10": "Yes",
+         "field_11": "Yes",
+         "field_12": "Yes",
+         "field_13": "Yes",
+         "field_14": "Yes",
+         "field_15": "Yes",
+         "field_16": "No",
+         "field_18": "Dan Righter",
+         "CheckDate": "YYYY-MM-DDTHH:MM:SSZ"
+       }
+     }
+     ```
+     *Note on Choice fields*: `field_4`, `field_8`-`field_15` accept `'Yes'` or `'Issue'`; `field_5` accepts `'Ok'` or `'Issue'`; `field_7` accepts `'Complete'` or `'Incomplete'`; `field_16` accepts `'Yes'` or `'No'`. `field_6` is a numeric count of overnight new vulnerabilities.
+
+4. **Execution Script Path Invariant on Windows**:
    - When invoking external python scripts on Windows via terminal, pass the native Windows forward-slash path (`python3 "C:/Users/.../script.py"`), not POSIX `/c/Users/...` which Python for Windows cannot resolve.
 
 ---
@@ -87,6 +121,7 @@ This skill executes daily, scheduled, or ad-hoc security compliance audits cover
   * `AuditLog.Read.All` (Directory audit logs, unusual activity, CA logs)
   * `Policy.Read.All` (Conditional Access policies)
   * `Mail.Send` (Email delivery from service account `helpdesk@sb-llc.com`)
+  * `Sites.Manage.All` (or `Sites.ReadWrite.All` for automated SharePoint list updates)
 
 ---
 
