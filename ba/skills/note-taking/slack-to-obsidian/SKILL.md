@@ -25,6 +25,7 @@ The skill activates when a Slack message **addressed to the Hermes agent** conta
 - `add to obsidian`
 - `add to transcripts`
 - `file this under`
+- `file under` (e.g. `file under FYI`, `file under notes`)
 - `remember`
 
 The agent mention can be `@hermes`, `@hermes Agent`, or any variation that routes to the agent. The trigger phrase can appear anywhere in the message.
@@ -50,7 +51,7 @@ When triggered, the agent:
 
 4. **Creates the note** — one file per message, written directly into `SB-Hermes/`. The folder already exists and is the active Obsidian vault. No subfolder is created unless the user asks.
 
-5. **Names the file** — `YYYY-MM-DD-HHMMSS.md` (local time, zero-padded). Add a short slug from the content if the message is long enough to derive one meaningfully (e.g. `2026-08-25-143000-federal-team-preferences.md`). When in doubt, use the timestamp only.
+5. **Names the file** — `YYYY-MM-DD-HHMMSS.md` (local time, zero-padded) or `YYYY-MM-DD-<category>-<slug>.md` for dated daily/summary posts. Add a short slug derived from the content or category (e.g. `2026-11-18-fyi-eod-email-summary.md` or `2026-08-25-143000-federal-team-preferences.md`).
 
 6. **Writes frontmatter** — every note starts with YAML frontmatter:
 
@@ -61,6 +62,7 @@ When triggered, the agent:
    triggered_by: "@hermes Agent save this"
    author: "Jane Smith"
    content_summary: "Deployment checklist for the FRA pipeline"
+   tags: [fyi, eod-summary]
    ---
    ```
 

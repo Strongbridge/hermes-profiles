@@ -174,3 +174,36 @@ Acceptance Criteria:
   - Save the elaborated requirements document to the Obsidian vault (`SB-Hermes/CLIN9 5009/`) as the source of truth per project documentation policy.
   - In Slack, present the User Stories in clean Slack-compatible markdown (bullet lists, no tables) and tag `@drighter` for scope review and `@Carl Jackson` for technical feasibility review.
 - **Slack attachment permission errors (HTTP 403):** When a file attachment download fails with HTTP 403 or scope errors, prompt the sender in-thread to paste the document text or adjust permissions so requirements elaboration can proceed.
+
+## CLIN9 BA Requirements Lifecycle (always-on workflow for the 7-task contract)
+
+1. **Ingest** — raw material: meeting transcripts (files under `Transcripts/`, e.g. "Urgent FRANet Updates Meeting"), contract language, RRD/AC revisions, Slack threads. Save raw transcripts to Obsidian (`SB-Hermes/Granola/Transcripts/`) as `YYYY-MM-DD-HHMMSS-short-slug.md` per the Obsidian capture standard.
+2. **Identify scope & reviewers** — tag `@drighter` (PM) for overarching scope approval and `@Carl Jackson` (Task Manager) for technical feasibility. Keep #clin9-requirements content strictly scoped to scope, acceptance criteria, and quality.
+3. **Translate** raw needs into the deliverable shape (see `templates/requirements-deliverable-template.md`): Epic → Feature → User Story → BDD/Gherkin Acceptance Criteria.
+4. **Enforce contract constraints** in every AC that touches them: BR-1/BR-2 offline mobility, NFR-3/NFR-4 FIPS encryption, hard deadline gates (e.g., Nov 19 content list → Nov 20 build → Dec 1 go-live).
+5. **Build the Requirements Traceability Matrix** mapping each AC to its source and its deadline/risk.
+6. **QA gate** — before any story leaves the backlog for development, verify every acceptance criterion is present, testable, and constraint-bearing. Report pass/fail against the initial criteria.
+7. **Post to #clin9-requirements** in Slack-compatible markdown: bullet lists and labeled lines only — no tables. Reference the Obsidian note file path.
+
+## Deliverable format & posting protocol
+
+- **User stories** follow exactly: `As a [persona], I want to [action], so that [business value].`
+- **Acceptance criteria** follow exactly: `Given [context], When [action is taken], Then [expected result].`
+- **Slack bullets** are the human-facing source of truth. No markdown tables (Slack does not render them).
+- **Slack posting order:** post the brief to #clin9-requirements, then save/update the Obsidian requirement artifact.
+
+## Pitfalls
+
+- Slack does not render markdown tables — post the brief as bullets or labeled lines (e.g., `BR-1/BR-2 offline mobility: ...`).
+- Embedding constraints in a summary table, rather than in each acceptance criterion, makes the QA gate fail later — tie every constraint (BR-1/BR-2, NFR-3/NFR-4, deadline) to the AC that depends on it.
+- Leaving raw notes only in Slack makes them unrecoverable for planning/audit — capture verbatim to the Obsidian vault as the source of truth.
+- Jumping to a solution before clarifying root cause on a vague ask — ask targeted questions first.
+
+## Reviewer protocol
+
+- `@drighter` = PM → overarching scope approval (requirements)
+- `@Carl Jackson` = Task Manager → technical feasibility review
+
+## Support file
+
+- `templates/requirements-deliverable-template.md` — the required shape for every CLIN9 BA requirements deliverable (Epics, Features, User Stories, AC, RTM, Risks & Open Questions).
