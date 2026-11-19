@@ -25,7 +25,7 @@
       "schedule_display": "every day at 8am",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
@@ -33,7 +33,7 @@
       "paused_reason": null,
       "created_at": "2026-11-17T10:50:45.886006-05:00",
       "next_run_at": "2026-11-20T08:00:00-05:00",
-      "last_run_at": "2026-11-18T08:16:27.043696-05:00",
+      "last_run_at": "2026-11-19T08:08:29.746313-05:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -59,12 +59,9 @@
         "lateness_seconds": 8.7,
         "kind": "on_time"
       },
-      "fire_claim": {
-        "at": "2026-11-19T08:01:09.172223-05:00",
-        "by": "Desktop-DRH4IKJ:7792:71f5f99929a24509973c257e85f0a881"
-      },
+      "fire_claim": null,
       "canonical_completions": [
-        "7b61cfb5513e4edab27a2107f95a11b0"
+        "f745212afd33498b97abc2711d613658"
       ]
     },
     {
@@ -122,5 +119,5 @@
       "timezone": "America/New_York"
     }
   ],
-  "updated_at": "2026-11-19T08:01:09.192522-05:00"
+  "updated_at": "2026-11-19T08:08:43.236880-05:00"
 }

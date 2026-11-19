@@ -213,8 +213,35 @@ When a stakeholder asks for the status of a CLIN9 item (a task, a new work item,
 - **gray** — pending / not yet scheduled / awaiting authorization
 
 ### Pitfalls
-- **Do not answer from a 7-task-centric assumption.** The baseline is 7 tasks, but the tracker now has 8+ (see `task_health` keys). A "task 8" may exist and be at risk, not missing.
+- **Do not answer from a 7-task-centric assumption.** The baseline is 7 tasks, but the tracker now has 8+ (see `task_health` keys). A **task 8** may exist and be at risk, not missing.
 - **Do not answer from memory.** Read `dashboard/data/pm_status.json` and the vault docs before asserting a status — statuses change and the file is the source of record.
+
+---
+
+## BA Notes Tracking and Status Entry
+
+When BA (Business Analyst) notes need to be located and added to the status tracker, follow this workflow:
+
+### 1. Locate the source record
+Search the obsidian vault for the BA's notes (e.g. `search_files` pattern: `RCS`, `O&M D365`, `Abu Yillah`, `Adah Aidoo`, `Business Analyst`). The vault is the source of record — do not rely on Slack alone (slack connector may be disconnected; vault notes persist).
+
+### 2. Identify the correct tracker
+- **CLIN9 BA notes** → `dashboard/data/ba_status.json` (task keys 1–7).
+- **O&M BA notes** → `dashboard/data/onm_ba_status.json` (portfolio/application keys, e.g. `D365`, `RCS`).
+- Do not mix the two trackers — CLIN9 and O&M are separate business units.
+
+### 3. Add the entry
+- Update `task_requirements[<key>]`:
+  - `status`: `pass` (baseline complete), `in_progress` (in progress), `complete` (delivered)
+  - `notes`: detailed baseline content
+- Update `notes` at the top level to reflect the latest BA assessment.
+- Set `last_updated` to the current time and `updated_by` to `BA`.
+
+### 4. Validate
+- Read back with `read_file`; confirm JSON parses and other tasks' fields are preserved.
+
+### Pitfall
+- **Do not mix CLIN9 and O&M BA notes.** The two trackers are separate. In this session: the O&M D365 project ("RCS") was added under `D365` in `onm_ba_status.json`; CLIN9 tasks 1–7 live under `ba_status.json` task keys 1–7. Adding O&M notes to the CLIN9 tracker (or vice versa) corrupts the status roll-up.
 
 ---
 

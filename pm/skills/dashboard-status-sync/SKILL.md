@@ -25,6 +25,39 @@ Always serve the dashboard via HTTP: `python3 -m http.server 8080` from the `das
 | BA (@business_analyst) | `ba_status.json` |
 | SM (@scrum_master) | `sm_status.json` |
 
+## Portfolio / catalog structure
+
+The CLIN9 dashboard persists two related but distinct kinds of state:
+
+1. **Portfolio catalog** — which portfolios/applications exist under each business unit, and who owns them. Source of truth: `dashboard/src/portfolioConfig.js` (the `PORTFOLIOS` object). Each entry records `num`, `name`, `short`, `owner`, `description` (and an optional `parent`).
+2. **Portfolio health / requirements state** — the current status of each portfolio. Persisted in `dashboard/data/onm_*_status.json`:
+   - `onm_pm_status.json` → `task_health` (health + notes)
+   - `onm_sm_status.json` → `task_progress` (status + notes)
+   - `onm_ba_status.json` → `task_requirements` (status + notes)
+
+When you add a portfolio that does not yet exist anywhere, you must add it to **both** places (see "Creating a new portfolio entry").
+
+## Creating a new portfolio entry
+
+When a user asks you to create a new portfolio/application record (e.g. "create D365 portfolio under O&M, application RCS, owner Christina Morris"), follow this order:
+
+1. **Resolve the acronym and the owner first.** Search the Obsidian vault and the dashboard for the existing catalog structure and any status docs. Do not assume "D365" means Microsoft Dynamics 365 — in this project "D365" is an internal portfolio name (a collection of D365 applications). Confirm the business unit, portfolio name, application, and owner before touching any file. **Resolve the owner as the system/project owner (the person accountable for the portfolio), not the developer or QA who is merely on the team — cross-check the team roster before writing the owner.** When the portfolio is an application collection, name it `<portfolio> for <application>` (e.g. "D365 for RCS"). For O&M internal portfolios, no external Microsoft/D365 connection is required — track entirely on the dashboard.
+2. **Add the catalog entry** to `dashboard/src/portfolioConfig.js` in the matching business unit's `tasks` array, with `num`, `name`, `short`, `owner`, and `description`.
+3. **Add the status entries** to the three `onm_*_status.json` files:
+   - `onm_pm_status.json` → `task_health[<num>] = {"health": "gray", "notes": "Portfolio provisionally added; no health baseline yet — O&M PM to complete assessment."}`
+   - `onm_sm_status.json` → `task_progress[<num>] = {"status": "pending", "notes": "Portfolio provisionally added; no sprint activity assigned yet."}`
+   - `onm_ba_status.json` → `task_requirements[<num>] = {"status": "pending", "notes": "No requirements documented yet; O&M BA to baseline requirements."}`
+4. **Validate** each edited JSON file parses (`python3 -c "import json; json.load(open('<file>'))"`).
+5. **Confirm in Slack** only if the Slack connector is `connected: true`; otherwise note the posting gap (see "Slack posting gate").
+
+## Standing rules for O&M portfolio catalog entries
+
+- **No external connection for O&M portfolios.** The O&M portfolio is tracked entirely in the dashboard (`portfolioConfig.js` + `onm_*_status.json`). Do not attempt to reach Microsoft/Dynamics 365 or any other external system to create or update portfolio records — the dashboard is the source of truth.
+- **Owner = accountable owner, not team member.** The `owner` field must name the system/project owner or responsible lead. A developer, QA, or BA who is on the team is not the owner. Cross-check the team roster (e.g. `team_profiles.json`) before setting owner.
+- **Name = portfolio by application.** New application-collection portfolios are named `<portfolio> for <application>` (e.g. "D365 for RCS").
+- **Read before write; validate after every write.** Load the existing file first, then write and validate JSON syntax. The dashboard files are shared across bots.
+- **Slack posting gate.** Post only if the Slack connector is `connected: true` (check via `manage_connections(action='status')`). Otherwise note the posting gap.
+
 ## How to write your status
 
 ### Correct workflow: read → modify → write → validate

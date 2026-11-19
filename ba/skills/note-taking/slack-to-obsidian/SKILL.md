@@ -90,8 +90,9 @@ SB-Hermes/ (active Obsidian vault root)
 Notes are saved directly into `SB-Hermes/`. Do not nest further unless the user asks.
 
 If the user explicitly specifies a subfolder or category (e.g. `file this under transcripts` or `add to transcripts`), save the note in the requested target location (e.g. `SB-Hermes/Granola/Transcripts/`). For transcripts in `Granola/Transcripts/`:
-- Follow the established filename convention `<Meeting Title> MM-DD-YYYY-transcript.md` (e.g., `D365 Standup 11-17-2026-transcript.md` or `Clin9 Standup (Task 2-7) 11-17-2026-transcript.md`) rather than timestamp-first slugs.
+- Follow the established filename convention `<Meeting Title> MM-DD-YYYY-transcript.md` (e.g., `D365 Standup 11-17-2026-transcript.md` or `Clin9 Standup (Task 2-7) 11-17-2026-transcript.md`) rather than timestamp-first slugs. Always sanitize date slashes (e.g., `11/19/2026` -> `11-19-2026`) as slashes cause invalid path errors on Windows filesystem writes.
 - Format Markdown headers (`## Section Title`) matching the transcript layout (e.g., `Sprint Readiness`, `Team Updates`, `Blockers`, `Next Steps`).
+- Strip out any raw Slack Block Kit JSON payloads or duplicated block scrapings appended to the message so the filed note remains clean Markdown.
 - Bold team member names / ticket tags in bullet points (e.g. `- **Ryan (MCIA):** no blockers`, `- **EN 496:** Visual Studio issue`).
 - Format action items in `Next Steps` with bolded task text and owner in parentheses (e.g. `- **Complete handoff preparation** (Melissa)`).
 - Maintain cross-links via `[[wikilink]]` where applicable to preserve vault navigation standards.
