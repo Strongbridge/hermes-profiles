@@ -46,11 +46,12 @@ Before searching for specific opportunities, profile the contract vehicle:
 When querying GSA's SAM.gov Contract Opportunities Public API (`/opportunities/v2/search`):
 1.  **API Key Harvest**: Retrieve the `sam_gov_api` key dynamically from local environment variables or `.env` credential files. Do not hardcode the API key.
 2.  **Mandatory Parameters**: Always supply `postedFrom` and `postedTo` formatted as `MM/dd/yyyy`.
-3.  **Set-Aside Filters**: Use the standard SAM.gov Set-Aside codes:
-    *   `8A` - 8(a) Set-Aside (FAR 19.8)
-    *   `SBA` - Total Small Business Set-Aside (FAR 19.5)
-    *   `8AN` - 8(a) Sole Source
-4.  **Keyword & Organization Refinement**: Refine queries by `ncode` (NAICS), `organizationName` (Agency/Subtier), and `title`.
+3.  **Government-Wide Scope (No Agency Exclusions)**: Do NOT restrict the primary search sweeps by hardcoding `organizationName`. Omit `organizationName` so queries automatically capture solicitations across **all federal civilian and defense agencies** (including EPA, NOAA, NASA, DoD, HHS, DOL, Interior, and Agriculture).
+4.  **Full Set-Aside Coverage (SBA + 8A)**:
+    *   Query **Total Small Business Set-Aside (`SBA`)** across core IT NAICS (`541512`, `541511`, `541519`). Bypassing `SBA` misses major prime vehicles (e.g., NASA ORBIT, GSA Polaris).
+    *   Query **8(a) Set-Aside (`8A`)** across core IT NAICS (`541512`, `541511`).
+5.  **Dedicated Emerging Agency Sweeps**: Add explicit targeted checks for environmental and scientific agencies (e.g., `COMMERCE, DEPARTMENT OF` for NOAA and `ENVIRONMENTAL PROTECTION AGENCY` for EPA).
+6.  **Keyword & Strategic Vehicle Refinement**: Supplement set-aside sweeps with targeted keyword queries (`"STARS III"`, `"SWES"`, `"DevOps"`, `"Cloud Migration"`).
 
 ### Step 3: Pipeline Structuring in Obsidian
 Create a dedicated `Procurement/` folder with the following standardized files:
@@ -68,17 +69,24 @@ Implement an automated Python sync script (`update_sam_opportunities.py`) to per
 3.  **Self-Cleaning**: Scan the existing `Opportunity-Pipeline.md` markdown table, evaluate deadlines against the current system date, and move expired or archived items to an inactive log.
 4.  **Logging**: Append a structured log entry to the "Maintenance and Ingestion Log" section of the document to document compliance-ready audit trails.
 
-### Step 5: 50-State SLED Research & Opportunity Pipeline
+### Step 5: 50-State SLED Research & Cross-Agency Opportunity Pipeline
 When tracking state-level IT contracting:
-1.  **Establish SLED Directory**: Create `Procurement/SLED-State-Local/` containing `README.md`, `NASPO-ValuePoint-IT-Services.md`, `50-State-Procurement-Portal-Directory.md`, and `SLED-Opportunity-Pipeline.md`.
-2.  **Taxonomy Translation**: Translate federal NAICS codes to state commodity codes (NIGP Class 920/918 or UNSPSC 8111) before querying state portals.
-3.  **Cooperative Teaming**: Track newly executed State Participating Addenda under NASPO ValuePoint to identify prime reseller partners (Carahsoft, SHI, WWT) requiring professional services subcontractors.
-4.  **Multi-Feed Script**: Implement `scripts/update_state_opportunities.py` to ping state open-data endpoints and RSS feeds, perform deadline verification, and maintain audit trails.
+1.  **All-Agency SLED Scope**: Never limit state research to Departments of Transportation. State IT spending is concentrated in **Central State IT/CIO Agencies, Health & Human Services (Medicaid Enterprise Systems), Labor & Unemployment Insurance, Taxation & Revenue (IRS Pub 1075), and Public Safety (CJIS)**.
+2.  **Regional Dossiers**: Maintain deep-dive profiles across all key regional hubs:
+    *   *Midwest*: Michigan (DTMB / SIGMA VSS), Ohio (DAS/OIT / OhioBuys STS), Illinois (DoIT / BidBuy JPMC).
+    *   *Northeast & Mid-Atlantic*: New York (OGS HBITS), Pennsylvania (DGS ITQ), Maryland (DoIT CATS+), Virginia (VITA eVA).
+    *   *South & West*: Texas (DIR DBITS/ITSAC), Florida (DMS MFMP), California (CDT CMAS).
+3.  **Taxonomy Translation**: Translate federal NAICS codes to state commodity codes (NIGP Class 920/918 or UNSPSC 8111) before querying state portals.
+4.  **Cooperative Teaming**: Track newly executed State Participating Addenda under NASPO ValuePoint to identify prime reseller partners (Carahsoft, SHI, WWT) requiring professional services subcontractors.
+5.  **Multi-Feed Script**: Implement `scripts/update_state_opportunities.py` to ping state open-data endpoints and RSS feeds, perform deadline verification, and maintain audit trails.
 
 ---
 
 ## 3. Standing Rules & Pitfalls
 
+*   **Agency Exclusion Pitfall**: Never restrict federal opportunity searches by hardcoding `organizationName` on primary sweeps — omitting `organizationName` ensures government-wide visibility across emerging target accounts like EPA, NOAA, NASA, and DoD.
+*   **Small Business Set-Aside Gap Pitfall**: Never search for 8(a) (`8A`) alone — Strongbridge qualifies under Total Small Business (`SBA`), and major federal IT solicitations (including the USDOT SWES BPA and GSA Polaris) are competed under `SBA`.
+*   **State SLED Non-DOT Scope Rule**: State IT research must encompass all major executive branch verticals (HHS/Medicaid, Labor/UI, Revenue/Tax, and Central IT), because statewide IT master contracts (CATS+, VITA ITCL, DIR DBITS) serve all state agencies.
 *   **Date Range Constraint Pitfall**: Always limit the range between `postedFrom` and `postedTo` to a maximum of 1 year. Querying a wider window throws a `400 Bad Request` error.
 *   **FIPS / BMI Compatibility Constraint**: Note that Carbonite Bare Metal Image (BMI) backups cannot function on Windows systems where the Federal Information Processing Standard (FIPS) setting is enabled. Ensure other backup and storage types are utilized on FIPS-enabled environments processing CUI.
 *   **Set-Aside Exclusivity Rule**: When querying SAM.gov, remember that the API accepts only a single Set-Aside value in the `typeOfSetAside` field at any one time.

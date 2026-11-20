@@ -75,3 +75,4 @@ gateway:
 _config_version: 52
 command_allowlist:
   - access to Hermes secrets (Windows path)
+  - script execution via -e/-c flag

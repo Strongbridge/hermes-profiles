@@ -17,8 +17,9 @@ metadata:
 Use this skill when evaluating, comparing, or recommending corporate laptops and workstation hardware for Strongbridge employees across Developers, Management, and Power User roles.
 
 ## Standing Selection Rule
-*   **Best Value & Performance Principle**: Do not force a single vendor (neither Dell nor Microsoft Surface is mandatory). Select the best system for each role profile based on technical performance, user ergonomics, and cost-effectiveness.
-*   **Developer Priority**: Choose native x86_64 architecture (Dell Precision/Latitude) to ensure 100% Docker/VM toolchain compatibility and lower acquisition costs ($1,649–$2,349) unless a specific developer requests Surface Laptop Studio 2.
+*   **Best Value & Cost-First Principle**: Do not force a single vendor (neither Dell nor Microsoft Surface is mandatory; Dell is fully acceptable). Select the best system for each role profile based on technical performance and user ergonomics while actively keeping acquisition costs down.
+*   **Developer Priority & x86 Architecture**: Choose native x86_64 architecture (Dell Precision/Latitude) to ensure 100% Docker/VM toolchain compatibility and lower acquisition costs ($1,649–$2,349) unless a specific developer requests Surface Laptop Studio 2.
+*   **Developer Unified Memory & Storage Pitfall**: Never recommend base unified memory configurations (e.g., 24GB unified memory / 512GB SSD) for enterprise software developers. In unified architectures, the CPU and GPU dynamically share RAM, causing memory starvation during concurrent Docker container, Visual Studio, and local database runs. Furthermore, 512GB storage is inadequate for enterprise dev environments (1TB–2TB minimum required). Reserve specialized ARM/Blackwell superchips (like RTX Spark N1X) strictly for on-device AI/CUDA engineers, and mandate at least 32GB+ RAM and 1TB+ SSD.
 *   **Management Priority**: Select Microsoft Surface Pro 11th Edition ($949–$1,399) where 2-in-1 mobility, digital document signatures/markup, and long battery life provide clear productivity gains; select Dell Latitude 7450 ($1,499) for standard non-touch clamshell preference.
 
 ---

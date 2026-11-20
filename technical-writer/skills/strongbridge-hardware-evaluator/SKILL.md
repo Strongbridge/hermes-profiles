@@ -25,7 +25,15 @@ Use when: Generating a weekly technical hardware recommendation report from the 
    - **CUI & Regulatory Compliance**: Detail NIST SP 800-171 data custody requirements, contrasting removable SSD hardware architecture with paid vendor drive retention contracts (e.g., Dell Keep Your Hard Drive).
    - **Residual Asset Value**: Include 3-year lifecycle asset depreciation and recovery estimates (e.g., ~35% residual value for premium Surface tiers vs. ~20% for standard enterprise laptops).
 5. **Vendor Business Case & Trade-Off Analysis**: Provide direct head-to-head comparisons across thermal management, battery longevity under client travel conditions (16.5–22.5 hrs vs. 10–14 hrs), digital inking/executive presentation workflows, and Docker/IDE compilation benchmarks.
-6. **Publication**: Format as a clean, structured federal-standard markdown report and post it directly to the designated IT operations Slack channel (`#SB-netops` / `C0C91831Y5B`) using Hermes desktop UI tools (`drive_preview`/`shows`).
+6. **Publication & Cron Routing**:
+   - Format as a clean, structured federal-standard markdown report.
+   - For scheduled or background cron runs, **always explicitly set the `deliver` parameter to the target Slack channel (`slack:C0C91831Y5B`)** instead of using `origin` or leaving it blank, which causes the output to deliver back to the local desktop app session rather than Slack.
 7. **Review & Compliance**: Run the content through the Elephant Goldfish review protocol to verify all hardware claims, model numbers, and prices against source files in the vault.
 8. **Tracking**: Log the weekly activity, audit date, and changes in `Weekly-Market-Watch.md`.
+
+## Pitfalls
+- **Default Cron Deliver Target**: Background and cron executions default to `deliver: origin`. If triggered manually from a local chat session, the output will only display in the local chat panel. Always configure an explicit `slack:<channel_id>` deliver target for correct remote routing.
+- **Python Environment Mismatch**: Ensure `python-docx` and related dependencies are bound directly to the active virtual environment (`venv`) using `uv pip install --python <venv_path>` rather than the global site packages, as system-level libraries are isolated from Hermes's internal environments.
+- **Data Ingestion Gaps**: Always cross-reference multiple source sheets; incomplete or mismatched model specifications can lead to invalid recommendation matrices.
+
 *References: https://github.com/google/elephant-goldfish-model*

@@ -30,11 +30,21 @@ Use it to extract corporate knowledge, past performance citations, technical ser
     *   **USDOT SWES BPA**: `#693JJ319A000016` (Department-wide Software Engineering Support Services)
     *   **FRA DevOps Support Services**: `#693JJ621F000034` (Contract CLIN 50009 / RFQ #693JJ621R000003)
 *   **Quality & Information Security Certifications**:
-    *   **CMMI-DEV Level 3** (Development) & **CMMI-SVC Level 3** (Services) Appraised
-    *   **ISO 9001:2015** (Quality Management System - QMS)
-    *   **ISO/IEC 20000-1:2018** (IT Service Management - ITSM / ITIL Aligned)
-    *   **ISO/IEC 27001:2013** (Information Security Management System - ISMS)
+    *   **CMMI-DEV Level 3** (Development) Appraised — Active and verified through **April 9, 2029**
+    *   **CMMI-SVC Level 3** (Services) Appraised
+    *   **ISO 9001:2015** (Quality Management System - QMS, Certificate #`1057UIT`)
+    *   **ISO/IEC 20000-1:2018** (IT Service Management - ITSM, Certificate #`1058UIT`)
+    *   **ISO/IEC 27001:2013** (Information Security Management System - ISMS, Certificate #`4136US`)
     *   **Section 508 / WCAG Compliance**: DHS Certified Trusted Testers on staff
+
+### 1.1 Live SharePoint Knowledge Repository Access
+Strongbridge maintains its proposal bank, CPARS, project data sheets, and CMMI/ISO libraries on SharePoint (`https://strongbridgecorp.sharepoint.com`). To query live proposal assets:
+*   Credentials: `AZURE_TENANT_ID`, `AZURE_CLIENT_ID`, and `AZURE_CLIENT_SECRET` in `profiles/research-assistant/.env`.
+*   Endpoint: Authenticate with Entra ID OAuth2 client credentials against `https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token` with scope `https://graph.microsoft.com/.default`.
+*   Key Sites:
+    *   *Bid Bank*: `/sites/BidBank` (Gold Set, Pink Set, SOW/PWS)
+    *   *Proposal Management*: `/sites/proposal` (Teaming drive: CPARS, Project Data Sheets, Project Descriptions 2026, Resumes)
+    *   *CMMI-PAL & ISO*: `/sites/CMMI-PAL`, `/sites/ISODocuments`
 
 ---
 
@@ -74,11 +84,17 @@ When responding to solicitations, map the Statement of Work / Performance Work S
 | :--- | :--- | :--- |
 | **USDOT / FRA** | FRA DevOps Support Services (`693JJ621F000034`) | Prime contractor for 20+ Web Information Systems, MCIA migration to Laravel, SafeSpect/Track Inspection POC, RSAC refresh, Quiet Zone portal, SharePoint SPO administration. |
 | **USDOT / FRA** | Track Data Management System (TDMS) | Full spectrum DevOps supporting FRA Automated Track Inspection Program (ATIP) with centralized track safety databases. |
-| **USDOT / NHTSA** | Crash Data Acquisition Network (CDAN) | Full lifecycle DevSecOps across 5 core applications including CISS; Max.gov SSO integration, GIS API optimization ($200K+ licensing savings). |
-| **USDOT / OST** | Enterprise Drupal CMS | Managed enterprise web operations and Agile releases across 9 of 10 DOT Operating Administrations. |
-| **Dept. of Labor (DOL)** | Wage and Hour Division (WHD) | Custom software design, 2.8M unique visitor website, hybrid CMMI L3/Agile software maintenance, 100% Section 508 compliance. |
-| **Dept. of State (DOS)** | GDMS & FPDS Systems | Cloud migration to AWS GovCloud, microservices modernization (Docker + Lambda), automated vulnerability scanning (HPE Fortify 5-star rating). |
-| **HHS / CMS** | Enterprise SharePoint & Cloud POC | Azure cloud migration POC, SPO architecture, supporting 30 CMS business units and 5,000+ users. |
+| **USDOT / FRA** | Business Intelligence Services (BIS) (`69319521F100015`) | FRA data warehousing, analytics, and business intelligence dashboards. |
+| **USDOT / PHMSA**| PHMSA DataMart (PDM) Modernization | 15-year prime track record; integrates 80+ sources for 10,000+ national users; 99.99% uptime since 2015; Oracle OAS, Tableau, and AWS GovCloud migration. |
+| **USDOT / FMCSA**| Low-Code SWAT Modernization | Microsoft PowerApps on AWS modernizing RICE mission applications (SCORE, Recruitment Tracker, FinDash). |
+| **USDOT / FTA**  | Financial Management System (FMS) (`69319523F10025N`) | Mission-critical financial feeder connecting ECHO, TrAMS, Delphi, and Treasury SPS; 100% audit defense across perpetual OIG/PHMSA reviews. |
+| **USDOT / BTS**  | BTS Data Infrastructure Modernization | Proprietary Data Lifecycle Matrix (DLM), Tableau visualizations, and digital publishing of *Pocket Guide to Transportation*. |
+| **USDOT / FHWA** | Electronic Document Management System (`693JJ322F00168N`) | Dynamics 365, Azure DevOps traceability, live monthly training, and signed CPARS. |
+| **USDOT / NHTSA**| Crash Data Acquisition Network (CDAN) (`693JJ923F000299`) | Full lifecycle DevSecOps across 5 core applications including CISS; Max.gov SSO integration, GIS API optimization ($200K+ licensing savings). |
+| **USDOT / OST**  | Enterprise Drupal CMS | Managed enterprise web operations and Agile releases across 9 of 10 DOT Operating Administrations. |
+| **Dept. of Labor**| Wage and Hour Division (WHD) | Custom software design, 2.8M unique visitor website, hybrid CMMI L3/Agile software maintenance, 100% Section 508 compliance. |
+| **Dept. of State**| GDMS & FPDS Systems | Cloud migration to AWS GovCloud, microservices modernization (Docker + Lambda), automated vulnerability scanning (HPE Fortify 5-star rating). |
+| **HHS / CMS**    | Enterprise SharePoint & Cloud POC | Azure cloud migration POC, SPO architecture, supporting 30 CMS business units and 5,000+ users. |
 
 ---
 

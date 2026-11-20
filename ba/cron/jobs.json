@@ -1,0 +1,57 @@
+{
+  "jobs": [
+    {
+      "id": "093387dd3b20",
+      "name": "Obsidian Vault File Organizer",
+      "prompt": "Scan the root directory of Obsidian (C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian) and SB-Hermes (C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian\\SB-Hermes) for any unorganized loose files. Move loose files into their proper subdirectories based on project area and content (Project Status Reports -> Project Status Reports/, Granola notes -> Granola/Transcripts/, CLIN9 items -> CLIN9 5009/, O&M items -> O&M/, Personnel items -> Personnel/, team items -> team/, Policies -> documentation/Policies/, Conversations -> Conversations/, Procurement -> Procurement/, Hardware -> Hardware-Recommendations/). Remove empty 0-byte or blank canvas temporary files. Log a concise summary of any moved files or actions taken.",
+      "skills": [
+        "obsidian"
+      ],
+      "skill": "obsidian",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": null,
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 17 * * 1-5",
+        "display": "weekdays at 5pm"
+      },
+      "schedule_display": "weekdays at 5pm",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-11-20T10:07:23.675418-05:00",
+      "next_run_at": "2026-11-20T17:00:00-05:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "last_failure": null,
+      "failure_streak": 0,
+      "deliver": "local",
+      "origin": {
+        "platform": "local",
+        "chat_id": "20260917_081012_22e7d9",
+        "chat_name": null,
+        "thread_id": null,
+        "user_id": "sid:S-1-12-1-3094185524-1277805205-3767180694-3694723171",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": null
+    }
+  ],
+  "updated_at": "2026-11-20T10:07:23.837137-05:00"
+}
