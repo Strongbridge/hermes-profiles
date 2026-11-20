@@ -1,9 +1,9 @@
 {
-  "last_report_path": "C:\\Users\\DanRighter\\AppData\\Local\\hermes\\profiles\\dashboard-developer\\logs\\curator\\20261112-200632",
-  "last_run_at": "2026-11-12T20:06:32.590160+00:00",
-  "last_run_duration_seconds": 2.84332,
-  "last_run_summary": "auto: 6 archived; llm: skipped (consolidation off)",
+  "last_report_path": "C:\\Users\\DanRighter\\AppData\\Local\\hermes\\profiles\\dashboard-developer\\logs\\curator\\20261119-200656",
+  "last_run_at": "2026-11-19T20:06:56.218556+00:00",
+  "last_run_duration_seconds": 5.043651,
+  "last_run_summary": "auto: no changes; llm: skipped (consolidation off)",
   "last_run_summary_shown_at": null,
   "paused": false,
-  "run_count": 6
+  "run_count": 7
 }
