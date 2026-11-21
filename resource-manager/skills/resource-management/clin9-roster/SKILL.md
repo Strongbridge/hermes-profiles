@@ -265,6 +265,7 @@ If a critical resource shortage threatens a project deadline:
   3. Present the `connect_url` to the user and wait for them to open it in a browser and authorize. Do NOT post to Slack until this completes.
   4. Re-check `manage_connections` action=status — `connected:true` before posting. If still `false`, re-present the URL.
   5. When authorized, post capacity summaries directly to `#clin9-capacity` using the Slack send_message connector. Channel IDs: `#devops-team` = `C0C4APQ8EJ1`.
+    - **Reference:** `references/slack-posting.md` — the `connectors__slack__SEND_MESSAGE` tool schema, `markdown_text` vs `blocks` choice, channel IDs, and the full authorization flow.
 
 - **Multi-member PTO on same date in `resource_capacity.json`** — when multiple team members are OOO on the same date (e.g. Nov 27 with Jay Paige and Lia Bradshaw), update `pto_impact["YYYY-MM-DD"]` to summarize the combined impact (e.g. `"16h lost (Jay Paige 8h, Liasan Bradshaw 8h)"`). Combine their entries into a single row in the Upcoming Calendar at a Glance table with total hours lost.
 - **Check existing PTO before recording** — when a human (PM/Slack) reports PTO, always scan `team_pto.json`, `capacity.json` `leave_log`, and `team_profiles.json` for an entry covering those dates first. The PTO may already be recorded (via a separate channel or an added process). If an entry exists, do NOT duplicate — verify and reconcile the live mirror only. Duplicates inflate leave hours and silently break capacity math.
