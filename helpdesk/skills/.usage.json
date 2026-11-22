@@ -22,13 +22,13 @@
     "first_seen_at": null,
     "last_patched_at": "2026-11-18T14:36:37.868443+00:00",
     "last_reused_patch_generation": 12,
-    "last_used_at": "2026-11-21T13:00:43.449558+00:00",
+    "last_used_at": "2026-11-22T13:00:41.074654+00:00",
     "last_viewed_at": "2026-11-18T14:36:16.871602+00:00",
     "patch_count": 12,
     "patch_generation": 12,
     "pinned": false,
     "state": "active",
-    "use_count": 18,
+    "use_count": 19,
     "view_count": 14
   },
   "manageengine-friday-patch-remediation": {

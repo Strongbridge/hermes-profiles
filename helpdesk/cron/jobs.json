@@ -32,7 +32,7 @@
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-11-17T10:50:45.886006-05:00",
-      "next_run_at": "2026-11-22T08:00:00-05:00",
+      "next_run_at": "2026-11-23T08:00:00-05:00",
       "last_run_at": "2026-11-21T08:02:47.361615-05:00",
       "last_status": "ok",
       "last_error": null,
@@ -54,12 +54,15 @@
       "attach_to_session": true,
       "timezone": "America/New_York",
       "last_dispatch": {
-        "scheduled_at": "2026-11-21T08:00:00-05:00",
-        "dispatched_at": "2026-11-21T08:00:38.588899-05:00",
-        "lateness_seconds": 38.6,
+        "scheduled_at": "2026-11-22T08:00:00-05:00",
+        "dispatched_at": "2026-11-22T08:00:38.849632-05:00",
+        "lateness_seconds": 38.8,
         "kind": "on_time"
       },
-      "fire_claim": null,
+      "fire_claim": {
+        "at": "2026-11-22T08:01:39.236525-05:00",
+        "by": "Desktop-DRH4IKJ:14268:3e538bff4c754280b1169c0ad577216f"
+      },
       "canonical_completions": [
         "56e276757b534023b428c5c18f4b6e7b"
       ]
@@ -129,5 +132,5 @@
       ]
     }
   ],
-  "updated_at": "2026-11-21T08:02:59.746945-05:00"
+  "updated_at": "2026-11-22T08:01:39.265282-05:00"
 }
