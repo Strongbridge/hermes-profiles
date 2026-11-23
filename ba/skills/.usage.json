@@ -605,14 +605,14 @@
     "created_by": null,
     "last_patched_at": "2026-11-16T15:33:55.843304+00:00",
     "last_reused_patch_generation": 1,
-    "last_used_at": "2026-11-20T22:00:45.912369+00:00",
-    "last_viewed_at": "2026-11-20T20:33:11.906233+00:00",
+    "last_used_at": "2026-11-23T19:08:26.336775+00:00",
+    "last_viewed_at": "2026-11-23T19:08:26.239450+00:00",
     "patch_count": 1,
     "patch_generation": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 37,
-    "view_count": 36
+    "use_count": 39,
+    "view_count": 38
   },
   "opencode": {
     "archived_at": null,
@@ -783,16 +783,16 @@
     "archived_at": null,
     "created_at": "2026-09-17T12:36:20.130924+00:00",
     "created_by": null,
-    "last_patched_at": "2026-11-20T15:02:15.739406+00:00",
-    "last_reused_patch_generation": 9,
-    "last_used_at": "2026-11-20T15:02:08.229138+00:00",
-    "last_viewed_at": "2026-11-20T15:02:08.092598+00:00",
-    "patch_count": 10,
-    "patch_generation": 10,
+    "last_patched_at": "2026-11-23T16:34:56.215326+00:00",
+    "last_reused_patch_generation": 10,
+    "last_used_at": "2026-11-23T16:34:47.486047+00:00",
+    "last_viewed_at": "2026-11-23T16:34:47.367208+00:00",
+    "patch_count": 12,
+    "patch_generation": 12,
     "pinned": false,
     "state": "active",
-    "use_count": 24,
-    "view_count": 24
+    "use_count": 26,
+    "view_count": 26
   },
   "songsee": {
     "archived_at": null,

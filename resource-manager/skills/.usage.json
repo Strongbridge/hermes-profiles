@@ -21,14 +21,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-11-20T13:31:28.628174+00:00",
     "last_reused_patch_generation": 41,
-    "last_used_at": "2026-11-20T19:39:37.290909+00:00",
-    "last_viewed_at": "2026-11-20T19:39:37.239407+00:00",
+    "last_used_at": "2026-11-23T15:58:30.743569+00:00",
+    "last_viewed_at": "2026-11-23T15:58:30.691781+00:00",
     "patch_count": 41,
     "patch_generation": 41,
     "pinned": false,
     "state": "active",
-    "use_count": 68,
-    "view_count": 68
+    "use_count": 71,
+    "view_count": 71
   },
   "dashboard-status-sync": {
     "archived_at": null,
@@ -36,14 +36,14 @@
     "created_by": null,
     "last_patched_at": "2026-10-21T21:02:03.796832+00:00",
     "last_reused_patch_generation": 4,
-    "last_used_at": "2026-11-10T15:55:10.885438+00:00",
-    "last_viewed_at": "2026-11-10T15:55:10.859211+00:00",
+    "last_used_at": "2026-11-23T15:41:19.408107+00:00",
+    "last_viewed_at": "2026-11-23T15:41:19.359870+00:00",
     "patch_count": 4,
     "patch_generation": 4,
     "pinned": false,
     "state": "active",
-    "use_count": 20,
-    "view_count": 20
+    "use_count": 21,
+    "view_count": 21
   },
   "google-workspace": {
     "archived_at": null,

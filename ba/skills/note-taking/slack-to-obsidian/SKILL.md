@@ -25,6 +25,7 @@ The skill activates when a Slack message **addressed to the Hermes agent** conta
 - `add to obsidian`
 - `add to transcripts`
 - `file this under`
+- `file transcript under` (e.g. `file transcript under RSIS General`)
 - `file under` (e.g. `file under FYI`, `file under notes`)
 - `remember`
 
@@ -90,7 +91,7 @@ SB-Hermes/ (active Obsidian vault root)
 Notes are saved directly into `SB-Hermes/`. Do not nest further unless the user asks.
 
 If the user explicitly specifies a subfolder or category (e.g. `file this under transcripts` or `add to transcripts`), save the note in the requested target location (e.g. `SB-Hermes/Granola/Transcripts/`). For transcripts in `Granola/Transcripts/`:
-- Follow the established filename convention `<Meeting Title> MM-DD-YYYY-transcript.md` (e.g., `D365 Standup 11-17-2026-transcript.md` or `Clin9 Standup (Task 2-7) 11-17-2026-transcript.md`) rather than timestamp-first slugs. Always sanitize date slashes (e.g., `11/19/2026` -> `11-19-2026`) as slashes cause invalid path errors on Windows filesystem writes.
+- Follow the established filename convention `<Meeting Title or Category> MM-DD-YYYY-transcript.md` (e.g., `RSIS General 11-23-2026-transcript.md`, `D365 Standup 11-17-2026-transcript.md` or `Clin9 Standup (Task 2-7) 11-17-2026-transcript.md`) rather than timestamp-first slugs. Always sanitize date slashes (e.g., `11/19/2026` -> `11-19-2026`) as slashes cause invalid path errors on Windows filesystem writes. When filing under a specific meeting/category name (e.g. `RSIS General`) with a distinct subtopic (e.g. `RSIS Down in Prod`), use `# <Category> — <Subtopic> (MM/DD/YYYY)` for the note's H1 header.
 - Format Markdown headers (`## Section Title`) matching the transcript layout (e.g., `Sprint Readiness`, `Team Updates`, `Blockers`, `Next Steps`).
 - Strip out any raw Slack Block Kit JSON payloads or duplicated block scrapings appended to the message so the filed note remains clean Markdown. Deduplicate trailing repeated bullet blocks that frequently get re-pasted at the bottom of transcript summaries.
 - Bold team member names / ticket tags in bullet points (e.g. `- **Ryan (MCIA):** no blockers`, `- **EN 496:** Visual Studio issue`).

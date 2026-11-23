@@ -253,17 +253,11 @@ Before posting to Slack, run `manage_connections(action='status')` and verify th
 - **Don't use `file://`** — open via `http://127.0.0.1:8080/index.html`, not the file path
 
 ### Workflow pitfall: write_file is blocked after reads; patch is the fallback
-- **write_file may refuse even after a full read** — the stale-write guard can trigger on any read pattern. If write_file returns a "stale write" or "last read with offset/limit pagination" error, switch to `patch` for targeted edits.
-- **patch fails on Unicode-encoded files** — fuzzy matching can choke on Windows text files with em dashes (—), arrows (→), or emojis. When patch returns "Could not find a match", use `terminal` with Python and exact string matching instead:
-  ```python
-  import io
-  p = "SB-Hermes/CLIN9 5009/CLIN9 Sprint Status.md"
-  with io.open(p, encoding='utf-8') as f:
-      content = f.read()
-  content = content.replace(old_unicode, new_string)
-  with io.open(p, 'w', encoding='utf-8') as f:
-      f.write(content)
-  ```
+- **write_file may refuse even after a full read** — the stale-write guard can trigger on any read pattern (the file is flagged "last read with offset/limit pagination", even for small files). If write_file returns a "stale write" or "last read with offset/limit pagination" error, do not iterate on write_file: move to `patch` for targeted edits.
+- **`patch` fuzzy matching fails on exact whitespace** — blank lines, trailing spaces, and line-ending differences cause "Could not find a match" even on plain-ASCII files. If a patch returns "Could not find a match" on a valid file, do not iterate on the template; re-read the file cleanly and use `terminal` + `python3` with an exact, one-shot replacement instead.
+- **Windows path, Windows tool** — when calling `terminal` + `python3` to read/modify/write a Windows file, use the native forward-slash path (`C:/Users/...`), not a MSYS-style `/c/Users/...` path: the latter does not resolve for native Windows tools and yields FileNotFoundError.
+
+When either guard fires, the reliable resolution is the terminal-Python method (exact `str.replace` + `encoding='utf-8'`, then `python3 -c "import json; json.load(open('<file>'))"` to validate), applied to the read-back path from the "How to write your status" step.
 - **Validate after every write** — read back with `read_file` or run `python3 -c "import json; json.load(open('pm_status.json')); print('JSON OK')"` to catch silent JSON corruption before Slack confirmation.
 
 ## Firestore-driven dashboard data (risk register)
