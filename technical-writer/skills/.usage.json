@@ -85,14 +85,14 @@
     "created_by": null,
     "first_seen_at": null,
     "last_patched_at": "2026-11-20T14:05:02.725378+00:00",
-    "last_reused_patch_generation": 1,
-    "last_used_at": "2026-11-20T14:04:54.719702+00:00",
+    "last_reused_patch_generation": 2,
+    "last_used_at": "2026-11-23T13:01:04.914520+00:00",
     "last_viewed_at": "2026-11-20T14:04:54.629949+00:00",
     "patch_count": 2,
     "patch_generation": 2,
     "pinned": false,
     "state": "active",
-    "use_count": 5,
+    "use_count": 6,
     "view_count": 2
   },
   "strongbridge-policy-creator": {
@@ -118,13 +118,13 @@
     "first_seen_at": null,
     "last_patched_at": "2026-11-20T14:01:34.784699+00:00",
     "last_reused_patch_generation": 4,
-    "last_used_at": "2026-11-22T13:30:54.373388+00:00",
-    "last_viewed_at": "2026-11-22T13:30:54.310434+00:00",
+    "last_used_at": "2026-11-23T13:31:12.665875+00:00",
+    "last_viewed_at": "2026-11-23T13:31:12.606979+00:00",
     "patch_count": 4,
     "patch_generation": 4,
     "pinned": false,
     "state": "active",
-    "use_count": 30,
-    "view_count": 24
+    "use_count": 31,
+    "view_count": 25
   }
 }

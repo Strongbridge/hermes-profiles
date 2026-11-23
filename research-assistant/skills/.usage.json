@@ -6,13 +6,13 @@
     "first_seen_at": null,
     "last_patched_at": "2026-11-10T14:58:09.486526+00:00",
     "last_reused_patch_generation": 7,
-    "last_used_at": "2026-11-20T14:51:41.927344+00:00",
+    "last_used_at": "2026-11-23T12:00:47.141420+00:00",
     "last_viewed_at": "2026-11-20T14:51:41.897214+00:00",
     "patch_count": 7,
     "patch_generation": 7,
     "pinned": false,
     "state": "active",
-    "use_count": 8,
+    "use_count": 9,
     "view_count": 6
   },
   "hermes-agent-skill-authoring": {
@@ -38,13 +38,13 @@
     "first_seen_at": null,
     "last_patched_at": "2026-10-26T12:21:01.404102+00:00",
     "last_reused_patch_generation": 1,
-    "last_used_at": "2026-11-16T12:00:11.728525+00:00",
+    "last_used_at": "2026-11-23T12:00:48.155152+00:00",
     "last_viewed_at": "2026-10-26T12:20:52.576338+00:00",
     "patch_count": 1,
     "patch_generation": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 6,
+    "use_count": 8,
     "view_count": 2
   },
   "strongbridge-hardware-evaluator": {
@@ -54,13 +54,13 @@
     "first_seen_at": null,
     "last_patched_at": "2026-11-10T14:58:04.293488+00:00",
     "last_reused_patch_generation": 1,
-    "last_used_at": "2026-11-20T14:51:48.934036+00:00",
+    "last_used_at": "2026-11-23T12:00:46.127502+00:00",
     "last_viewed_at": "2026-11-20T14:51:48.883357+00:00",
     "patch_count": 1,
     "patch_generation": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 5,
+    "use_count": 6,
     "view_count": 3
   },
   "strongbridge-proposal-builder": {
