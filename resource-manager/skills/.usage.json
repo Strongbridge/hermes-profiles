@@ -21,14 +21,14 @@
     "first_seen_at": null,
     "last_patched_at": "2026-11-20T13:31:28.628174+00:00",
     "last_reused_patch_generation": 41,
-    "last_used_at": "2026-11-23T15:58:30.743569+00:00",
-    "last_viewed_at": "2026-11-23T15:58:30.691781+00:00",
+    "last_used_at": "2026-11-24T19:20:55.561691+00:00",
+    "last_viewed_at": "2026-11-24T19:20:55.504004+00:00",
     "patch_count": 41,
     "patch_generation": 41,
     "pinned": false,
     "state": "active",
-    "use_count": 71,
-    "view_count": 71
+    "use_count": 73,
+    "view_count": 73
   },
   "dashboard-status-sync": {
     "archived_at": null,
@@ -107,6 +107,22 @@
     "state": "active",
     "use_count": 6,
     "view_count": 6
+  },
+  "resource-management/clin9-roster": {
+    "archived_at": null,
+    "created_at": "2026-11-24T19:21:13.539071+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-11-24T19:21:13.588110+00:00",
+    "last_viewed_at": "2026-11-24T19:21:13.539131+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
   },
   "sdlc-review": {
     "archived_at": null,
