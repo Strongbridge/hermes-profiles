@@ -1,10 +1,10 @@
 model:
   aliases:
     local-ollama: gemma4:e4b
-    fav: google/gemini-3.6-flash
-    default: google/gemini-3.6-flash
+    fav: google/gemini-3.1-flash-lite
+    default: google/gemini-3.1-flash-lite
   default_provider: vertex
-  default: google/gemini-3.6-flash
+  default: google/gemini-3.1-flash-lite
   vertex:
     project_id: project-mgt-report
     region: global

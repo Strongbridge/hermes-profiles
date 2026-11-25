@@ -183,7 +183,59 @@
         "lateness_seconds": 54.0,
         "kind": "on_time"
       }
+    },
+    {
+      "id": "24c48bc20cfe",
+      "name": "Weekly Hardware Report & Email Workflow",
+      "prompt": "Execute the weekly hardware evaluator script to generate the report and email it to the IT team (Dan Righter, Mike Emmanuel, Claudia Grimaldi, and Tess Swatt) from helpdesk@sb-llc.com. Schedule this to run every Monday at 8:00 AM ET. Load the strongbridge-hardware-evaluator skill.",
+      "skills": [
+        "strongbridge-hardware-evaluator"
+      ],
+      "skill": "strongbridge-hardware-evaluator",
+      "model": null,
+      "provider": null,
+      "base_url": null,
+      "script": "run_weekly_hardware_workflow.py",
+      "no_agent": false,
+      "monitor_script": null,
+      "monitor_url": null,
+      "monitor_state": null,
+      "context_from": null,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * 1",
+        "display": "0 8 * * 1"
+      },
+      "schedule_display": "0 8 * * 1",
+      "repeat": {
+        "times": null,
+        "completed": 0
+      },
+      "enabled": true,
+      "state": "scheduled",
+      "paused_at": null,
+      "paused_reason": null,
+      "created_at": "2026-11-25T11:14:33.038270-05:00",
+      "next_run_at": "2026-11-30T08:00:00-05:00",
+      "last_run_at": null,
+      "last_status": null,
+      "last_error": null,
+      "last_delivery_error": null,
+      "last_delivery_unverified": null,
+      "last_failure": null,
+      "failure_streak": 0,
+      "deliver": "origin",
+      "origin": {
+        "platform": "local",
+        "chat_id": "20261022_084347_978f1f",
+        "chat_name": null,
+        "thread_id": null,
+        "user_id": "sid:S-1-12-1-3094185524-1277805205-3767180694-3694723171",
+        "scope_id": null
+      },
+      "enabled_toolsets": null,
+      "workdir": "C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian\\SB-Hermes"
     }
   ],
-  "updated_at": "2026-11-25T08:35:58.006399-05:00"
+  "updated_at": "2026-11-25T11:14:33.219536-05:00"
 }

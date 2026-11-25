@@ -17,10 +17,12 @@ metadata:
 Use this skill when evaluating, comparing, or recommending corporate laptops and workstation hardware for Strongbridge employees across Developers, Management, and Power User roles.
 
 ## Standing Selection Rule
+*   **Commercial Retail Pricing Mandate**: Always evaluate and benchmark hardware based on **commercial retail / commercial enterprise list pricing (MSRP)** (e.g., Dell Business Direct, Microsoft Store for Business retail, CDW), **NOT GSA Schedule pricing**. Strongbridge purchases internal corporate fleet equipment at commercial rates, not government schedule pricing.
 *   **Best Value & Cost-First Principle**: Do not force a single vendor (neither Dell nor Microsoft Surface is mandatory; Dell is fully acceptable). Select the best system for each role profile based on technical performance and user ergonomics while actively keeping acquisition costs down.
-*   **Developer Priority & x86 Architecture**: Choose native x86_64 architecture (Dell Precision/Latitude) to ensure 100% Docker/VM toolchain compatibility and lower acquisition costs ($1,649–$2,349) unless a specific developer requests Surface Laptop Studio 2.
-*   **Developer Unified Memory & Storage Pitfall**: Never recommend base unified memory configurations (e.g., 24GB unified memory / 512GB SSD) for enterprise software developers. In unified architectures, the CPU and GPU dynamically share RAM, causing memory starvation during concurrent Docker container, Visual Studio, and local database runs. Furthermore, 512GB storage is inadequate for enterprise dev environments (1TB–2TB minimum required). Reserve specialized ARM/Blackwell superchips (like RTX Spark N1X) strictly for on-device AI/CUDA engineers, and mandate at least 32GB+ RAM and 1TB+ SSD.
-*   **Management Priority**: Select Microsoft Surface Pro 11th Edition ($949–$1,399) where 2-in-1 mobility, digital document signatures/markup, and long battery life provide clear productivity gains; select Dell Latitude 7450 ($1,499) for standard non-touch clamshell preference.
+*   **Developer Priority & x86 Architecture**: Choose native x86_64 architecture (Dell Precision/Latitude) to ensure 100% Docker/VM toolchain compatibility and lower acquisition costs ($1,989–$2,799 retail MSRP) unless a specific developer requests Surface Laptop Studio 2.
+*   **Developer Unified Memory & Storage Pitfall**: Never recommend base unified memory configurations (e.g., 24GB unified memory / 512GB SSD) for enterprise software developers. In unified architectures, the CPU and GPU dynamically share RAM, causing memory starvation during concurrent Docker container, Visual Studio, and local database runs. Furthermore, 512GB storage is inadequate for enterprise dev environments (1TB–2TB minimum required). Reserve specialized ARM/Blackwell superchips (like RTX Spark N1X or DGX Spark) strictly for on-device AI/CUDA engineers, and mandate at least 32GB+ RAM and 1TB+ SSD.
+*   **Management Priority**: Select Microsoft Surface Pro 11th Edition ($1,549–$1,849 retail MSRP) where 2-in-1 mobility, digital document signatures/markup, and long battery life provide clear productivity gains; select Dell Latitude 7450 ($1,789 retail MSRP) for standard non-touch clamshell preference.
+*   **AI & Autonomous Agent Hardware Priority**: For dedicated AI/ML engineers and local agent research (Hermes, local LLMs up to 70B–200B parameters), specify the **NVIDIA DGX Spark (128GB)** ($6,950 retail MSRP) for native CUDA/TensorRT execution, or the **Minisforum MS-S1 Max (128GB)** ($4,949 retail MSRP) for AMD Strix Halo x86 compute.
 
 ---
 
@@ -55,6 +57,18 @@ When evaluating hardware for Strongbridge employees, map requirements against th
     *   *Graphics*: Dedicated GPU (NVIDIA RTX Ada / RTX 40-series) or integrated NPU/GPU with multi-display 4K output capabilities
 *   **Dell Primary**: Dell Precision 5690, Dell Latitude 7650, Dell XPS 16
 *   **Surface Primary**: Microsoft Surface Laptop Studio 2 for Business (Intel Core i7, NVIDIA RTX 4060/2000 Ada, 14.4" PixelSense Flow touchscreen with 3-position dynamic woven hinge)
+
+### Profile D: AI / Machine Learning Engineers & Local Agent Research
+*   **Workload**: Prototyping autonomous AI agents (Hermes), fine-tuning local open-weight models, high-context local RAG pipelines, on-device inference for 70B–200B parameter models without cloud API token costs.
+*   **Target Specifications**:
+    *   *Unified / GPU Memory*: 64GB to 128GB unified memory (128GB strongly recommended for 70B+ models)
+    *   *Memory Bandwidth*: 250 GB/s to 300+ GB/s
+    *   *Compute*: Native NVIDIA CUDA or AMD ROCm acceleration
+    *   *Storage*: 2TB to 4TB PCIe Gen4 NVMe SSD
+*   **Definitive Best AI System**: NVIDIA DGX Spark (128GB) ($6,950 retail MSRP; GB10 Grace Blackwell Superchip, 1 PFLOP FP4 compute, 273 GB/s bandwidth, ConnectX-7 multi-box pooling)
+*   **Best x86 Alternative**: Minisforum MS-S1 Max (128GB) ($4,949 retail MSRP; AMD Ryzen AI Max+ 395 "Strix Halo", 16 Zen 5 cores, Radeon 8060S iGPU, dual 10GbE)
+*   **Budget 128GB Alternative**: GMKtec Evo-X3 (128GB) ($3,799 retail MSRP; AMD Strix Halo, OCuLink eGPU expansion)
+*   **Regulated CUI Workstation**: Dell Precision Tower AI / GB10 ($5,500–$7,500 retail MSRP with ProSupport Plus & Keep Your Hard Drive)
 
 ---
 

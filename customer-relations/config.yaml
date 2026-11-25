@@ -1,10 +1,10 @@
 model:
   aliases:
     local-ollama: gemma4:e4b
-    fav: google/gemini-3.6-flash
-    default: google/gemini-3.6-flash
+    fav: google/gemini-3.1-flash-lite
+    default: google/gemini-3.1-flash-lite
   default_provider: vertex
-  default: google/gemini-3.6-flash
+  default: google/gemini-3.1-flash-lite
   vertex:
     project_id: project-mgt-report
     region: global
@@ -29,10 +29,10 @@ platforms:
     channel_overrides:
       C0C2HAS5M8W:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
       C0C48DEPX33:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
     tools:
       - hermes-slack
 _config_version: 52

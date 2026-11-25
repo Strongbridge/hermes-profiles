@@ -1,11 +1,14 @@
 model:
-  default: google/gemini-3.6-flash
-  provider: vertex
+  aliases:
+    local-ollama: gemma4:e4b
+    fav: google/gemini-3.1-flash-lite
+    default: google/gemini-3.1-flash-lite
+  default_provider: vertex
+  default: google/gemini-3.1-flash-lite
   vertex:
     project_id: project-mgt-report
     region: global
-  aliases:
-    local-ollama: gemma4:e4b
+  provider: vertex
 terminal:
   cwd: C:\Users\DanRighter\OneDrive - Strongbridge\Documents\Obsidian
 display:
@@ -30,22 +33,22 @@ platforms:
     channel_overrides:
       C0C48DEPX33:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
       C0C2NUQ1T6G:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
       C0C2K6CMCN6:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
       C0C4APQ8EJ1:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
       C0C4FMUL3SS:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
       C0C2HAS5M8W:
         provider: vertex
-        model: google/gemini-3.6-flash
+        model: google/gemini-3.1-flash-lite
     tools:
       - hermes-slack
 _config_version: 52

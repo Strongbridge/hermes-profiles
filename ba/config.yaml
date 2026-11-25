@@ -1,5 +1,5 @@
 model:
-  default: google/gemini-3.6-flash
+  default: google/gemini-3.1-flash-lite
   provider: vertex
   vertex:
     project_id: project-mgt-report

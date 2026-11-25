@@ -29,7 +29,8 @@ Use when: Generating, tracking, and drafting professional government contract pr
    - Deliver the report directly to the Slack channel `#proposal-opportunities` (`C0CGLS772AG`).
 7. **Azure/Microsoft Graph Email Dispatch**:
    - Utilize Azure Client Credentials (tenant, client ID, client secret) stored securely in `.env` to authenticate with Microsoft Graph API.
-   - Email the report to `drighter@sb-llc.com` with clean, modern HTML styling mimicking corporate helpdesk templates (colored headers, structured status tables, highlighted alerts).
+   - Email the report to the distribution list: `drighter@sb-llc.com`, `memmanuel@sb-llc.com`, `cgrimaldi@sb-llc.com`, `tswatt@sb-llc.com`.
+   - Ensure the email body is styled professionally using clean HTML containers with status pills and warning callouts.
    - Automatically convert markdown proposal drafts to clean MS Word (`.docx`) files on-the-fly at runtime and attach them as base64-encoded files.
 8. **Review & Compliance**: All generated proposals and reports must pass the Elephant Goldfish review protocol before finalization.
    - **Reference Integrity**: All claims must cite `Corporate-Offerings/`.
