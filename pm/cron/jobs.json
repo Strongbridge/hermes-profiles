@@ -155,15 +155,15 @@
       "schedule_display": "every weekday at 4:30pm",
       "repeat": {
         "times": null,
-        "completed": 48
+        "completed": 49
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-09-18T07:10:25.725429-04:00",
-      "next_run_at": "2026-11-25T16:30:00-05:00",
-      "last_run_at": "2026-11-24T16:37:48.691014-05:00",
+      "next_run_at": "2026-11-26T16:30:00-05:00",
+      "last_run_at": "2026-11-25T16:44:30.286860-05:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -181,9 +181,9 @@
       "enabled_toolsets": null,
       "workdir": null,
       "last_dispatch": {
-        "scheduled_at": "2026-11-24T16:30:00-05:00",
-        "dispatched_at": "2026-11-24T16:30:53.837255-05:00",
-        "lateness_seconds": 53.8,
+        "scheduled_at": "2026-11-25T16:30:00-05:00",
+        "dispatched_at": "2026-11-25T16:30:53.718602-05:00",
+        "lateness_seconds": 53.7,
         "kind": "on_time"
       },
       "fire_claim": null,
@@ -192,7 +192,7 @@
         "detail": "RuntimeError: HTTP 404: Couldn't find that, sorry."
       },
       "canonical_completions": [
-        "96fc924b5eff406db0432c633235db68"
+        "2206c8750f8143ecbd9729e0d43a5af6"
       ]
     },
     {
@@ -261,5 +261,5 @@
       ]
     }
   ],
-  "updated_at": "2026-11-25T12:43:12.653550-05:00"
+  "updated_at": "2026-11-25T16:44:33.314128-05:00"
 }
