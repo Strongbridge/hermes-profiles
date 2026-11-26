@@ -23,15 +23,15 @@
       "schedule_display": "30 8 * * *",
       "repeat": {
         "times": null,
-        "completed": 21
+        "completed": 22
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-11-04T13:53:22.876795-05:00",
-      "next_run_at": "2026-11-26T08:30:00-05:00",
-      "last_run_at": "2026-11-25T08:35:57.953040-05:00",
+      "next_run_at": "2026-11-27T08:30:00-05:00",
+      "last_run_at": "2026-11-26T08:32:41.842165-05:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -50,14 +50,14 @@
       "enabled_toolsets": null,
       "workdir": "C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian\\SB-Hermes",
       "last_dispatch": {
-        "scheduled_at": "2026-11-25T08:30:00-05:00",
-        "dispatched_at": "2026-11-25T08:30:54.470867-05:00",
-        "lateness_seconds": 54.5,
+        "scheduled_at": "2026-11-26T08:30:00-05:00",
+        "dispatched_at": "2026-11-26T08:30:54.021195-05:00",
+        "lateness_seconds": 54.0,
         "kind": "on_time"
       },
       "fire_claim": null,
       "canonical_completions": [
-        "3689ed3dfb4c44c2bedfb1368da8c24c"
+        "0d25117ef6884a0e8f84155540519aab"
       ]
     },
     {
@@ -237,5 +237,5 @@
       "workdir": "C:\\Users\\DanRighter\\OneDrive - Strongbridge\\Documents\\Obsidian\\SB-Hermes"
     }
   ],
-  "updated_at": "2026-11-25T11:14:33.219536-05:00"
+  "updated_at": "2026-11-26T08:32:41.854589-05:00"
 }
