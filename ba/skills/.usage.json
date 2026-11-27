@@ -560,14 +560,14 @@
     "created_by": null,
     "last_patched_at": null,
     "last_reused_patch_generation": 0,
-    "last_used_at": null,
-    "last_viewed_at": null,
+    "last_used_at": "2026-11-27T15:04:06.714455+00:00",
+    "last_viewed_at": "2026-11-27T15:04:06.641909+00:00",
     "patch_count": 0,
     "patch_generation": 0,
     "pinned": false,
     "state": "active",
-    "use_count": 0,
-    "view_count": 0
+    "use_count": 1,
+    "view_count": 1
   },
   "node-inspect-debugger": {
     "archived_at": null,
@@ -605,14 +605,14 @@
     "created_by": null,
     "last_patched_at": "2026-11-16T15:33:55.843304+00:00",
     "last_reused_patch_generation": 1,
-    "last_used_at": "2026-11-26T22:01:00.197312+00:00",
-    "last_viewed_at": "2026-11-25T13:17:21.126078+00:00",
+    "last_used_at": "2026-11-27T15:04:05.637493+00:00",
+    "last_viewed_at": "2026-11-27T15:04:05.588799+00:00",
     "patch_count": 1,
     "patch_generation": 1,
     "pinned": false,
     "state": "active",
-    "use_count": 45,
-    "view_count": 40
+    "use_count": 46,
+    "view_count": 41
   },
   "opencode": {
     "archived_at": null,
@@ -734,6 +734,22 @@
     "use_count": 0,
     "view_count": 0
   },
+  "scrum-master": {
+    "archived_at": null,
+    "created_at": "2026-11-27T13:22:46.951465+00:00",
+    "created_by": null,
+    "first_seen_at": null,
+    "last_patched_at": null,
+    "last_reused_patch_generation": 0,
+    "last_used_at": "2026-11-27T13:22:47.014581+00:00",
+    "last_viewed_at": "2026-11-27T13:22:46.951557+00:00",
+    "patch_count": 0,
+    "patch_generation": 0,
+    "pinned": false,
+    "state": "active",
+    "use_count": 1,
+    "view_count": 1
+  },
   "sdlc-review": {
     "archived_at": null,
     "created_at": "2026-09-22T16:34:34.111376+00:00",
@@ -755,14 +771,14 @@
     "created_by": null,
     "last_patched_at": "2026-11-18T21:54:42.457036+00:00",
     "last_reused_patch_generation": 5,
-    "last_used_at": "2026-11-18T21:54:47.196499+00:00",
-    "last_viewed_at": "2026-11-18T21:54:47.159744+00:00",
+    "last_used_at": "2026-11-27T15:04:07.761514+00:00",
+    "last_viewed_at": "2026-11-27T15:04:07.630432+00:00",
     "patch_count": 5,
     "patch_generation": 5,
     "pinned": false,
     "state": "active",
-    "use_count": 23,
-    "view_count": 23
+    "use_count": 25,
+    "view_count": 25
   },
   "simplify-code": {
     "archived_at": null,

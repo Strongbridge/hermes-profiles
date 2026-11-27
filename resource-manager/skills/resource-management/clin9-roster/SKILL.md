@@ -20,6 +20,18 @@ metadata:
 - **Capacity reporting**: weekly capacity summaries posted to #clin9-capacity before Sprint Planning.
 - **Capacity alerts**: critical resource shortages threatening project deadlines.
 
+## Slack Gateway Gate (always-on)
+
+Before posting anything to Slack, the Slack connector must be authorized. It is **not** authorized on first connect: `manage_connections` action=status reports `enabled:true` / `connected:false`.
+
+1. Run `manage_connections` action=status (target `slack`). If it reports `connected:false`, the connector is **not** authorized and any post attempt will fail with 'does not exist'.
+2. Run `manage_connections` action=connect (target `slack`). It returns a `connect_url`.
+3. Present that URL to the user and WAIT. Do NOT post and do NOT re-run `connect`. The user opens the URL in a browser and authorizes.
+4. Re-run `manage_connections` action=status and confirm `connected:true` before posting. If still `false`, re-present the URL.
+5. Only then post via `hermes send --to slack:<CHANNEL_ID> --subject \"<subject>\" --file \"<windows-native-path>\"` or `connectors__slack__SEND_MESSAGE`.
+
+This gate is the first thing a session hits when a Slack post is requested — never skip past a `connected:false` status.
+
 ## Data files
 
 | File | Path | Purpose |
@@ -72,6 +84,15 @@ When a team member reports OOO, reduced capacity, or sick leave:
    - **Confirm sole-off status** — scan the `availability` windows of ALL active members against today's date. Report the true headcount off today, not just the reporter's member. Feasibility: run a small script that lists every member whose leave/PTO window contains today.
    - **Compute daily capacity impact** — standard day = 8h; half-day = 4h; federal holiday/weekend = 0h. Record per-date `hours_lost` rather than assuming 8h.
    - **Confirm against existing PTO log before appending** — before adding a leave entry, scan `team_pto.json`, `capacity.json` `leave_log`, and `team_profiles.json` for any entry covering the requested dates. The PTO may already be recorded (reported via another channel, or added by a separate process). If an entry exists, do NOT create a duplicate — verify the coverage notes and reconcile the live mirror only.
+
+### Extension / continuation of a prior leave window
+
+When a human reports illness/PTO that continues or extends a member's already-recorded leave window (e.g. sick leave logged Nov 25 extended to Nov 27):
+
+1. **Treat it as a continuation, not a fresh absence** — scan `team_profiles.json` per-date `pto` entries, `team_pto.json` `leaves`, and `capacity.json` `leave_log` for any entry covering the reported dates. A continuation shares the same leave window; do NOT create a second lead for the prior dates.
+2. **Extend the window in `team_profiles.json`** — keep `leave_start` as the first date; advance `leave_end` to the new end; advance `day_of_week` to the current date; add the new per-date hours to `hours_lost` and to `availability.total_pto_hours` (which must equal the sum of all per-date `pto` entries).
+3. **Add only the new per-date entry** — append a single `pto` entry to `availability.pto` and one `leave_log` entry to `team_pto.json` and `capacity.json` for the new date. Do NOT duplicate the prior date's entry.
+4. **Re-read the member's availability object first** — the `pto` array shape can change between reads (see JSON mutation workflow); confirm `availability.pto` exists (initialize with `pto: []`, `total_pto_hours: 0` if absent) before appending.
 
 2. **Record in `team_profiles.json`** — append leave/PTO event to the affected member's `availability` field (status, dates, return date, affected tasks)
 3. **Verify the PTO date before recording** — confirm the weekday (e.g., `datetime.date(2027,3,18).strftime('%A')`) and check that no federal holiday falls on it; record `day_of_week` and `hours_lost` per date (8h for a standard day, 4h for a half-day, less for part-day). Never assume 8h without checking.
